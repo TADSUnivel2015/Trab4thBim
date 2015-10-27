@@ -1,5 +1,15 @@
 package br.supermercado;
 
+/**
+ * 
+ * @author Alex Tezza
+ * Dia 27 de outubro de 2015
+ * Horário: 20:12
+ 
+  	Enum que contém todos os estados Brasileiros, que seram utilizados
+  	no momento de cadastrar o Cliente...
+ */
+
 public enum Estado {
 	
 	AC	("Acre"),
