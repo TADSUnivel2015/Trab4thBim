@@ -9,4 +9,6 @@ Criação das Enuns: Categoria, Estado, Gênero e Unidade.
 
 * Dia 28 de outrobro de 2015:
 
+> Formatação deste arquivo.
+
 
