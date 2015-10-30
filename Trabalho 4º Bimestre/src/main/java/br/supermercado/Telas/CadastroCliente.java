@@ -19,6 +19,7 @@ import javax.swing.JButton;
  */
 
 public class CadastroCliente extends JPanel {
+	
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;

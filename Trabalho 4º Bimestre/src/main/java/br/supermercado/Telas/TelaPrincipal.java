@@ -6,16 +6,26 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.TabExpander;
 import javax.swing.JLabel;
+
 import java.awt.Window.Type;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JButton;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.function.Function;
+
+import javax.swing.JTabbedPane;
+
 public class TelaPrincipal extends JFrame {
 
 	private JPanel contentPane;
+	private JTabbedPane tabbedPane;
 
 	/**
 	 * Launch the application.
@@ -48,10 +58,16 @@ public class TelaPrincipal extends JFrame {
 		JMenu mnCadastros = new JMenu("Cadastros");
 		menuBar.add(mnCadastros);
 		
-		JMenuItem mntmCliente = new JMenuItem("Cadastro de cliente");
+		JMenuItem mntmCliente = new JMenuItem("Cliente");
+		mntmCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				abrirTelaCadastroCliente();
+			}
+
+		});
 		mnCadastros.add(mntmCliente);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Cadastro de usu\u00E1rio");
+		JMenuItem mntmNewMenuItem = new JMenuItem("Usu\u00E1rio");
 		mnCadastros.add(mntmNewMenuItem);
 		
 		JMenu mnVenda = new JMenu("Venda");
@@ -83,20 +99,9 @@ public class TelaPrincipal extends JFrame {
 		
 		JMenu mnRelatrioDeVenda = new JMenu("Relat\u00F3rio de venda");
 		mnRelatrios.add(mnRelatrioDeVenda);
-		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Filtrar por dia");
-		mnRelatrioDeVenda.add(mntmNewMenuItem_1);
-		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Filtrar por m\u00EAs");
-		mnRelatrioDeVenda.add(mntmNewMenuItem_2);
-		
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Filtrar por categoria de produto");
-		mnRelatrioDeVenda.add(mntmNewMenuItem_3);
-		
-		JMenuItem mntmFiltrarPorCliente = new JMenuItem("Filtrar por cliente");
-		mnRelatrioDeVenda.add(mntmFiltrarPorCliente);
-		
-		setLayout(new BorderLayout(0, 0));
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JPanel panel_1 = new JPanel();
@@ -104,6 +109,12 @@ public class TelaPrincipal extends JFrame {
 		
 		JLabel lblSejaBemVindo = new JLabel("Seja bem vindo usu\u00E1rio!");
 		panel_1.add(lblSejaBemVindo);
+		
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		contentPane.add(tabbedPane, BorderLayout.CENTER);
 	}
-
+	
+	private void abrirTelaCadastroCliente() {
+		
+	}
 }

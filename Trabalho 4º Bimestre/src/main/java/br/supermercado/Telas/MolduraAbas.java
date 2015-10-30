@@ -18,8 +18,7 @@ import java.awt.event.ActionEvent;
  * Horário: 19:57
  */
 
-public class MolduraAbas extends JPanel {
-	
+public abstract class MolduraAbas extends JPanel {
 	private JButton btnFechar;
 	
 	protected abstract void configuraCentro();
@@ -53,9 +52,9 @@ public class MolduraAbas extends JPanel {
 		JPanel panel_1 = new JPanel();
 		add(panel_1, BorderLayout.SOUTH);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{192, 65, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel_1.columnWidths = new int[]{192, 65, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panel_1.rowHeights = new int[]{23, 0};
-		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
@@ -64,15 +63,16 @@ public class MolduraAbas extends JPanel {
 		gbc_btnNewButton.anchor = GridBagConstraints.NORTHEAST;
 		gbc_btnNewButton.gridx = 7;
 		gbc_btnNewButton.gridy = 0;
-		panel_1.add(btnNewButton, gbc_btnNewButton);
+		panel_1.add(btnFechar, gbc_btnNewButton);
 		
 		btnFechar = new JButton("Fechar");
+		GridBagConstraints gbc_btnFechar = new GridBagConstraints();
+		gbc_btnFechar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnFechar.gridx = 9;
+		gbc_btnFechar.gridy = 0;
+		panel_1.add(btnFechar, gbc_btnFechar);
 		
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_1.gridx = 8;
-		gbc_btnNewButton_1.gridy = 0;
-		panel_1.add(btnFechar, gbc_btnNewButton_1);
+		configuraCentro();
 
 	}
 
