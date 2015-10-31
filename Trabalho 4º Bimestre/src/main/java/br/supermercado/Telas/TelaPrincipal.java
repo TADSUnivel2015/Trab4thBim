@@ -39,6 +39,7 @@ public class TelaPrincipal extends JFrame {
 					TelaPrincipal frame = new TelaPrincipal();
 					frame.setVisible(true);
 					frame.setExtendedState(MAXIMIZED_BOTH);
+					frame.setResizable(false);
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -90,6 +91,26 @@ public class TelaPrincipal extends JFrame {
 		menuBar.add(mnVendas);
 		
 		JMenuItem mntmRealizarVenda = new JMenuItem("Realizar venda");
+		mntmRealizarVenda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				abrirTelaVenda();
+			}
+
+			private void abrirTelaVenda() {
+				
+				TelaVenda telaVenda = new TelaVenda();
+				ActionListener action = new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						tabbedPane.remove(telaVenda);						
+					}
+				};
+				telaVenda.setCloseAction(action);
+				
+				tabbedPane.addTab("Tela De Venda", telaVenda);
+			}
+		});
 		mnVendas.add(mntmRealizarVenda);
 
 		contentPane = new JPanel();

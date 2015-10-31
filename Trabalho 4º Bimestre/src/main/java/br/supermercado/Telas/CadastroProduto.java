@@ -21,6 +21,12 @@ import javax.swing.JTable;
 import br.supermercado.Categoria;
 import br.supermercado.Unidade;
 
+/**
+ * 
+ * @author Alex Tezza
+ * Dia 31 de outubro de 2015
+ */
+
 public class CadastroProduto extends JPanel {
 	private JTextField txtId;
 	private JTextField txtCodigoBarras;
