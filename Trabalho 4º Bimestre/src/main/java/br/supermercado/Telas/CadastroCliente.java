@@ -24,6 +24,8 @@ import br.supermercado.Genero;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JScrollPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * 
@@ -38,6 +40,11 @@ public class CadastroCliente extends JPanel {
 	private JTextField txtEndereco;
 	private JTextField txtCidade;
 	private JTextField txtEmail;
+	
+	private JFormattedTextField txtTelefone;
+	
+	private JComboBox cbEstado;
+	private JComboBox cbGenero;
 	
 	private MaskFormatter fmtTelefone;
 	private JTable tblClientes;
@@ -110,11 +117,11 @@ public class CadastroCliente extends JPanel {
 		lblGnero.setBounds(776, 19, 59, 14);
 		add(lblGnero);
 		
-		JComboBox cbEstado = new JComboBox(Estado.values());
+		cbEstado = new JComboBox(Estado.values());
 		cbEstado.setBounds(832, 66, 200, 20);
 		add(cbEstado);
 		
-		JComboBox cbGenero = new JComboBox(Genero.values());
+		cbGenero = new JComboBox(Genero.values());
 		cbGenero.setBounds(832, 16, 72, 20);
 		add(cbGenero);
 		
@@ -138,14 +145,32 @@ public class CadastroCliente extends JPanel {
 		add(btnAlterar);
 		
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				limparCampos();
+			}
+		});
 		btnExcluir.setBounds(895, 109, 89, 29);
 		add(btnExcluir);
 		
-		JFormattedTextField txtTelefone = new JFormattedTextField(fmtTelefone);
+		txtTelefone = new JFormattedTextField(fmtTelefone);
 		txtTelefone.setBounds(984, 16, 163, 20);
 		add(txtTelefone);
-		
-		
 
+	}
+	
+	private void limparCampos(){
+		
+		txtId.setText("");
+		txtNome.setText("");
+		txtEndereco.setText("");
+		txtCidade.setText("");
+		txtEmail.setText("");
+		
+		txtTelefone.setText("");
+		
+		cbEstado.setSelectedIndex(0);
+		cbGenero.setSelectedIndex(0);
+		
 	}
 }
