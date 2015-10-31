@@ -23,6 +23,7 @@ import br.supermercado.Estado;
 import br.supermercado.Genero;
 
 import javax.swing.JFormattedTextField;
+import javax.swing.JScrollPane;
 
 /**
  * 
@@ -37,9 +38,9 @@ public class CadastroCliente extends JPanel {
 	private JTextField txtEndereco;
 	private JTextField txtCidade;
 	private JTextField txtEmail;
-	private JTable tabelaClientes;
 	
 	private MaskFormatter fmtTelefone;
+	private JTable tblClientes;
 
 	public CadastroCliente() {
 		setLayout(null);
@@ -118,23 +119,26 @@ public class CadastroCliente extends JPanel {
 		add(cbGenero);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(30, 154, 1152, 220);
+		panel.setBounds(30, 154, 1152, 364);
 		add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
-		tabelaClientes = new JTable();
-		panel.add(tabelaClientes, BorderLayout.CENTER);
+		JScrollPane scrollPane = new JScrollPane();
+		panel.add(scrollPane, BorderLayout.CENTER);
+		
+		tblClientes = new JTable();
+		scrollPane.setViewportView(tblClientes);
 		
 		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(673, 115, 89, 23);
+		btnSalvar.setBounds(1093, 109, 89, 29);
 		add(btnSalvar);
 		
 		JButton btnAlterar = new JButton("Alterar");
-		btnAlterar.setBounds(574, 115, 89, 23);
+		btnAlterar.setBounds(994, 109, 89, 29);
 		add(btnAlterar);
 		
 		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(475, 115, 89, 23);
+		btnExcluir.setBounds(895, 109, 89, 29);
 		add(btnExcluir);
 		
 		JFormattedTextField txtTelefone = new JFormattedTextField(fmtTelefone);
