@@ -12,11 +12,17 @@ import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.text.Format;
+import java.text.ParseException;
+import java.util.Formatter;
 
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 import br.supermercado.Estado;
 import br.supermercado.Genero;
+
+import javax.swing.JFormattedTextField;
 
 /**
  * 
@@ -26,61 +32,65 @@ import br.supermercado.Genero;
 
 public class CadastroCliente extends JPanel {
 	
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_6;
+	private JTextField txtId;
+	private JTextField txtNome;
+	private JTextField txtEndereco;
+	private JTextField txtCidade;
+	private JTextField txtEmail;
 	private JTable tabelaClientes;
+	
+	private MaskFormatter fmtTelefone;
 
 	public CadastroCliente() {
 		setLayout(null);
+		
+		try {
+			fmtTelefone =  new MaskFormatter("(##)####-####");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		JLabel lblId = new JLabel("Id");
 		lblId.setBounds(30, 19, 10, 14);
 		add(lblId);
 		
-		textField = new JTextField();
-		textField.setBounds(99, 16, 72, 20);
-		add(textField);
-		textField.setColumns(10);
+		txtId = new JTextField();
+		txtId.setBounds(99, 16, 72, 20);
+		add(txtId);
+		txtId.setColumns(10);
 		
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setBounds(181, 19, 37, 14);
 		add(lblNome);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(249, 16, 513, 20);
-		add(textField_1);
-		textField_1.setColumns(10);
+		txtNome = new JTextField();
+		txtNome.setBounds(249, 16, 513, 20);
+		add(txtNome);
+		txtNome.setColumns(10);
 		
 		JLabel lblTelefone = new JLabel("Telefone");
-		lblTelefone.setBounds(914, 19, 58, 14);
+		lblTelefone.setBounds(914, 19, 60, 14);
 		add(lblTelefone);
-		
-		textField_2 = new JTextField();
-		textField_2.setBounds(982, 16, 200, 20);
-		add(textField_2);
-		textField_2.setColumns(10);
+
 		
 		JLabel lblEndereo = new JLabel("Endere\u00E7o");
 		lblEndereo.setBounds(30, 69, 72, 14);
 		add(lblEndereo);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(99, 66, 329, 20);
-		add(textField_3);
-		textField_3.setColumns(10);
+		txtEndereco = new JTextField();
+		txtEndereco.setBounds(99, 66, 329, 20);
+		add(txtEndereco);
+		txtEndereco.setColumns(10);
 		
 		JLabel lblCidade = new JLabel("Cidade");
 		lblCidade.setBounds(438, 69, 45, 14);
 		add(lblCidade);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(481, 66, 281, 20);
-		add(textField_4);
-		textField_4.setColumns(10);
+		txtCidade = new JTextField();
+		txtCidade.setBounds(481, 66, 281, 20);
+		add(txtCidade);
+		txtCidade.setColumns(10);
 		
 		JLabel lblEstado = new JLabel("Estado");
 		lblEstado.setBounds(776, 69, 72, 14);
@@ -90,10 +100,10 @@ public class CadastroCliente extends JPanel {
 		lblEmail.setBounds(30, 119, 59, 14);
 		add(lblEmail);
 		
-		textField_6 = new JTextField();
-		textField_6.setBounds(99, 116, 341, 20);
-		add(textField_6);
-		textField_6.setColumns(10);
+		txtEmail = new JTextField();
+		txtEmail.setBounds(99, 116, 341, 20);
+		add(txtEmail);
+		txtEmail.setColumns(10);
 		
 		JLabel lblGnero = new JLabel("G\u00EAnero");
 		lblGnero.setBounds(776, 19, 59, 14);
@@ -126,6 +136,10 @@ public class CadastroCliente extends JPanel {
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.setBounds(475, 115, 89, 23);
 		add(btnExcluir);
+		
+		JFormattedTextField txtTelefone = new JFormattedTextField(fmtTelefone);
+		txtTelefone.setBounds(984, 16, 163, 20);
+		add(txtTelefone);
 		
 		
 
