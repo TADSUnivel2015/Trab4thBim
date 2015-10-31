@@ -1,6 +1,7 @@
 package br.supermercado.Telas;
 
 import javax.swing.JPanel;
+
 import javax.swing.BoxLayout;
 
 import java.awt.BorderLayout;
@@ -20,6 +21,12 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
+
+/**
+ * 
+ * @author Alex Tezza
+ * Dia 30 de outubro de 2015
+ */
 
 public abstract class MolduraAba extends JPanel {
 	private JButton btnFechar;

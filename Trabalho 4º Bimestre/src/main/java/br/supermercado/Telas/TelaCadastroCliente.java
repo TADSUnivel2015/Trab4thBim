@@ -4,6 +4,12 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+/**
+ * 
+ * @author Alex Tezza
+ * Dia 30 de outubro de 2015
+ */
+
 public class TelaCadastroCliente extends MolduraAba {
 
 	/**

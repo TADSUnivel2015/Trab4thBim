@@ -18,6 +18,12 @@ import javax.swing.JTextField;
 import br.supermercado.Estado;
 import br.supermercado.Genero;
 
+/**
+ * 
+ * @author Alex Tezza
+ * Dia 30 de outubro de 2015
+ */
+
 public class CadastroCliente extends JPanel {
 	
 	private JTextField textField;

@@ -16,6 +16,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.function.Function;
 
+/**
+ * 
+ * @author Alex Tezza
+ * Dia 30 de outubro de 2015
+ */
+
 public class TelaPrincipal extends JFrame {
 
 	private JPanel contentPane;
@@ -55,7 +61,7 @@ public class TelaPrincipal extends JFrame {
 		JMenu mnCadastros = new JMenu("Cadastros");
 		menuBar.add(mnCadastros);
 
-		JMenuItem mntmCliente = new JMenuItem("Cliente");
+		JMenuItem mntmCliente = new JMenuItem("Cadastro de cliente");
 		mntmCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				abrirTela();
@@ -63,6 +69,15 @@ public class TelaPrincipal extends JFrame {
 
 		});
 		mnCadastros.add(mntmCliente);
+		
+		JMenuItem mntmCadastroDeFuncionrio = new JMenuItem("Cadastro de usu\u00E1rio");
+		mnCadastros.add(mntmCadastroDeFuncionrio);
+		
+		JMenu mnVendas = new JMenu("Vendas");
+		menuBar.add(mnVendas);
+		
+		JMenuItem mntmRealizarVenda = new JMenuItem("Realizar venda");
+		mnVendas.add(mntmRealizarVenda);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
