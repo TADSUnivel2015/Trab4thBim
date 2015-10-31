@@ -4,24 +4,22 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
-/**
- * @author Alex Tezza
- * Dia 29 de outubro de 2015
- * Horário: 20:54
- */
+public class TelaCadastroCliente extends MolduraAbstrata {
 
-public class TelaCadastroCliente extends MolduraAbas{
-	
+	/**
+	 * Create the panel.
+	 */
 	public TelaCadastroCliente() {
+		
 		super();
+
 	}
 
+	// Este método só é abstrato na moldura, aqui ele deve ser concreto!
 	@Override
-	protected void configuraCentro() {
-		super.add(new TelaCadastroCliente(), BorderLayout.CENTER);
+	protected void configuraMiolo() {
+		super.add(new CadastroCliente(), BorderLayout.CENTER);
 		
 	}
-	
-	
 
 }

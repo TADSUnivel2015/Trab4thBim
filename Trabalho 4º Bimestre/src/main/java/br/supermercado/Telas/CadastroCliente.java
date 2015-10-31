@@ -1,22 +1,19 @@
 package br.supermercado.Telas;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+
 import java.awt.GridBagLayout;
+
 import javax.swing.JLabel;
+
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.JTextField;
-import javax.swing.JToolBar;
-import javax.swing.JComboBox;
-import javax.swing.JTable;
-import java.awt.BorderLayout;
-import javax.swing.JButton;
 
-/**
- * @author Alex Tezza
- * Dia 29 de outubro de 2015
- * Horário: 20:15
- */
+import javax.swing.JTextField;
 
 public class CadastroCliente extends JPanel {
 	
