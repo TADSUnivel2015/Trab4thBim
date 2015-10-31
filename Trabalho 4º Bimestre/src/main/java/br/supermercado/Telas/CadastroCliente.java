@@ -15,6 +15,9 @@ import java.awt.Insets;
 
 import javax.swing.JTextField;
 
+import br.supermercado.Estado;
+import br.supermercado.Genero;
+
 public class CadastroCliente extends JPanel {
 	
 	private JTextField textField;
@@ -38,25 +41,25 @@ public class CadastroCliente extends JPanel {
 		textField.setColumns(10);
 		
 		JLabel lblNome = new JLabel("Nome");
-		lblNome.setBounds(181, 19, 27, 14);
+		lblNome.setBounds(181, 19, 37, 14);
 		add(lblNome);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(228, 16, 534, 20);
+		textField_1.setBounds(249, 16, 513, 20);
 		add(textField_1);
 		textField_1.setColumns(10);
 		
 		JLabel lblTelefone = new JLabel("Telefone");
-		lblTelefone.setBounds(181, 44, 42, 14);
+		lblTelefone.setBounds(914, 19, 58, 14);
 		add(lblTelefone);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(228, 41, 200, 20);
+		textField_2.setBounds(982, 16, 200, 20);
 		add(textField_2);
 		textField_2.setColumns(10);
 		
 		JLabel lblEndereo = new JLabel("Endere\u00E7o");
-		lblEndereo.setBounds(30, 69, 45, 14);
+		lblEndereo.setBounds(30, 69, 72, 14);
 		add(lblEndereo);
 		
 		textField_3 = new JTextField();
@@ -65,7 +68,7 @@ public class CadastroCliente extends JPanel {
 		textField_3.setColumns(10);
 		
 		JLabel lblCidade = new JLabel("Cidade");
-		lblCidade.setBounds(438, 69, 33, 14);
+		lblCidade.setBounds(438, 69, 45, 14);
 		add(lblCidade);
 		
 		textField_4 = new JTextField();
@@ -74,11 +77,11 @@ public class CadastroCliente extends JPanel {
 		textField_4.setColumns(10);
 		
 		JLabel lblEstado = new JLabel("Estado");
-		lblEstado.setBounds(30, 94, 33, 14);
+		lblEstado.setBounds(776, 69, 72, 14);
 		add(lblEstado);
 		
 		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setBounds(30, 119, 24, 14);
+		lblEmail.setBounds(30, 119, 59, 14);
 		add(lblEmail);
 		
 		textField_6 = new JTextField();
@@ -87,19 +90,19 @@ public class CadastroCliente extends JPanel {
 		textField_6.setColumns(10);
 		
 		JLabel lblGnero = new JLabel("G\u00EAnero");
-		lblGnero.setBounds(30, 44, 35, 14);
+		lblGnero.setBounds(776, 19, 59, 14);
 		add(lblGnero);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(99, 91, 200, 20);
-		add(comboBox);
+		JComboBox cbEstado = new JComboBox(Estado.values());
+		cbEstado.setBounds(832, 66, 200, 20);
+		add(cbEstado);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(99, 41, 72, 20);
-		add(comboBox_1);
+		JComboBox cbGenero = new JComboBox(Genero.values());
+		cbGenero.setBounds(832, 16, 72, 20);
+		add(cbGenero);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(30, 154, 732, 220);
+		panel.setBounds(30, 154, 1152, 220);
 		add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		

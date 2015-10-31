@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
-public class TelaCadastroCliente extends MolduraAbstrata {
+public class TelaCadastroCliente extends MolduraAba {
 
 	/**
 	 * Create the panel.
