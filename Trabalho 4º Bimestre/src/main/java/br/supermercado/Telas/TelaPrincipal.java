@@ -64,13 +64,18 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmCliente = new JMenuItem("Cadastro de cliente");
 		mntmCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				abrirTela();
+				abrirTelaCadastroCliente();
 			}
 
 		});
 		mnCadastros.add(mntmCliente);
 		
 		JMenuItem mntmCadastroDeFuncionrio = new JMenuItem("Cadastro de usu\u00E1rio");
+		mntmCadastroDeFuncionrio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				abrirTelaCadastroUsuario();
+			}
+		});
 		mnCadastros.add(mntmCadastroDeFuncionrio);
 		
 		JMenu mnVendas = new JMenu("Vendas");
@@ -88,7 +93,7 @@ public class TelaPrincipal extends JFrame {
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 	}
 	
-	private void abrirTela() {
+	private void abrirTelaCadastroCliente() {
 		TelaCadastroCliente telaCadastroCliente = new TelaCadastroCliente();
 		ActionListener action = new ActionListener() {
 			
@@ -103,4 +108,20 @@ public class TelaPrincipal extends JFrame {
 		tabbedPane.addTab("Cadastro de Cliente ", telaCadastroCliente);
 	}
 
+	private void abrirTelaCadastroUsuario() {
+		
+		TelaCadastroUsuario telaCadastroUsuario = new TelaCadastroUsuario();
+		ActionListener action = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tabbedPane.remove(telaCadastroUsuario);
+			}
+		};
+		
+		telaCadastroUsuario.setCloseAction(action);
+		
+		tabbedPane.addTab("Cadastro de Usuário", telaCadastroUsuario);
+		
+	}
 }
