@@ -14,12 +14,13 @@ import java.math.BigDecimal;
 public class Produto {
 	
 	private int id;
-	private float codBarras;
+	private BigDecimal codBarras;
 	private String categoria;
 	private String descricao;
 	private String unidade;
 	private BigDecimal custo;
 	private BigDecimal margemLucro;
+	private BigDecimal valorFinal;
 	
 	public int getId() {
 		return id;
@@ -27,10 +28,10 @@ public class Produto {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public float getCodBarras() {
+	public BigDecimal getCodBarras() {
 		return codBarras;
 	}
-	public void setCodBarras(float codBarras) {
+	public void setCodBarras(BigDecimal codBarras) {
 		this.codBarras = codBarras;
 	}
 	public String getCategoria() {
@@ -63,7 +64,11 @@ public class Produto {
 	public void setMargemLucro(BigDecimal margemLucro) {
 		this.margemLucro = margemLucro;
 	}
-	
-	
+	public BigDecimal getValorFinal() {
+		return valorFinal;
+	}
+	public void setValorFinal(BigDecimal valorFinal) {
+		this.valorFinal = valorFinal;
+	}	
 
 }

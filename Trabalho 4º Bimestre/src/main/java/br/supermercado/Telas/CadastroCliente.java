@@ -37,6 +37,8 @@ import javax.swing.JScrollPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * 
@@ -149,6 +151,20 @@ public class CadastroCliente extends JPanel {
 		panel.add(scrollPane, BorderLayout.CENTER);
 		
 		tblClientes = new JTable();
+		tblClientes.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+//				setText(String.valueOf(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0)));
+//				ID, NOME, TELEFONE, ENDERECO, CIDADE, ESTADO, EMAIL, GENERO
+				txtId.setText(String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0)));
+				txtNome.setText(String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 1)));
+				txtTelefone.setText(String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 2)));
+				txtEndereco.setText(String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 3)));
+				txtCidade.setText(String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 4)));
+				txtEmail.setText(String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 7)));
+				
+			}
+		});
 		scrollPane.setViewportView(tblClientes);
 		
 		try {

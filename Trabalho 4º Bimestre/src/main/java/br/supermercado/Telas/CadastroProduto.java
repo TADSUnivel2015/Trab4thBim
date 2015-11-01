@@ -29,8 +29,14 @@ import javax.swing.JTable;
 import br.supermercado.Categoria;
 import br.supermercado.Produto;
 import br.supermercado.Unidade;
+import br.supermercado.Tabelas.TabelaProdutos;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * 
@@ -125,9 +131,32 @@ public class CadastroProduto extends JPanel {
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
+		
 		panel.add(scrollPane, BorderLayout.CENTER);
 		
 		tblProdutos = new JTable();
+		tblProdutos.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				txtId.setText(String.valueOf(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0)));
+				txtCodigoBarras.setText(String.valueOf(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 1)));			
+				txtDescricao.setText(String.valueOf(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 3)));
+				txtCusto.setText(String.valueOf(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 5)));
+				txtMargemLucro.setText(String.valueOf(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 6)));
+				
+			}
+		});
+		
+		try {
+			abrirConexao();
+			tblProdutos.setModel(new TabelaProdutos(listarClientes()));
+			fecharConexao();
+		} catch (SQLException g) {
+			// TODO Auto-generated catch block
+			g.printStackTrace();
+		}
+		
 		scrollPane.setViewportView(tblProdutos);
 		
 		JButton btnNewButton = new JButton("Salvar");
@@ -136,6 +165,7 @@ public class CadastroProduto extends JPanel {
 				try {
 					abrirConexao();
 					gravar();
+					tblProdutos.setModel(new TabelaProdutos(listarClientes()));
 					fecharConexao();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -152,6 +182,7 @@ public class CadastroProduto extends JPanel {
 				try {
 					abrirConexao();
 					atualizar();
+					tblProdutos.setModel(new TabelaProdutos(listarClientes()));
 					fecharConexao();
 				} catch (SQLException f) {
 					// TODO Auto-generated catch block
@@ -168,6 +199,7 @@ public class CadastroProduto extends JPanel {
 				try {
 					abrirConexao();
 					excluir();
+					tblProdutos.setModel(new TabelaProdutos(listarClientes()));
 					fecharConexao();
 				} catch (SQLException g) {
 					// TODO Auto-generated catch block
@@ -215,19 +247,19 @@ public class CadastroProduto extends JPanel {
 	public void gravar() throws SQLException{
 		
 		produto.setId(Integer.parseInt(txtId.getText()));
-		produto.setCodBarras(Integer.parseInt(txtCodigoBarras.getText()));
+		produto.setCodBarras(new BigDecimal(txtCodigoBarras.getText()));
 		produto.setCategoria(cbCategoria.getSelectedItem().toString());
 		produto.setDescricao(txtDescricao.getText());
 		produto.setUnidade(cbUnidade.getSelectedItem().toString());	
-		produto.setCusto(new BigDecimal(txtCusto.getText().toString()));
+		produto.setCusto(new BigDecimal(txtCusto.getText()));
 		produto.setMargemLucro(new BigDecimal(txtMargemLucro.getText()));
 		
 		ps = conexao.prepareStatement(
-				"INSERT INTO CLIENTE (ID, CODBARRAS, CATEGORIA, DESCRICAO, UNIDADE, CUSTO, MARGEMLUCRO)"
-						+ "VALUES (?, ?, ?, ?, ?, ?, ?, )");
+				"INSERT INTO produto (ID, CODBARRAS, CATEGORIA, DESCRICAO, UNIDADE, CUSTO, MARGEMLUCRO)"
+						+ "VALUES (?, ?, ?, ?, ?, ?, ?)");
 		
 		ps.setInt(1, produto.getId());
-		ps.setFloat(2, produto.getCodBarras());
+		ps.setBigDecimal(2, produto.getCodBarras());
 		ps.setString(3, produto.getCategoria());
 		ps.setString(4, produto.getDescricao());
 		ps.setString(5, produto.getUnidade());
@@ -243,7 +275,7 @@ public class CadastroProduto extends JPanel {
 		
 		produto.setId(Integer.parseInt(txtId.getText()));
 		
-		produto.setCodBarras(Integer.parseInt(txtCodigoBarras.getText()));
+		produto.setCodBarras(new BigDecimal(txtCodigoBarras.getText()));
 		produto.setCategoria(cbCategoria.getSelectedItem().toString());
 		produto.setDescricao(txtDescricao.getText());
 		produto.setUnidade(cbUnidade.getSelectedItem().toString());	
@@ -268,7 +300,7 @@ public class CadastroProduto extends JPanel {
 		
 		produto.setId(Integer.parseInt(txtId.getText()));
 		
-		ps = conexao.prepareStatement("DELETE FROM CLIENTE WHERE ID = ?");
+		ps = conexao.prepareStatement("DELETE FROM produto WHERE ID = ?");
 		
 		ps.setInt(1, produto.getId());
 		
@@ -295,12 +327,16 @@ public class CadastroProduto extends JPanel {
 			Produto novo = new Produto();
 			
 			novo.setId(result.getInt("id"));
-			novo.setCodBarras(result.getInt("codbarrar"));
+			novo.setCodBarras(result.getBigDecimal("codbarras"));
 			novo.setCategoria(result.getString("categoria"));
 			novo.setDescricao(result.getString("descricao"));
 			novo.setUnidade(result.getString("unidade"));
 			novo.setCusto(result.getBigDecimal("custo"));
 			novo.setMargemLucro(result.getBigDecimal("margemlucro"));
+			
+			BigDecimal total = valorTotal(result.getBigDecimal("custo"), result.getBigDecimal("margemlucro"));
+			
+			novo.setValorFinal(total);
 			produtos.add(novo);
 			
 		}
@@ -311,5 +347,8 @@ public class CadastroProduto extends JPanel {
 			
 		return produtos;		
 	}
-
+	
+	public BigDecimal valorTotal(BigDecimal valor1,BigDecimal valor2){
+		return valor2.multiply(valor1);
+	}
 }
