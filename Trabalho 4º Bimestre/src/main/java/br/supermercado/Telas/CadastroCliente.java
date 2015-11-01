@@ -147,7 +147,7 @@ public class CadastroCliente extends JPanel {
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				limparCampos();
+				
 			}
 		});
 		btnExcluir.setBounds(895, 109, 89, 29);
