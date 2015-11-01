@@ -20,11 +20,15 @@ import javax.swing.JTable;
  */
 
 public class Venda extends JPanel {
+	
 	private JTextField txtValorTotal;
 	private JTextField txtValorPagamento;
 	private JTextField txtTroco;
 	private JTable tblProduto;
 	private JTable tblVenda;
+	
+	private JComboBox cbNomeCliente;
+	private JComboBox cbDescricaoProduto;
 
 	/**
 	 * Create the panel.
@@ -36,7 +40,7 @@ public class Venda extends JPanel {
 		lblNomeDoCliente.setBounds(45, 33, 120, 14);
 		add(lblNomeDoCliente);
 		
-		JComboBox cbNomeCliente = new JComboBox();
+		cbNomeCliente = new JComboBox();
 		cbNomeCliente.setBounds(175, 30, 500, 20);
 		add(cbNomeCliente);
 		
@@ -44,7 +48,7 @@ public class Venda extends JPanel {
 		lblNomeDoProduto.setBounds(45, 58, 132, 14);
 		add(lblNomeDoProduto);
 		
-		JComboBox cbDescricaoProduto = new JComboBox();
+		cbDescricaoProduto = new JComboBox();
 		cbDescricaoProduto.setBounds(175, 55, 500, 20);
 		add(cbDescricaoProduto);
 		
@@ -117,6 +121,19 @@ public class Venda extends JPanel {
 		btnExcluirVenda.setBounds(808, 230, 200, 50);
 		add(btnExcluirVenda);
 
+	}
+	
+	private void limparCampos(){
+		
+		txtValorTotal.setText("");
+		txtValorPagamento.setText("");
+		txtTroco.setText("");
+		
+//		tblProduto
+		
+		cbNomeCliente.setSelectedIndex(0);
+		cbDescricaoProduto.setSelectedIndex(0);
+		
 	}
 
 }
