@@ -47,7 +47,7 @@
 >>* CadastroCliente.
 >>* CadastroProduto.
 
-* Dia 1 de novenbro de 2015:
+* Dia 1 de novembro de 2015:
 
 >* Criação de Métodos responsáveis por limpar os campos de cada tela de Cadastro, após salvar novos dados.
 

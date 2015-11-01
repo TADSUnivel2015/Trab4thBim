@@ -8,9 +8,9 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.36</version>
+			<groupId>net.sf.squirrel-sql.plugins</groupId>
+			<artifactId>postgres</artifactId>
+			<version>3.5.0</version>
 		</dependency>
 
 		<dependency>
