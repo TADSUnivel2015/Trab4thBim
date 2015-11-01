@@ -16,9 +16,9 @@ public class Cliente {
 	private String telefone;
 	private String endereco;
 	private String cidade;
-	private Estado estado;
+	private String estado;
 	private String email;
-	private Genero genero;
+	private String genero;
 	
 	public int getId() {
 		return id;
@@ -50,10 +50,10 @@ public class Cliente {
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
-	public Estado getEstado() {
+	public String getEstado() {
 		return estado;
 	}
-	public void setEstado(Estado estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 	public String getEmail() {
@@ -62,10 +62,10 @@ public class Cliente {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Genero getGenero() {
+	public String getGenero() {
 		return genero;
 	}
-	public void setGenero(Genero genero) {
+	public void setGenero(String genero) {
 		this.genero = genero;
 	}
 }

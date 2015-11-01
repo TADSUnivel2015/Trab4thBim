@@ -12,18 +12,28 @@ import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.List;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.Format;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Formatter;
 
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
+import br.supermercado.Cliente;
 import br.supermercado.Estado;
 import br.supermercado.Genero;
+import br.supermercado.TransacaoBanco.Conexao;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JScrollPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -48,7 +58,11 @@ public class CadastroCliente extends JPanel {
 	
 	private MaskFormatter fmtTelefone;
 	private JTable tblClientes;
-
+	
+	private Cliente cliente = new Cliente();
+	
+	private long idControle;
+	
 	public CadastroCliente() {
 		setLayout(null);
 		
@@ -137,17 +151,53 @@ public class CadastroCliente extends JPanel {
 		scrollPane.setViewportView(tblClientes);
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				try {
+					abrirConexao();
+					gravar();
+					fecharConexao();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				limparCampos();
+
+			}
+		});
 		btnSalvar.setBounds(1093, 109, 89, 29);
 		add(btnSalvar);
 		
 		JButton btnAlterar = new JButton("Alterar");
+		btnAlterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					abrirConexao();
+					atualizar();
+					fecharConexao();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				limparCampos();
+			}
+		});
 		btnAlterar.setBounds(994, 109, 89, 29);
 		add(btnAlterar);
 		
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				try {
+					abrirConexao();
+					excluir();
+					fecharConexao();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				limparCampos();
 			}
 		});
 		btnExcluir.setBounds(895, 109, 89, 29);
@@ -159,7 +209,7 @@ public class CadastroCliente extends JPanel {
 
 	}
 	
-	private void limparCampos(){
+	public void limparCampos(){
 		
 		txtId.setText("");
 		txtNome.setText("");
@@ -173,4 +223,128 @@ public class CadastroCliente extends JPanel {
 		cbGenero.setSelectedIndex(0);
 		
 	}
+	
+	
+	/**
+	 * Daqui para baixo é feito a parte de comunicação com o Banco de Dados....
+	 */
+	
+	Connection conexao = null;
+	private PreparedStatement ps;
+	
+	public void abrirConexao() throws SQLException{ 
+		String url = "jdbc:postgresql://localhost:5432/Trabalho4thBim";
+		String user = "postgres";
+		String pass = "tezza";
+		
+		conexao = DriverManager.getConnection(url, user, pass);
+		
+	}
+	
+	public void fecharConexao() throws SQLException {
+		conexao.close();
+	}
+	
+	public void gravar() throws SQLException{
+		
+		cliente.setId(Integer.parseInt(txtId.getText()));
+		cliente.setNome(txtNome.getText());
+		cliente.setTelefone(txtTelefone.getText());
+		cliente.setEndereco(txtEndereco.getText());
+		cliente.setCidade(txtCidade.getText());
+		cliente.setEstado(cbEstado.getSelectedItem().toString());
+		cliente.setEmail(txtEmail.getText());
+		cliente.setGenero(cbGenero.getSelectedItem().toString());
+		
+		ps = conexao.prepareStatement(
+				"INSERT INTO CLIENTE (ID, NOME, TELEFONE, ENDERECO, CIDADE, ESTADO, EMAIL, GENERO)"
+						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+		
+		ps.setInt(1, cliente.getId());
+		ps.setString(2, cliente.getNome());
+		ps.setString(3, cliente.getTelefone());
+		ps.setString(4, cliente.getEndereco());
+		ps.setString(5, cliente.getCidade());
+		ps.setString(6, cliente.getEstado());
+		ps.setString(7, cliente.getEmail());
+		ps.setString(8, cliente.getGenero());
+		
+		int res = ps.executeUpdate();
+		
+		ps.close();
+	}
+	
+	public void atualizar() throws SQLException{
+		
+		cliente.setId(Integer.parseInt(txtId.getText()));
+		
+		cliente.setNome(txtNome.getText());
+		cliente.setTelefone(txtTelefone.getText());
+		cliente.setEndereco(txtEndereco.getText());
+		cliente.setCidade(txtCidade.getText());
+		cliente.setEstado(cbEstado.getSelectedItem().toString());
+		cliente.setEmail(txtEmail.getText());
+		cliente.setGenero(cbGenero.getSelectedItem().toString());
+		
+		ps = conexao.prepareStatement("UPDATE CLIENTE SET NOME = '"+cliente.getNome()
+				+"', TELEFONE = '"+cliente.getTelefone()
+				+"', ENDERECO = '"+cliente.getEndereco()
+				+"', CIDADE   = '"+cliente.getCidade()
+				+"', ESTADO   = '"+cliente.getEstado()
+				+"', EMAIL    = '"+cliente.getEmail()
+				+"', GENERO   = '"+cliente.getGenero()
+				+"' WHERE ID = '"+cliente.getId()+"'");
+		
+		ps.execute();
+		
+		ps.close();
+		
+	}
+	
+	public void excluir() throws SQLException{
+		
+		cliente.setId(Integer.parseInt(txtId.getText()));
+		
+		ps = conexao.prepareStatement("DELETE FROM CLIENTE WHERE ID = ?");
+		
+		ps.setInt(1, cliente.getId());
+		
+		ps.execute();
+		
+		ps.close();
+		
+	}
+	
+	public List listarClientes() throws SQLException {
+		
+		List<Cliente> clientes = new ArrayList<Cliente>();
+		
+		// Atributo que faz a busca no banco.
+		ResultSet result;
+		
+		ps = conexao.prepareStatement("SELECT * FROM CLIENTE");
+		
+		result = ps.executeQuery();
+		
+		// Enquanto existe próximo, faça..
+		while (result.next()) {
+			Cliente novo = new Cliente();
+			
+			novo.setId((int) idControle);
+			novo.setNome(result.getString("nome"));
+			novo.setTelefone(result.getString("telefone"));
+			novo.setEndereco(result.getString("endereco"));
+			novo.setCidade(result.getString("cidade"));
+			novo.setEstado(result.getString("estado"));
+			novo.setEmail(result.getString("email"));
+			novo.setGenero(result.getString("genero"));
+			
+			clientes.add(novo);
+			
+		}
+		
+		
+		return clientes;		
+	}
+	
 }
