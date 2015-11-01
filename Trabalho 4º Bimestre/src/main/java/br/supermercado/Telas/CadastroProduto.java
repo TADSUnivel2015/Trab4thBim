@@ -33,6 +33,10 @@ public class CadastroProduto extends JPanel {
 	private JTextField txtDescricao;
 	private JTextField txtCusto;
 	private JTextField txtMargemLucro;
+	
+	private JComboBox cbCategoria;
+	private JComboBox cbUnidade;
+	
 	private JTable tblProdutos;
 
 	/**
@@ -63,7 +67,7 @@ public class CadastroProduto extends JPanel {
 		lblCategoria.setBounds(479, 33, 70, 14);
 		add(lblCategoria);
 		
-		JComboBox cbCategoria = new JComboBox(Categoria.values());
+		cbCategoria = new JComboBox(Categoria.values());
 		cbCategoria.setBounds(544, 30, 234, 20);
 		add(cbCategoria);
 		
@@ -80,7 +84,7 @@ public class CadastroProduto extends JPanel {
 		lblUnidade.setBounds(834, 33, 56, 14);
 		add(lblUnidade);
 		
-		JComboBox cbUnidade = new JComboBox(Unidade.values());
+		cbUnidade = new JComboBox(Unidade.values());
 		cbUnidade.setBounds(900, 30, 86, 20);
 		add(cbUnidade);
 		
@@ -125,6 +129,18 @@ public class CadastroProduto extends JPanel {
 		btnExcluir.setBounds(669, 102, 99, 29);
 		add(btnExcluir);
 
+	}
+	
+	private void limparCampos() {
+		
+		txtId.setText("");
+		txtCodigoBarras.setText("");
+		txtDescricao.setText("");
+		txtCusto.setText("");
+		txtMargemLucro.setText("");
+		
+		cbCategoria.setSelectedIndex(0);
+		cbUnidade.setSelectedIndex(0);
 	}
 
 }
