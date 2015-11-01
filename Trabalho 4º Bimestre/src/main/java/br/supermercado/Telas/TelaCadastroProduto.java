@@ -1,6 +1,7 @@
 package br.supermercado.Telas;
 
 import java.awt.BorderLayout;
+import java.sql.SQLException;
 
 /**
  * 
@@ -12,8 +13,9 @@ public class TelaCadastroProduto extends MolduraAba {
 
 	/**
 	 * Create the panel.
+	 * @throws SQLException 
 	 */
-	public TelaCadastroProduto() {
+	public TelaCadastroProduto() throws SQLException {
 		super();
 	}
 

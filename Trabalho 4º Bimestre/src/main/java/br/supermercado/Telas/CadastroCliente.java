@@ -24,12 +24,13 @@ import java.util.ArrayList;
 import java.util.Formatter;
 
 import javax.swing.JTextField;
+import javax.swing.table.TableModel;
 import javax.swing.text.MaskFormatter;
 
 import br.supermercado.Cliente;
 import br.supermercado.Estado;
 import br.supermercado.Genero;
-import br.supermercado.TransacaoBanco.Conexao;
+import br.supermercado.Tabelas.TabelaClientes;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JScrollPane;
@@ -63,7 +64,7 @@ public class CadastroCliente extends JPanel {
 	
 	private long idControle;
 	
-	public CadastroCliente() {
+	public CadastroCliente() throws SQLException {
 		setLayout(null);
 		
 		try {
@@ -206,6 +207,22 @@ public class CadastroCliente extends JPanel {
 		txtTelefone = new JFormattedTextField(fmtTelefone);
 		txtTelefone.setBounds(984, 16, 163, 20);
 		add(txtTelefone);
+		
+		JButton btnCarregarTabela = new JButton("Carregar Tabela");
+		btnCarregarTabela.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					abrirConexao();
+					tblClientes.setModel((TableModel)new TabelaClientes(listarClientes()));
+					fecharConexao();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		btnCarregarTabela.setBounds(709, 115, 163, 23);
+		add(btnCarregarTabela);
 
 	}
 	
@@ -322,7 +339,7 @@ public class CadastroCliente extends JPanel {
 		// Atributo que faz a busca no banco.
 		ResultSet result;
 		
-		ps = conexao.prepareStatement("SELECT * FROM CLIENTE");
+		ps = conexao.prepareStatement("SELECT * FROM cliente");
 		
 		result = ps.executeQuery();
 		
@@ -330,7 +347,7 @@ public class CadastroCliente extends JPanel {
 		while (result.next()) {
 			Cliente novo = new Cliente();
 			
-			novo.setId((int) idControle);
+			novo.setId(result.getInt("id"));
 			novo.setNome(result.getString("nome"));
 			novo.setTelefone(result.getString("telefone"));
 			novo.setEndereco(result.getString("endereco"));
@@ -338,13 +355,14 @@ public class CadastroCliente extends JPanel {
 			novo.setEstado(result.getString("estado"));
 			novo.setEmail(result.getString("email"));
 			novo.setGenero(result.getString("genero"));
-			
 			clientes.add(novo);
 			
 		}
 		
+		result.close();
 		
+		ps.close();
+			
 		return clientes;		
 	}
-	
 }

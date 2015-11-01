@@ -14,6 +14,7 @@ import javax.swing.JTabbedPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 import java.util.function.Function;
 
 /**
@@ -65,7 +66,12 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmCliente = new JMenuItem("Cadastro de cliente");
 		mntmCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				abrirTelaCadastroCliente();
+				try {
+					abrirTelaCadastroCliente();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
 		});
@@ -74,7 +80,12 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmCadastroDeFuncionrio = new JMenuItem("Cadastro de usu\u00E1rio");
 		mntmCadastroDeFuncionrio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				abrirTelaCadastroUsuario();
+				try {
+					abrirTelaCadastroUsuario();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		mnCadastros.add(mntmCadastroDeFuncionrio);
@@ -82,7 +93,12 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmCadastroDeProduto = new JMenuItem("Cadastro de produto");
 		mntmCadastroDeProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				abrirTelaCadastroProduto();
+				try {
+					abrirTelaCadastroProduto();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		mnCadastros.add(mntmCadastroDeProduto);
@@ -93,10 +109,15 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmRealizarVenda = new JMenuItem("Realizar venda");
 		mntmRealizarVenda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				abrirTelaVenda();
+				try {
+					abrirTelaVenda();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
-			private void abrirTelaVenda() {
+			private void abrirTelaVenda() throws SQLException {
 				
 				TelaVenda telaVenda = new TelaVenda();
 				ActionListener action = new ActionListener() {
@@ -122,7 +143,7 @@ public class TelaPrincipal extends JFrame {
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 	}
 	
-	private void abrirTelaCadastroCliente() {
+	private void abrirTelaCadastroCliente() throws SQLException {
 		TelaCadastroCliente telaCadastroCliente = new TelaCadastroCliente();
 		ActionListener action = new ActionListener() {
 			
@@ -137,7 +158,7 @@ public class TelaPrincipal extends JFrame {
 		tabbedPane.addTab("Cadastro de Cliente ", telaCadastroCliente);
 	}
 
-	private void abrirTelaCadastroUsuario() {
+	private void abrirTelaCadastroUsuario() throws SQLException {
 		
 		TelaCadastroUsuario telaCadastroUsuario = new TelaCadastroUsuario();
 		ActionListener action = new ActionListener() {
@@ -154,7 +175,7 @@ public class TelaPrincipal extends JFrame {
 		
 	}
 	
-	private void abrirTelaCadastroProduto() {
+	private void abrirTelaCadastroProduto() throws SQLException {
 		
 		TelaCadastroProduto telaCadastroProduto = new TelaCadastroProduto();
 		ActionListener action = new ActionListener() {

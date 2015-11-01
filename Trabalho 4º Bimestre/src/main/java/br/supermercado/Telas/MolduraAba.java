@@ -1,7 +1,6 @@
 package br.supermercado.Telas;
 
 import javax.swing.JPanel;
-
 import javax.swing.BoxLayout;
 
 import java.awt.BorderLayout;
@@ -19,8 +18,11 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+
 import javax.swing.SwingConstants;
+
 import java.awt.FlowLayout;
+import java.sql.SQLException;
 
 /**
  * 
@@ -31,7 +33,7 @@ import java.awt.FlowLayout;
 public abstract class MolduraAba extends JPanel {
 	private JButton btnFechar;
 
-	protected abstract void configuraMiolo();
+	protected abstract void configuraMiolo() throws SQLException;
 	
 	public void setCloseAction(ActionListener action){
 		btnFechar.addActionListener(action);
@@ -39,8 +41,9 @@ public abstract class MolduraAba extends JPanel {
 	
 	/**
 	 * Create the panel.
+	 * @throws SQLException 
 	 */
-	public MolduraAba() {
+	public MolduraAba() throws SQLException {
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();

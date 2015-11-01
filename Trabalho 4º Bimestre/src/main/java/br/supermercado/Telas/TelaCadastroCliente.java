@@ -1,6 +1,7 @@
 package br.supermercado.Telas;
 
 import java.awt.BorderLayout;
+import java.sql.SQLException;
 
 import javax.swing.JPanel;
 
@@ -14,8 +15,9 @@ public class TelaCadastroCliente extends MolduraAba {
 
 	/**
 	 * Create the panel.
+	 * @throws SQLException 
 	 */
-	public TelaCadastroCliente() {
+	public TelaCadastroCliente() throws SQLException {
 		
 		super();
 
@@ -23,7 +25,7 @@ public class TelaCadastroCliente extends MolduraAba {
 
 	// Este método só é abstrato na moldura, aqui ele deve ser concreto!
 	@Override
-	protected void configuraMiolo() {
+	protected void configuraMiolo() throws SQLException {
 		super.add(new CadastroCliente(), BorderLayout.CENTER);
 		
 	}
