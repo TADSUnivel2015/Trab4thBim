@@ -19,10 +19,13 @@ import javax.swing.JTable;
  */
 
 public class CadastroUsuario extends JPanel {
+	
 	private JTextField txtIdCliente;
 	private JTextField txtId;
 	private JTextField txtSenha;
 	private JTable tblUsuarios;
+	
+	private JComboBox cbNomeCliente;
 
 	/**
 	 * Create the panel.
@@ -85,9 +88,18 @@ public class CadastroUsuario extends JPanel {
 		lblNome.setBounds(164, 63, 46, 14);
 		add(lblNome);
 		
-		JComboBox cbNomeCliente = new JComboBox();
+		cbNomeCliente = new JComboBox();
 		cbNomeCliente.setBounds(220, 60, 437, 20);
 		add(cbNomeCliente);
 
+	}
+	
+	private void limparCampos(){
+		
+		txtIdCliente.setText("");
+		txtId.setText("");
+		txtSenha.setText("");
+		
+		cbNomeCliente.setSelectedIndex(0);
 	}
 }
