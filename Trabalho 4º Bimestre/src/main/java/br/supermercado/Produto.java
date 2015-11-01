@@ -15,9 +15,9 @@ public class Produto {
 	
 	private int id;
 	private float codBarras;
-	private Categoria categoria;
+	private String categoria;
 	private String descricao;
-	private Unidade unidade;
+	private String unidade;
 	private BigDecimal custo;
 	private BigDecimal margemLucro;
 	
@@ -33,11 +33,11 @@ public class Produto {
 	public void setCodBarras(float codBarras) {
 		this.codBarras = codBarras;
 	}
-	public Categoria getCategoria() {
+	public String getCategoria() {
 		return categoria;
 	}
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public void setCategoria(String string) {
+		this.categoria = string;
 	}
 	public String getDescricao() {
 		return descricao;
@@ -45,11 +45,11 @@ public class Produto {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public Unidade getUnidade() {
+	public String getUnidade() {
 		return unidade;
 	}
-	public void setUnidade(Unidade unidade) {
-		this.unidade = unidade;
+	public void setUnidade(String string) {
+		this.unidade = string;
 	}
 	public BigDecimal getCusto() {
 		return custo;

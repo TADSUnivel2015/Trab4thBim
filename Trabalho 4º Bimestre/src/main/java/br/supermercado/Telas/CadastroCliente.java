@@ -151,6 +151,15 @@ public class CadastroCliente extends JPanel {
 		tblClientes = new JTable();
 		scrollPane.setViewportView(tblClientes);
 		
+		try {
+			abrirConexao();
+			tblClientes.setModel((TableModel)new TabelaClientes(listarClientes()));
+			fecharConexao();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -158,6 +167,7 @@ public class CadastroCliente extends JPanel {
 				try {
 					abrirConexao();
 					gravar();
+					tblClientes.setModel((TableModel)new TabelaClientes(listarClientes()));
 					fecharConexao();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -176,6 +186,7 @@ public class CadastroCliente extends JPanel {
 				try {
 					abrirConexao();
 					atualizar();
+					tblClientes.setModel((TableModel)new TabelaClientes(listarClientes()));
 					fecharConexao();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -193,6 +204,7 @@ public class CadastroCliente extends JPanel {
 				try {
 					abrirConexao();
 					excluir();
+					tblClientes.setModel((TableModel)new TabelaClientes(listarClientes()));
 					fecharConexao();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -207,22 +219,6 @@ public class CadastroCliente extends JPanel {
 		txtTelefone = new JFormattedTextField(fmtTelefone);
 		txtTelefone.setBounds(984, 16, 163, 20);
 		add(txtTelefone);
-		
-		JButton btnCarregarTabela = new JButton("Carregar Tabela");
-		btnCarregarTabela.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					abrirConexao();
-					tblClientes.setModel((TableModel)new TabelaClientes(listarClientes()));
-					fecharConexao();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
-		btnCarregarTabela.setBounds(709, 115, 163, 23);
-		add(btnCarregarTabela);
 
 	}
 	

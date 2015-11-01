@@ -14,12 +14,23 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 import java.awt.BorderLayout;
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import br.supermercado.Categoria;
+import br.supermercado.Produto;
 import br.supermercado.Unidade;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * 
@@ -36,6 +47,8 @@ public class CadastroProduto extends JPanel {
 	
 	private JComboBox cbCategoria;
 	private JComboBox cbUnidade;
+	
+	private Produto produto = new Produto();
 	
 	private JTable tblProdutos;
 
@@ -118,14 +131,50 @@ public class CadastroProduto extends JPanel {
 		scrollPane.setViewportView(tblProdutos);
 		
 		JButton btnNewButton = new JButton("Salvar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					abrirConexao();
+					gravar();
+					fecharConexao();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		btnNewButton.setBounds(887, 102, 99, 29);
 		add(btnNewButton);
 		
 		JButton btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					abrirConexao();
+					atualizar();
+					fecharConexao();
+				} catch (SQLException f) {
+					// TODO Auto-generated catch block
+					f.printStackTrace();
+				}
+			}
+		});
 		btnAtualizar.setBounds(778, 102, 99, 29);
 		add(btnAtualizar);
 		
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					abrirConexao();
+					excluir();
+					fecharConexao();
+				} catch (SQLException g) {
+					// TODO Auto-generated catch block
+					g.printStackTrace();
+				}
+			}
+		});
 		btnExcluir.setBounds(669, 102, 99, 29);
 		add(btnExcluir);
 
@@ -141,6 +190,126 @@ public class CadastroProduto extends JPanel {
 		
 		cbCategoria.setSelectedIndex(0);
 		cbUnidade.setSelectedIndex(0);
+	}
+	
+	/**
+	 * Daqui para baixo é feito a parte de comunicação com o Banco de Dados....
+	 */
+	
+	Connection conexao = null;
+	private PreparedStatement ps;
+	
+	public void abrirConexao() throws SQLException{ 
+		String url = "jdbc:postgresql://localhost:5432/Trabalho4thBim";
+		String user = "postgres";
+		String pass = "tezza";
+		
+		conexao = DriverManager.getConnection(url, user, pass);
+		
+	}
+	
+	public void fecharConexao() throws SQLException {
+		conexao.close();
+	}
+	
+	public void gravar() throws SQLException{
+		
+		produto.setId(Integer.parseInt(txtId.getText()));
+		produto.setCodBarras(Integer.parseInt(txtCodigoBarras.getText()));
+		produto.setCategoria(cbCategoria.getSelectedItem().toString());
+		produto.setDescricao(txtDescricao.getText());
+		produto.setUnidade(cbUnidade.getSelectedItem().toString());	
+		produto.setCusto(new BigDecimal(txtCusto.getText().toString()));
+		produto.setMargemLucro(new BigDecimal(txtMargemLucro.getText()));
+		
+		ps = conexao.prepareStatement(
+				"INSERT INTO CLIENTE (ID, CODBARRAS, CATEGORIA, DESCRICAO, UNIDADE, CUSTO, MARGEMLUCRO)"
+						+ "VALUES (?, ?, ?, ?, ?, ?, ?, )");
+		
+		ps.setInt(1, produto.getId());
+		ps.setFloat(2, produto.getCodBarras());
+		ps.setString(3, produto.getCategoria());
+		ps.setString(4, produto.getDescricao());
+		ps.setString(5, produto.getUnidade());
+		ps.setBigDecimal(6, produto.getCusto());
+		ps.setBigDecimal(7, produto.getMargemLucro());
+		
+		int res = ps.executeUpdate();
+		
+		ps.close();
+	}
+	
+	public void atualizar() throws SQLException{
+		
+		produto.setId(Integer.parseInt(txtId.getText()));
+		
+		produto.setCodBarras(Integer.parseInt(txtCodigoBarras.getText()));
+		produto.setCategoria(cbCategoria.getSelectedItem().toString());
+		produto.setDescricao(txtDescricao.getText());
+		produto.setUnidade(cbUnidade.getSelectedItem().toString());	
+		produto.setCusto(new BigDecimal(txtCusto.getText().toString()));
+		produto.setMargemLucro(new BigDecimal(txtMargemLucro.getText()));
+		
+		ps = conexao.prepareStatement("UPDATE produto SET CODBARRAS = '"+produto.getCodBarras()
+				+"', CATEGORIA = '"+produto.getCategoria()
+				+"', DESCRICAO = '"+produto.getDescricao()
+				+"', UNIDADE   = '"+produto.getUnidade()
+				+"', CUSTO   = '"+produto.getCusto()
+				+"', MARGEMLUCRO    = '"+produto.getMargemLucro()
+				+"' WHERE ID = '"+produto.getId()+"'");
+
+		ps.execute();
+		
+		ps.close();
+		
+	}
+	
+	public void excluir() throws SQLException{
+		
+		produto.setId(Integer.parseInt(txtId.getText()));
+		
+		ps = conexao.prepareStatement("DELETE FROM CLIENTE WHERE ID = ?");
+		
+		ps.setInt(1, produto.getId());
+		
+		ps.execute();
+		
+		ps.close();
+		
+	}
+	
+	public List listarClientes() throws SQLException {
+		
+		List<Produto> produtos = new ArrayList<Produto>();
+		
+		// Atributo que faz a busca no banco.
+		ResultSet result;
+		
+		ps = conexao.prepareStatement("SELECT * FROM produto");
+		
+		result = ps.executeQuery();
+		
+		// Enquanto existe próximo, faça..
+		while (result.next()) {
+			
+			Produto novo = new Produto();
+			
+			novo.setId(result.getInt("id"));
+			novo.setCodBarras(result.getInt("codbarrar"));
+			novo.setCategoria(result.getString("categoria"));
+			novo.setDescricao(result.getString("descricao"));
+			novo.setUnidade(result.getString("unidade"));
+			novo.setCusto(result.getBigDecimal("custo"));
+			novo.setMargemLucro(result.getBigDecimal("margemlucro"));
+			produtos.add(novo);
+			
+		}
+		
+		result.close();
+		
+		ps.close();
+			
+		return produtos;		
 	}
 
 }
