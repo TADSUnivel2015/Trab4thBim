@@ -61,7 +61,7 @@ public class CadastroUsuario extends JPanel {
 	 * Create the panel.
 	 * @throws SQLException 
 	 */
-	public CadastroUsuario() throws SQLException {
+	public CadastroUsuario(){
 		setLayout(null);
 		
 		JLabel lblId = new JLabel("Id");
@@ -169,8 +169,10 @@ public class CadastroUsuario extends JPanel {
 		lblNome.setBounds(164, 63, 46, 14);
 		add(lblNome);
 		
-		cbNomeCliente = new JComboBox();
-		cbNomeCliente.setModel(new DefaultComboBoxModel(new String[] {"Andersom", "alex", "rafael", "aline", "maria", "jos\u00E9"}));
+		cbNomeCliente = new JComboBox();		
+		cbNomeCliente.setBounds(220, 60, 437, 20);
+		add(cbNomeCliente);
+		
 		
 		try {
 			abrirConexao();
@@ -182,9 +184,6 @@ public class CadastroUsuario extends JPanel {
 			// TODO Auto-generated catch block
 			f.printStackTrace();
 		}
-		
-		cbNomeCliente.setBounds(220, 60, 437, 20);
-		add(cbNomeCliente);
 	
 	}
 	
