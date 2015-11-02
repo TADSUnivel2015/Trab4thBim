@@ -10,14 +10,14 @@ import br.supermercado.Produto;
 public class TabelaProdutos extends AbstractTableModel{
 
 	private List<Produto> produtos = new ArrayList<>();
-	
+
 	public TabelaProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
 	}
-	
+
 	@Override
 	public String getColumnName(int column) {
-		
+
 		if (column == 0) 
 			return "Id";
 		if (column == 1) 
@@ -58,8 +58,8 @@ public class TabelaProdutos extends AbstractTableModel{
 		case 5: return produtos.get(row).getCusto();
 		case 6: return produtos.get(row).getMargemLucro();
 		case 7: return produtos.get(row).getValorFinal();
-	}
-	return null;
+		}
+		return null;
 	}
 
 }

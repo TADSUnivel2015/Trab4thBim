@@ -13,8 +13,8 @@ package br.supermercado;
 public class Usuario {
 	
 	private int id;
-	private String idCliente;
 	private String nomeCliente;
+	private int idCliente;	
 	private String senha;
 	
 	public int getId() {
@@ -23,10 +23,10 @@ public class Usuario {
 	public void setId(int i) {
 		this.id = i;
 	}
-	public String getIdCliente() {
+	public int getIdCliente() {
 		return idCliente;
 	}
-	public void setIdCliente(String idCliente) {
+	public void setIdCliente(int idCliente) {
 		this.idCliente = idCliente;
 	}
 	public String getNomeCliente() {

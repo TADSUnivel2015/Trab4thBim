@@ -20,22 +20,40 @@ public class TabelaUsuarios extends AbstractTableModel{
 	public TabelaUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
+	
+
+	@Override
+	public String getColumnName(int column) {
+		
+		switch (column) {
+		case 0: return "Id";
+		case 1: return "Nome Usuário";
+		case 2: return "Id Cliente";
+		case 3: return "Senha";
+		}
+		return null;
+	}
+
 
 	@Override
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 4;
 	}
 
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return usuarios.size();
 	}
 
 	@Override
-	public Object getValueAt(int arg0, int arg1) {
-		// TODO Auto-generated method stub
+	public Object getValueAt(int row, int col) {
+		
+		switch (col) {
+		case 0: return usuarios.get(row).getId();
+		case 1: return usuarios.get(row).getNomeCliente();
+		case 2: return usuarios.get(row).getIdCliente();
+		case 3: return usuarios.get(row).getSenha();
+		}
 		return null;
 	}
 

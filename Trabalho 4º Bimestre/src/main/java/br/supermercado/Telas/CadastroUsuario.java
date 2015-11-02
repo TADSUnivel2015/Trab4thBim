@@ -26,8 +26,19 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JTable;
+import javax.swing.table.TableModel;
 
 import br.supermercado.Usuario;
+import br.supermercado.Tabelas.TabelaProdutos;
+import br.supermercado.Tabelas.TabelaUsuarios;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+import javax.swing.DefaultComboBoxModel;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * 
@@ -67,7 +78,6 @@ public class CadastroUsuario extends JPanel {
 		add(lblIdCliente);
 		
 		txtIdCliente = new JTextField();
-		txtIdCliente.setEditable(false);
 		txtIdCliente.setBounds(748, 60, 86, 20);
 		add(txtIdCliente);
 		txtIdCliente.setColumns(10);
@@ -81,15 +91,58 @@ public class CadastroUsuario extends JPanel {
 		add(txtSenha);
 		txtSenha.setColumns(10);
 		
+	
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					abrirConexao();
+					gravar();
+					tblUsuarios.setModel(new TabelaUsuarios(listarUsuarios()));
+					limparCampos();
+					fecharConexao();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		btnSalvar.setBounds(1086, 91, 94, 30);
 		add(btnSalvar);
 		
 		JButton btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					abrirConexao();
+					atualizar();
+					tblUsuarios.setModel((TableModel)new TabelaUsuarios(listarUsuarios()));
+					limparCampos();
+					fecharConexao();
+				} catch (SQLException f) {
+					// TODO Auto-generated catch block
+					f.printStackTrace();
+				}
+			}
+		});
 		btnAtualizar.setBounds(982, 91, 94, 30);
 		add(btnAtualizar);
 		
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					abrirConexao();
+					excluir();
+					tblUsuarios.setModel((TableModel)new TabelaUsuarios(listarUsuarios()));
+					limparCampos();
+					fecharConexao();
+				} catch (SQLException g) {
+					// TODO Auto-generated catch block
+					g.printStackTrace();
+				}
+			}
+		});
 		btnExcluir.setBounds(878, 91, 94, 30);
 		add(btnExcluir);
 		
@@ -102,21 +155,37 @@ public class CadastroUsuario extends JPanel {
 		panel.add(scrollPane);
 		
 		tblUsuarios = new JTable();
+		tblUsuarios.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				txtId.setText(String.valueOf(tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 0)));
+				txtIdCliente.setText(String.valueOf(tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 2)));
+				txtSenha.setText(String.valueOf(tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 3)));
+			}
+		});
 		scrollPane.setViewportView(tblUsuarios);
 		
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setBounds(164, 63, 46, 14);
 		add(lblNome);
 		
-		abrirConexao();
+		cbNomeCliente = new JComboBox();
+		cbNomeCliente.setModel(new DefaultComboBoxModel(new String[] {"Andersom", "alex", "rafael", "aline", "maria", "jos\u00E9"}));
 		
-		cbNomeCliente = new JComboBox<Usuario>(new Vector<Usuario>(listarUsuarios()));
+		try {
+			abrirConexao();
+			
+			tblUsuarios.setModel((TableModel)new TabelaUsuarios(listarUsuarios()));
+			
+			fecharConexao();
+		} catch (SQLException f) {
+			// TODO Auto-generated catch block
+			f.printStackTrace();
+		}
+		
 		cbNomeCliente.setBounds(220, 60, 437, 20);
 		add(cbNomeCliente);
-		
-		fecharConexao();
-		
-
+	
 	}
 	
 	private void limparCampos(){
@@ -137,6 +206,7 @@ public class CadastroUsuario extends JPanel {
 	private PreparedStatement ps;
 	
 	public void abrirConexao() throws SQLException{ 
+		
 		String url = "jdbc:postgresql://localhost:5432/Trabalho4thBim";
 		String user = "postgres";
 		String pass = "tezza";
@@ -153,16 +223,16 @@ public class CadastroUsuario extends JPanel {
 		
 		usuario.setId(Integer.parseInt(txtId.getText()));
 		usuario.setNomeCliente(cbNomeCliente.getSelectedItem().toString());
-		usuario.setIdCliente(txtIdCliente.getText());
+		usuario.setIdCliente(Integer.parseInt(txtIdCliente.getText()));
 		usuario.setSenha(txtSenha.getText());
 		
 		ps = conexao.prepareStatement(
-				"INSERT INTO CLIENTE (ID, NOMEUSUARIO, IdCliente, SENHA)"
+				"INSERT INTO usuario (ID, NOMECLIENTE, IDCLIENTE, SENHA)"
 						+ "VALUES (?, ?, ?, ?)");
 		
 		ps.setInt(1, usuario.getId());
 		ps.setString(2, usuario.getNomeCliente());
-		ps.setString(3, usuario.getIdCliente());
+		ps.setInt(3, usuario.getIdCliente());
 		ps.setString(4, usuario.getSenha());
 		
 		int res = ps.executeUpdate();
@@ -175,7 +245,7 @@ public class CadastroUsuario extends JPanel {
 		usuario.setId(Integer.parseInt(txtId.getText()));
 		
 		usuario.setNomeCliente(cbNomeCliente.getSelectedItem().toString());
-		usuario.setIdCliente(txtIdCliente.getText());
+		usuario.setIdCliente(Integer.parseInt(txtIdCliente.getText()));
 		usuario.setSenha(txtSenha.getText());
 		
 		ps = conexao.prepareStatement("UPDATE usuario SET NOMEcliente = '"+usuario.getNomeCliente()
@@ -203,7 +273,7 @@ public class CadastroUsuario extends JPanel {
 		
 	}
 	
-	public List listarUsuarios() throws SQLException {
+	public List<Usuario> listarUsuarios() throws SQLException{
 		
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		
@@ -219,8 +289,8 @@ public class CadastroUsuario extends JPanel {
 			Usuario novo = new Usuario();
 			
 			novo.setId(result.getInt("id"));
-			novo.setNomeCliente(result.getString("NOMEUSUARIO"));
-			novo.setIdCliente(result.getString("IdCLIENTE"));
+			novo.setNomeCliente(result.getString("NOMEcliente"));
+			novo.setIdCliente(result.getInt("IdCLIENTE"));
 			novo.setSenha(result.getString("SENHA"));
 			
 			usuarios.add(novo);
