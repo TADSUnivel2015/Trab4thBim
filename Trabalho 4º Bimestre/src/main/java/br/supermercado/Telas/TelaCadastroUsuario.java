@@ -22,7 +22,7 @@ public class TelaCadastroUsuario extends MolduraAba {
 	}
 
 	@Override
-	protected void configuraMiolo() {
+	protected void configuraMiolo() throws SQLException {
 		super.add(new CadastroUsuario(), BorderLayout.CENTER);
 	}
 

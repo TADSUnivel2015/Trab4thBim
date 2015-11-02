@@ -161,7 +161,7 @@ public class CadastroCliente extends JPanel {
 				txtTelefone.setText(String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 2)));
 				txtEndereco.setText(String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 3)));
 				txtCidade.setText(String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 4)));
-				txtEmail.setText(String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 7)));
+				txtEmail.setText(String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 6)));
 				
 			}
 		});

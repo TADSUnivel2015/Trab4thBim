@@ -150,7 +150,7 @@ public class CadastroProduto extends JPanel {
 		
 		try {
 			abrirConexao();
-			tblProdutos.setModel(new TabelaProdutos(listarClientes()));
+			tblProdutos.setModel(new TabelaProdutos(listarProdutos()));
 			fecharConexao();
 		} catch (SQLException g) {
 			// TODO Auto-generated catch block
@@ -165,7 +165,8 @@ public class CadastroProduto extends JPanel {
 				try {
 					abrirConexao();
 					gravar();
-					tblProdutos.setModel(new TabelaProdutos(listarClientes()));
+					tblProdutos.setModel(new TabelaProdutos(listarProdutos()));
+					limparCampos();
 					fecharConexao();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -182,7 +183,8 @@ public class CadastroProduto extends JPanel {
 				try {
 					abrirConexao();
 					atualizar();
-					tblProdutos.setModel(new TabelaProdutos(listarClientes()));
+					limparCampos();
+					tblProdutos.setModel(new TabelaProdutos(listarProdutos()));
 					fecharConexao();
 				} catch (SQLException f) {
 					// TODO Auto-generated catch block
@@ -199,7 +201,8 @@ public class CadastroProduto extends JPanel {
 				try {
 					abrirConexao();
 					excluir();
-					tblProdutos.setModel(new TabelaProdutos(listarClientes()));
+					tblProdutos.setModel(new TabelaProdutos(listarProdutos()));
+					limparCampos();
 					fecharConexao();
 				} catch (SQLException g) {
 					// TODO Auto-generated catch block
@@ -254,9 +257,19 @@ public class CadastroProduto extends JPanel {
 		produto.setCusto(new BigDecimal(txtCusto.getText()));
 		produto.setMargemLucro(new BigDecimal(txtMargemLucro.getText()));
 		
+		String aux1 = txtCusto.getText();
+		String aux2 = txtMargemLucro.getText();	
+		
+		BigDecimal valor1 = new BigDecimal(aux1);
+		BigDecimal valor2 = new BigDecimal(aux2);
+		
+		BigDecimal valorFinal = valorTotal(valor1, valor2);
+		
+		produto.setValorFinal(valorFinal);
+		
 		ps = conexao.prepareStatement(
-				"INSERT INTO produto (ID, CODBARRAS, CATEGORIA, DESCRICAO, UNIDADE, CUSTO, MARGEMLUCRO)"
-						+ "VALUES (?, ?, ?, ?, ?, ?, ?)");
+				"INSERT INTO produto (ID, CODBARRAS, CATEGORIA, DESCRICAO, UNIDADE, CUSTO, MARGEMLUCRO, VALORFINAL)"
+						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 		
 		ps.setInt(1, produto.getId());
 		ps.setBigDecimal(2, produto.getCodBarras());
@@ -265,6 +278,7 @@ public class CadastroProduto extends JPanel {
 		ps.setString(5, produto.getUnidade());
 		ps.setBigDecimal(6, produto.getCusto());
 		ps.setBigDecimal(7, produto.getMargemLucro());
+		ps.setBigDecimal(8, produto.getValorFinal());
 		
 		int res = ps.executeUpdate();
 		
@@ -310,7 +324,7 @@ public class CadastroProduto extends JPanel {
 		
 	}
 	
-	public List listarClientes() throws SQLException {
+	public List listarProdutos() throws SQLException {
 		
 		List<Produto> produtos = new ArrayList<Produto>();
 		

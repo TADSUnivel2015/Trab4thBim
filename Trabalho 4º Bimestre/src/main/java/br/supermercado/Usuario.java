@@ -12,21 +12,28 @@ package br.supermercado;
 
 public class Usuario {
 	
-	private String id;
+	private int id;
 	private String idCliente;
+	private String nomeCliente;
 	private String senha;
 	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setId(int i) {
+		this.id = i;
 	}
 	public String getIdCliente() {
 		return idCliente;
 	}
 	public void setIdCliente(String idCliente) {
 		this.idCliente = idCliente;
+	}
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
 	}
 	public String getSenha() {
 		return senha;
@@ -35,6 +42,10 @@ public class Usuario {
 		this.senha = senha;
 	}
 	
+	@Override
+	public String toString() {
+		return this.nomeCliente;
+	}
 	
 
 }
