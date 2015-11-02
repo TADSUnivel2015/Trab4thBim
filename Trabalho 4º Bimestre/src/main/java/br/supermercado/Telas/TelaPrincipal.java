@@ -27,7 +27,7 @@ public class TelaPrincipal extends JFrame {
 
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane;
-	private static boolean status = false;
+	private PainelTelaLogin glass;
 
 	/**
 	 * Launch the application.
@@ -53,6 +53,8 @@ public class TelaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaPrincipal() {
+		
+		bloqueioTela();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -143,6 +145,27 @@ public class TelaPrincipal extends JFrame {
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 	}
 	
+	private void bloqueioTela() {
+		Runnable runnable = new Runnable() {
+			
+			@Override
+			public void run() {
+				glass.setVisible(false);
+				glass = new PainelTelaLogin();
+			}
+		};
+		Login login = new Login(runnable);
+		
+		glass = new PainelTelaLogin(login);
+		
+		setGlassPane(glass);
+		
+		glass.setVisible(true);
+		
+		
+		
+	}
+
 	private void abrirTelaCadastroCliente() throws SQLException {
 		TelaCadastroCliente telaCadastroCliente = new TelaCadastroCliente();
 		ActionListener action = new ActionListener() {
