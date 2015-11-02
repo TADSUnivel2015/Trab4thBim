@@ -53,4 +53,14 @@
 
 >* Formatação deste arquivo.
 
+* Dia 2 de novembro de 2015:
+
+>* Criação dos modelos responsáveis por popular as tabelas a partir de um ArrayList.
+
+>* Criadas as Classes:
+
+>>* TabelaCliente.
+>>* TabelaProdutos.
+>>* TabelaUsuarios.
+
 
