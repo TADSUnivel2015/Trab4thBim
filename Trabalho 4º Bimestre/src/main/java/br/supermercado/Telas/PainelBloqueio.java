@@ -4,17 +4,25 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 
+import javax.imageio.ImageIO;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.io.IOException;
 
-public class PainelTelaLogin extends JPanel {
-
-	public PainelTelaLogin() {
+public class PainelBloqueio extends JPanel {
+	
+	public PainelBloqueio() {
+		
 		setOpaque(false);
 		setBackground(Color.GRAY);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -36,7 +44,7 @@ public class PainelTelaLogin extends JPanel {
 		});
 	}
 
-	public PainelTelaLogin(JPanel painelCentral) {
+	public PainelBloqueio(JComponent painelCentral) {
 
 		this();
 
@@ -48,13 +56,20 @@ public class PainelTelaLogin extends JPanel {
 
 
 	}
-
+	
 	private AlphaComposite alcom = AlphaComposite.getInstance(
 			AlphaComposite.SRC_OVER, 0.3f);
-
+	
 	@Override
 	protected void paintComponent(Graphics g) {
+		
 		Graphics2D g2 = (Graphics2D) g.create();
+		
+		int posH = (getWidth() / 2);
+		int posV = (getHeight() / 2);
+		
+		g2.drawImage(null, posH, posV, null);
+		
 		g2.setColor(getBackground());
 		g2.setComposite(alcom);
 		g2.fillRect(0, 0, getWidth() - 1, getHeight() - 1);

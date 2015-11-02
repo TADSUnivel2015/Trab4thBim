@@ -27,7 +27,7 @@ public class TelaPrincipal extends JFrame {
 
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane;
-	private PainelTelaLogin glass;
+	private PainelBloqueio glass;
 
 	/**
 	 * Launch the application.
@@ -54,7 +54,7 @@ public class TelaPrincipal extends JFrame {
 	 */
 	public TelaPrincipal() {
 		
-		bloqueioTela();
+		bloqueioTelaPrincipal();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -135,6 +135,17 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mnVendas.add(mntmRealizarVenda);
+		
+		JMenu mnBloquear = new JMenu("Bloquear");
+		menuBar.add(mnBloquear);
+		
+		JMenuItem mntmCliqueParaBloquear = new JMenuItem("Clique para Bloquear!");
+		mntmCliqueParaBloquear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				bloqueioTelaPrincipal();
+			}
+		});
+		mnBloquear.add(mntmCliqueParaBloquear);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -145,26 +156,24 @@ public class TelaPrincipal extends JFrame {
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 	}
 	
-	private void bloqueioTela() {
-		Runnable runnable = new Runnable() {
-			
+	private void bloqueioTelaPrincipal() {
+		Runnable acaoOk = new Runnable() {
 			@Override
 			public void run() {
 				glass.setVisible(false);
-				glass = new PainelTelaLogin();
+				glass = new PainelBloqueio();
 			}
 		};
-		Login login = new Login(runnable);
-		
-		glass = new PainelTelaLogin(login);
-		
+
+		Login painelLogin = new Login(acaoOk);
+
+		glass = new PainelBloqueio(painelLogin);
+
 		setGlassPane(glass);
-		
+
 		glass.setVisible(true);
-		
-		
-		
 	}
+	
 
 	private void abrirTelaCadastroCliente() throws SQLException {
 		TelaCadastroCliente telaCadastroCliente = new TelaCadastroCliente();
@@ -172,8 +181,7 @@ public class TelaPrincipal extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				tabbedPane.remove(telaCadastroCliente);
-				
+				tabbedPane.remove(telaCadastroCliente);			
 			}
 		};
 		telaCadastroCliente.setCloseAction(action);
