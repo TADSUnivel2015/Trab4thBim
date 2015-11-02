@@ -23,7 +23,7 @@ import javax.swing.JButton;
 public class Login extends JPanel {
 	
 	private JTextField textField;
-	private JPasswordField passwordField;
+	private JPasswordField txtPass;
 	private JButton btnEntrar;
 
 	public Login() {
@@ -44,9 +44,9 @@ public class Login extends JPanel {
 		lblNewLabel.setBounds(22, 134, 30, 14);
 		add(lblNewLabel);
 
-		passwordField = new JPasswordField();
-		passwordField.setBounds(63, 131, 365, 20);
-		add(passwordField);
+		txtPass = new JPasswordField();
+		txtPass.setBounds(63, 131, 365, 20);
+		add(txtPass);
 
 		btnEntrar = new JButton("Entrar");
 		btnEntrar.setBounds(199, 162, 63, 50);
@@ -57,7 +57,7 @@ public class Login extends JPanel {
 		this();
 		btnEntrar.addActionListener(e -> {
 			if (textField.getText().trim().equals("admin")
-					&& new String(passwordField.getPassword()).equals("admin")) {
+					&& new String(txtPass.getPassword()).equals("admin")) {
 				acaoOk.run();
 			} else {
 				JOptionPane.showMessageDialog(Login.this,
