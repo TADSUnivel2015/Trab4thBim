@@ -28,8 +28,8 @@ import javax.swing.table.TableModel;
 import javax.swing.text.MaskFormatter;
 
 import br.supermercado.Cliente;
-import br.supermercado.Estado;
-import br.supermercado.Genero;
+import br.supermercado.Enum.Estado;
+import br.supermercado.Enum.Genero;
 import br.supermercado.Tabelas.TabelaClientes;
 
 import javax.swing.JFormattedTextField;

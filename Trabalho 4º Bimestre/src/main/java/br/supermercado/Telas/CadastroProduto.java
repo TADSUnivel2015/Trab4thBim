@@ -26,9 +26,9 @@ import java.util.List;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import br.supermercado.Categoria;
 import br.supermercado.Produto;
-import br.supermercado.Unidade;
+import br.supermercado.Enum.Categoria;
+import br.supermercado.Enum.Unidade;
 import br.supermercado.Tabelas.TabelaProdutos;
 
 import java.awt.event.ActionListener;

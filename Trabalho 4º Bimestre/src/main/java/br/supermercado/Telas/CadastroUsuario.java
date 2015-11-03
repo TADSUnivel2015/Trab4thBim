@@ -28,6 +28,7 @@ import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
+import br.supermercado.Cliente;
 import br.supermercado.Usuario;
 import br.supermercado.Tabelas.TabelaProdutos;
 import br.supermercado.Tabelas.TabelaUsuarios;
@@ -61,7 +62,7 @@ public class CadastroUsuario extends JPanel {
 	 * Create the panel.
 	 * @throws SQLException 
 	 */
-	public CadastroUsuario(){
+	public CadastroUsuario() throws SQLException{
 		setLayout(null);
 		
 		JLabel lblId = new JLabel("Id");
@@ -90,7 +91,6 @@ public class CadastroUsuario extends JPanel {
 		txtSenha.setBounds(892, 60, 288, 20);
 		add(txtSenha);
 		txtSenha.setColumns(10);
-		
 	
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
@@ -169,11 +169,20 @@ public class CadastroUsuario extends JPanel {
 		lblNome.setBounds(164, 63, 46, 14);
 		add(lblNome);
 		
-		cbNomeCliente = new JComboBox();		
+		
+		
+		CadastroCliente cliente = new CadastroCliente();
+		cliente.abrirConexao();
+		
+		Object[] lista = cliente.listarClientes().toArray();
+		
+		DefaultComboBoxModel<Object> model = new DefaultComboBoxModel<>(lista);
+		
+		cbNomeCliente = new JComboBox(model);		
 		cbNomeCliente.setBounds(220, 60, 437, 20);
 		add(cbNomeCliente);
 		
-		
+		cliente.fecharConexao();
 		try {
 			abrirConexao();
 			

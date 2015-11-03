@@ -1,4 +1,4 @@
-package br.supermercado;
+package br.supermercado.Enum;
 
 /**
  * 
