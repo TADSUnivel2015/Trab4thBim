@@ -30,8 +30,8 @@ import javax.swing.table.TableModel;
 
 import br.supermercado.Cliente;
 import br.supermercado.Usuario;
-import br.supermercado.Tabelas.TabelaProdutos;
-import br.supermercado.Tabelas.TabelaUsuarios;
+import br.supermercado.ModelTabelas.TabelaProdutos;
+import br.supermercado.ModelTabelas.TabelaUsuarios;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

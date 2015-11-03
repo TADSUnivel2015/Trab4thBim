@@ -29,7 +29,7 @@ import javax.swing.JTable;
 import br.supermercado.Produto;
 import br.supermercado.Enum.Categoria;
 import br.supermercado.Enum.Unidade;
-import br.supermercado.Tabelas.TabelaProdutos;
+import br.supermercado.ModelTabelas.TabelaProdutos;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

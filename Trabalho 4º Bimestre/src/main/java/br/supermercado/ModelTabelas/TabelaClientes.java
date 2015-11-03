@@ -1,4 +1,4 @@
-package br.supermercado.Tabelas;
+package br.supermercado.ModelTabelas;
 
 import java.util.ArrayList;
 import java.util.List;

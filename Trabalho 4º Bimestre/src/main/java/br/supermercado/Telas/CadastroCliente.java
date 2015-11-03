@@ -30,7 +30,7 @@ import javax.swing.text.MaskFormatter;
 import br.supermercado.Cliente;
 import br.supermercado.Enum.Estado;
 import br.supermercado.Enum.Genero;
-import br.supermercado.Tabelas.TabelaClientes;
+import br.supermercado.ModelTabelas.TabelaClientes;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JScrollPane;
