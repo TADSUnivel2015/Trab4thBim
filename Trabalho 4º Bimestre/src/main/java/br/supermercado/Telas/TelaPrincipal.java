@@ -12,6 +12,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
+import br.supermercado.ExtendsMoldura.CadastroCliente;
+import br.supermercado.ExtendsMoldura.CadastroProduto;
+import br.supermercado.ExtendsMoldura.CadastroUsuario;
+import br.supermercado.ExtendsMoldura.Venda;
+import br.supermercado.Login.Login;
+import br.supermercado.Login.PainelBloqueio;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
@@ -121,7 +128,7 @@ public class TelaPrincipal extends JFrame {
 
 			private void abrirTelaVenda() throws SQLException {
 				
-				TelaVenda telaVenda = new TelaVenda();
+				Venda telaVenda = new Venda();
 				ActionListener action = new ActionListener() {
 					
 					@Override
@@ -176,7 +183,7 @@ public class TelaPrincipal extends JFrame {
 	
 
 	private void abrirTelaCadastroCliente() throws SQLException {
-		TelaCadastroCliente telaCadastroCliente = new TelaCadastroCliente();
+		CadastroCliente telaCadastroCliente = new CadastroCliente();
 		ActionListener action = new ActionListener() {
 			
 			@Override
@@ -191,7 +198,7 @@ public class TelaPrincipal extends JFrame {
 
 	private void abrirTelaCadastroUsuario() throws SQLException {
 		
-		TelaCadastroUsuario telaCadastroUsuario = new TelaCadastroUsuario();
+		CadastroUsuario telaCadastroUsuario = new CadastroUsuario();
 		ActionListener action = new ActionListener() {
 			
 			@Override
@@ -208,7 +215,7 @@ public class TelaPrincipal extends JFrame {
 	
 	private void abrirTelaCadastroProduto() throws SQLException {
 		
-		TelaCadastroProduto telaCadastroProduto = new TelaCadastroProduto();
+		CadastroProduto telaCadastroProduto = new CadastroProduto();
 		ActionListener action = new ActionListener() {
 			
 			@Override

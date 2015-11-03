@@ -1,4 +1,4 @@
-package br.supermercado.Telas;
+package br.supermercado.Login;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;

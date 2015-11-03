@@ -69,6 +69,12 @@ public class Produto {
 	}
 	public void setValorFinal(BigDecimal valorFinal) {
 		this.valorFinal = valorFinal;
+	}
+	@Override
+	public String toString() {
+		return descricao;
 	}	
 
+	
+	
 }

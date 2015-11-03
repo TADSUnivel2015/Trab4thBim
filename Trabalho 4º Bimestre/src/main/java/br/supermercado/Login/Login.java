@@ -1,4 +1,4 @@
-package br.supermercado.Telas;
+package br.supermercado.Login;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;

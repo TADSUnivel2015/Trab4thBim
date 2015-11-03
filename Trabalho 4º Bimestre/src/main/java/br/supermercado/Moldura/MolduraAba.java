@@ -1,4 +1,4 @@
-package br.supermercado.Telas;
+package br.supermercado.Moldura;
 
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
