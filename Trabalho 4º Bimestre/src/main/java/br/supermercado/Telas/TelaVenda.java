@@ -21,6 +21,8 @@ import java.sql.SQLException;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import br.supermercado.DAO.ClienteDAO;
+
 /**
  * 
  * @author Alex Tezza
@@ -37,6 +39,8 @@ public class TelaVenda extends JPanel {
 	
 	private JComboBox cbNomeCliente;
 	private JComboBox cbDescricaoProduto;
+	
+	private ClienteDAO clienteDAO = new ClienteDAO();
 
 	/**
 	 * Create the panel.
@@ -48,13 +52,11 @@ public class TelaVenda extends JPanel {
 		JLabel lblNomeDoCliente = new JLabel("Nome do Cliente");
 		lblNomeDoCliente.setBounds(45, 33, 120, 14);
 		add(lblNomeDoCliente);
-
-
 		
-		TelaCadastroCliente cliente = new TelaCadastroCliente();
-		cliente.abrirConexao();
+
+		clienteDAO.abrirConexao();
 		
-		Object[] clientesComboBox = cliente.listarClientes().toArray();
+		Object[] clientesComboBox = clienteDAO.listar().toArray();
 		
 		DefaultComboBoxModel<Object> modelClientes = new DefaultComboBoxModel<>(clientesComboBox);
 		
@@ -62,7 +64,7 @@ public class TelaVenda extends JPanel {
 		cbNomeCliente.setBounds(175, 30, 500, 20);
 		add(cbNomeCliente);
 	
-		
+		clienteDAO.fecharConexao();
 		
 		
 		JLabel lblNomeDoProduto = new JLabel("Descri\u00E7\u00E3o do Produto");

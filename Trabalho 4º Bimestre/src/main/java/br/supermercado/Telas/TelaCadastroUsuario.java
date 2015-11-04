@@ -30,6 +30,7 @@ import javax.swing.table.TableModel;
 
 import br.supermercado.Cliente;
 import br.supermercado.Usuario;
+import br.supermercado.DAO.ClienteDAO;
 import br.supermercado.ModelTabelas.TabelaProdutos;
 import br.supermercado.ModelTabelas.TabelaUsuarios;
 
@@ -54,9 +55,11 @@ public class TelaCadastroUsuario extends JPanel {
 	private JTextField txtSenha;
 	private JTable tblUsuarios;
 	
-	private Usuario usuario = new Usuario();
-	
 	private JComboBox cbNomeCliente;
+	
+	private ClienteDAO clienteDAO = new ClienteDAO();
+	
+	private Usuario usuario = new Usuario();
 
 	/**
 	 * Create the panel.
@@ -169,12 +172,9 @@ public class TelaCadastroUsuario extends JPanel {
 		lblNome.setBounds(164, 63, 46, 14);
 		add(lblNome);
 		
+		clienteDAO.abrirConexao();
 		
-		
-		TelaCadastroCliente cliente = new TelaCadastroCliente();
-		cliente.abrirConexao();
-		
-		Object[] lista = cliente.listarClientes().toArray();
+		Object[] lista = clienteDAO.listar().toArray();
 		
 		DefaultComboBoxModel<Object> model = new DefaultComboBoxModel<>(lista);
 		
@@ -182,7 +182,9 @@ public class TelaCadastroUsuario extends JPanel {
 		cbNomeCliente.setBounds(220, 60, 437, 20);
 		add(cbNomeCliente);
 		
-		cliente.fecharConexao();
+		clienteDAO.fecharConexao();
+				
+		
 		try {
 			abrirConexao();
 			
