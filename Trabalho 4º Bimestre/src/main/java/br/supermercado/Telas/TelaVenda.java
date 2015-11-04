@@ -22,6 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import br.supermercado.DAO.ClienteDAO;
+import br.supermercado.DAO.ProdutoDAO;
 
 /**
  * 
@@ -41,6 +42,7 @@ public class TelaVenda extends JPanel {
 	private JComboBox cbDescricaoProduto;
 	
 	private ClienteDAO clienteDAO = new ClienteDAO();
+	private ProdutoDAO produtoDAO = new ProdutoDAO();
 
 	/**
 	 * Create the panel.
@@ -72,11 +74,9 @@ public class TelaVenda extends JPanel {
 		add(lblNomeDoProduto);
 	
 		
+		clienteDAO.abrirConexao();
 		
-		TelaCadastroProduto produto = new TelaCadastroProduto();
-		produto.abrirConexao();
-		
-		Object[] produtosComboBox = produto.listarProdutos().toArray();
+		Object[] produtosComboBox = clienteDAO.listar().toArray();
 		
 		DefaultComboBoxModel<Object> modelProdutos = new DefaultComboBoxModel<>(produtosComboBox);
 		

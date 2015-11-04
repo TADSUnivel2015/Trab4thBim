@@ -39,7 +39,7 @@ public class TabelaProdutos extends AbstractTableModel{
 
 	@Override
 	public int getColumnCount() {
-		return 8;
+		return 7;
 	}
 
 	@Override
@@ -57,7 +57,6 @@ public class TabelaProdutos extends AbstractTableModel{
 		case 4: return produtos.get(row).getUnidade();
 		case 5: return produtos.get(row).getCusto();
 		case 6: return produtos.get(row).getMargemLucro();
-		case 7: return produtos.get(row).getValorFinal();
 		}
 		return null;
 	}

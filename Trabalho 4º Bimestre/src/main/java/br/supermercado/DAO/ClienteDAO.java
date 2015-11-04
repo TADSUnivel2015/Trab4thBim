@@ -28,17 +28,6 @@ public class ClienteDAO implements EstrururaDAO<Cliente>{
 
 	@Override
 	public void gravar(Cliente cliente) throws SQLException {
-		//		
-		//		cliente.get(0).getNome();
-		//		
-		//		cliente.setId(Integer.parseInt(txtId.getText()));
-		//		cliente.setNome(txtNome.getText());
-		//		cliente.setTelefone(txtTelefone.getText());
-		//		cliente.setEndereco(txtEndereco.getText());
-		//		cliente.setCidade(txtCidade.getText());
-		//		cliente.setEstado(cbEstado.getSelectedItem().toString());
-		//		cliente.setEmail(txtEmail.getText());
-		//		cliente.setGenero(cbGenero.getSelectedItem().toString());
 
 		ps = conexao.prepareStatement(
 				"INSERT INTO CLIENTE (ID, NOME, TELEFONE, ENDERECO, CIDADE, ESTADO, EMAIL, GENERO)"

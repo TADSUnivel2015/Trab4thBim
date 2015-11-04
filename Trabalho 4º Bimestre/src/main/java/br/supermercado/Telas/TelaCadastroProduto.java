@@ -26,7 +26,10 @@ import java.util.List;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import org.bouncycastle.mail.smime.handlers.pkcs7_mime;
+
 import br.supermercado.Produto;
+import br.supermercado.DAO.ProdutoDAO;
 import br.supermercado.Enum.Categoria;
 import br.supermercado.Enum.Unidade;
 import br.supermercado.ModelTabelas.TabelaProdutos;
@@ -54,7 +57,8 @@ public class TelaCadastroProduto extends JPanel {
 	private JComboBox cbCategoria;
 	private JComboBox cbUnidade;
 	
-	private Produto produto = new Produto();
+	private ProdutoDAO produtoDAO = new ProdutoDAO();
+	
 	
 	private JTable tblProdutos;
 
@@ -149,9 +153,11 @@ public class TelaCadastroProduto extends JPanel {
 		});
 		
 		try {
-			abrirConexao();
-			tblProdutos.setModel(new TabelaProdutos(listarProdutos()));
-			fecharConexao();
+			produtoDAO.abrirConexao();
+			
+			tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar()));
+			
+			produtoDAO.fecharConexao();
 		} catch (SQLException g) {
 			// TODO Auto-generated catch block
 			g.printStackTrace();
@@ -163,11 +169,21 @@ public class TelaCadastroProduto extends JPanel {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					abrirConexao();
-					gravar();
-					tblProdutos.setModel(new TabelaProdutos(listarProdutos()));
+					produtoDAO.abrirConexao();
+					
+					BigDecimal vlrCusto = new BigDecimal(txtCusto.getText());
+					BigDecimal vlrLucro = new BigDecimal(txtMargemLucro.getText());		
+					
+					Produto produto = new Produto(Integer.parseInt(txtId.getText()),
+							txtCodigoBarras.getText(), cbCategoria.getSelectedItem().toString(),
+							txtDescricao.getText(), cbUnidade.getSelectedItem().toString(),
+							vlrCusto, vlrLucro);
+					
+					produtoDAO.gravar(produto);					
+					tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar()));
 					limparCampos();
-					fecharConexao();
+					
+					produtoDAO.fecharConexao();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -181,11 +197,21 @@ public class TelaCadastroProduto extends JPanel {
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					abrirConexao();
-					atualizar();
+					produtoDAO.abrirConexao();
+					
+					BigDecimal vlrCusto = new BigDecimal(txtCusto.getText());
+					BigDecimal vlrLucro = new BigDecimal(txtMargemLucro.getText());		
+					
+					Produto produto = new Produto(Integer.parseInt(txtId.getText()),
+							txtCodigoBarras.getText(), cbCategoria.getSelectedItem().toString(),
+							txtDescricao.getText(), cbUnidade.getSelectedItem().toString(),
+							vlrCusto, vlrLucro);
+					
+					produtoDAO.atualizar(produto);
+					tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar()));
 					limparCampos();
-					tblProdutos.setModel(new TabelaProdutos(listarProdutos()));
-					fecharConexao();
+					
+					produtoDAO.fecharConexao();
 				} catch (SQLException f) {
 					// TODO Auto-generated catch block
 					f.printStackTrace();
@@ -199,11 +225,13 @@ public class TelaCadastroProduto extends JPanel {
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					abrirConexao();
-					excluir();
-					tblProdutos.setModel(new TabelaProdutos(listarProdutos()));
+					produtoDAO.abrirConexao();
+					
+					produtoDAO.excluir(Integer.parseInt(txtId.getText()));
+					tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar()));
 					limparCampos();
-					fecharConexao();
+					
+					produtoDAO.fecharConexao();
 				} catch (SQLException g) {
 					// TODO Auto-generated catch block
 					g.printStackTrace();
@@ -226,143 +254,5 @@ public class TelaCadastroProduto extends JPanel {
 		cbCategoria.setSelectedIndex(0);
 		cbUnidade.setSelectedIndex(0);
 	}
-	
-	/**
-	 * Daqui para baixo é feito a parte de comunicação com o Banco de Dados....
-	 */
-	
-	Connection conexao = null;
-	private PreparedStatement ps;
-	
-	public void abrirConexao() throws SQLException{ 
-		String url = "jdbc:postgresql://localhost:5432/Trabalho4thBim";
-		String user = "postgres";
-		String pass = "tezza";
-		
-		conexao = DriverManager.getConnection(url, user, pass);
-		
-	}
-	
-	public void fecharConexao() throws SQLException {
-		conexao.close();
-	}
-	
-	public void gravar() throws SQLException{
-		
-		produto.setId(Integer.parseInt(txtId.getText()));
-		produto.setCodBarras(new BigDecimal(txtCodigoBarras.getText()));
-		produto.setCategoria(cbCategoria.getSelectedItem().toString());
-		produto.setDescricao(txtDescricao.getText());
-		produto.setUnidade(cbUnidade.getSelectedItem().toString());	
-		produto.setCusto(new BigDecimal(txtCusto.getText()));
-		produto.setMargemLucro(new BigDecimal(txtMargemLucro.getText()));
-		
-		String aux1 = txtCusto.getText();
-		String aux2 = txtMargemLucro.getText();	
-		
-		BigDecimal valor1 = new BigDecimal(aux1);
-		BigDecimal valor2 = new BigDecimal(aux2);
-		
-		BigDecimal valorFinal = valorTotal(valor1, valor2);
-		
-		produto.setValorFinal(valorFinal);
-		
-		ps = conexao.prepareStatement(
-				"INSERT INTO produto (ID, CODBARRAS, CATEGORIA, DESCRICAO, UNIDADE, CUSTO, MARGEMLUCRO, VALORFINAL)"
-						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-		
-		ps.setInt(1, produto.getId());
-		ps.setBigDecimal(2, produto.getCodBarras());
-		ps.setString(3, produto.getCategoria());
-		ps.setString(4, produto.getDescricao());
-		ps.setString(5, produto.getUnidade());
-		ps.setBigDecimal(6, produto.getCusto());
-		ps.setBigDecimal(7, produto.getMargemLucro());
-		ps.setBigDecimal(8, produto.getValorFinal());
-		
-		int res = ps.executeUpdate();
-		
-		ps.close();
-	}
-	
-	public void atualizar() throws SQLException{
-		
-		produto.setId(Integer.parseInt(txtId.getText()));
-		
-		produto.setCodBarras(new BigDecimal(txtCodigoBarras.getText()));
-		produto.setCategoria(cbCategoria.getSelectedItem().toString());
-		produto.setDescricao(txtDescricao.getText());
-		produto.setUnidade(cbUnidade.getSelectedItem().toString());	
-		produto.setCusto(new BigDecimal(txtCusto.getText().toString()));
-		produto.setMargemLucro(new BigDecimal(txtMargemLucro.getText()));
-		
-		ps = conexao.prepareStatement("UPDATE produto SET CODBARRAS = '"+produto.getCodBarras()
-				+"', CATEGORIA = '"+produto.getCategoria()
-				+"', DESCRICAO = '"+produto.getDescricao()
-				+"', UNIDADE   = '"+produto.getUnidade()
-				+"', CUSTO   = '"+produto.getCusto()
-				+"', MARGEMLUCRO    = '"+produto.getMargemLucro()
-				+"' WHERE ID = '"+produto.getId()+"'");
 
-		ps.execute();
-		
-		ps.close();
-		
-	}
-	
-	public void excluir() throws SQLException{
-		
-		produto.setId(Integer.parseInt(txtId.getText()));
-		
-		ps = conexao.prepareStatement("DELETE FROM produto WHERE ID = ?");
-		
-		ps.setInt(1, produto.getId());
-		
-		ps.execute();
-		
-		ps.close();
-		
-	}
-	
-	public List listarProdutos() throws SQLException {
-		
-		List<Produto> produtos = new ArrayList<Produto>();
-		
-		// Atributo que faz a busca no banco.
-		ResultSet result;
-		
-		ps = conexao.prepareStatement("SELECT * FROM produto");
-		
-		result = ps.executeQuery();
-		
-		// Enquanto existe próximo, faça..
-		while (result.next()) {
-			
-			Produto novo = new Produto();
-			
-			novo.setId(result.getInt("id"));
-			novo.setCodBarras(result.getBigDecimal("codbarras"));
-			novo.setCategoria(result.getString("categoria"));
-			novo.setDescricao(result.getString("descricao"));
-			novo.setUnidade(result.getString("unidade"));
-			novo.setCusto(result.getBigDecimal("custo"));
-			novo.setMargemLucro(result.getBigDecimal("margemlucro"));
-			
-			BigDecimal total = valorTotal(result.getBigDecimal("custo"), result.getBigDecimal("margemlucro"));
-			
-			novo.setValorFinal(total);
-			produtos.add(novo);
-			
-		}
-		
-		result.close();
-		
-		ps.close();
-			
-		return produtos;		
-	}
-	
-	public BigDecimal valorTotal(BigDecimal valor1,BigDecimal valor2){
-		return valor2.multiply(valor1);
-	}
 }
