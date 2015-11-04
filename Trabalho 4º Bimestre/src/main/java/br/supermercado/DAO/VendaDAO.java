@@ -5,9 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-public class VendaDAO implements EstrururaDAO{
+import br.supermercado.Usuario;
+import br.supermercado.Venda;
 
-	private Connection con = null;
+public class VendaDAO implements EstrururaDAO<Venda>{
+
+	private Connection conexao = null;
 	
 	@Override
 	public void abrirConexao() throws SQLException {
@@ -16,37 +19,44 @@ public class VendaDAO implements EstrururaDAO{
 		String user = "postgres";
 		String pass = "tezza";
 		
-		con = DriverManager.getConnection(url, user, pass);
+		conexao = DriverManager.getConnection(url, user, pass);
 		
 	}
 
+	
 	@Override
-	public void gravar() {
+	public void gravar(Venda venda) throws SQLException {
 		// TODO Auto-generated method stub
 		
 	}
 
+	
 	@Override
-	public void atualizar() {
+	public void atualizar(Venda venda) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	
 	@Override
-	public void excluir() {
+	public void excluir(int id) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	
 	@Override
-	public List<Object> listar() {
+	public List<Venda> listar() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+
 	@Override
 	public void fecharConexao() throws SQLException {
-		con.close();
+		conexao.close();
 	}
+	
+	
 
 }

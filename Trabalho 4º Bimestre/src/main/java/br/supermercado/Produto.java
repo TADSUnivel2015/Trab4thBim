@@ -22,6 +22,27 @@ public class Produto {
 	private BigDecimal margemLucro;
 	private BigDecimal valorFinal;
 	
+	
+	public Produto(){
+		
+	}
+	
+	
+	public Produto(int id, BigDecimal codBarras, String categoria,
+			String descricao, String unidade, BigDecimal custo,
+			BigDecimal margemLucro, BigDecimal valorFinal) {
+		super();
+		this.id = id;
+		this.codBarras = codBarras;
+		this.categoria = categoria;
+		this.descricao = descricao;
+		this.unidade = unidade;
+		this.custo = custo;
+		this.margemLucro = margemLucro;
+		this.valorFinal = valorFinal;
+	}
+	
+	
 	public int getId() {
 		return id;
 	}

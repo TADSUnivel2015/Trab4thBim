@@ -17,6 +17,20 @@ public class Usuario {
 	private int idCliente;	
 	private String senha;
 	
+	
+	public Usuario(){
+		
+	}
+	
+	public Usuario(int id, String nomeCliente, int idCliente, String senha) {
+		super();
+		this.id = id;
+		this.nomeCliente = nomeCliente;
+		this.idCliente = idCliente;
+		this.senha = senha;
+	}
+	
+	
 	public int getId() {
 		return id;
 	}
