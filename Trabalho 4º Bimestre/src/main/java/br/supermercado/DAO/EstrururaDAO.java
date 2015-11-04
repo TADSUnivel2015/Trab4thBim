@@ -1,10 +1,11 @@
 package br.supermercado.DAO;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface EstrururaDAO {
 	
-	public void abrirConexao();
+	public void abrirConexao() throws SQLException;
 	
 	public void gravar();
 	
@@ -14,6 +15,6 @@ public interface EstrururaDAO {
 	
 	public List<Object> listar();
 	
-	public void fecharConexao();
+	public void fecharConexao() throws SQLException;
 
 }

@@ -1,12 +1,22 @@
 package br.supermercado.DAO;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.List;
 
 public class UsuarioDAO implements EstrururaDAO{
-
+	
+	private Connection con = null;
+	
 	@Override
-	public void abrirConexao() {
-		// TODO Auto-generated method stub
+	public void abrirConexao() throws SQLException {
+		
+		String url = "jdbc:postgresql://localhost:5432/Trabalho4thBim";
+		String user = "postgres";
+		String pass = "tezza";
+		
+		con = DriverManager.getConnection(url, user, pass);
 		
 	}
 
@@ -35,9 +45,8 @@ public class UsuarioDAO implements EstrururaDAO{
 	}
 
 	@Override
-	public void fecharConexao() {
-		// TODO Auto-generated method stub
-		
+	public void fecharConexao() throws SQLException {
+		con.close();		
 	}
 
 }
