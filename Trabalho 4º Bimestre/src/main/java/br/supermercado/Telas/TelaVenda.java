@@ -25,9 +25,12 @@ import javax.swing.table.TableModel;
 import br.supermercado.DAO.ClienteDAO;
 import br.supermercado.DAO.ProdutoDAO;
 import br.supermercado.ModelTabelas.TabelaConsultaCliente;
+import br.supermercado.ModelTabelas.TabelaConsultaProduto;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * 
@@ -42,6 +45,7 @@ public class TelaVenda extends JPanel {
 	
 	private ClienteDAO clienteDAO = new ClienteDAO();
 	private ProdutoDAO produtoDAO = new ProdutoDAO();
+	
 	private JTextField txtNomeCliente;
 	private JTextField txtNomeProduto;
 	private JTextField txtValorUnidade;
@@ -146,6 +150,25 @@ public class TelaVenda extends JPanel {
 		txtNomeProduto.setColumns(10);
 		
 		JButton btnNewButton_2 = new JButton("Buscar");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				flag = 2;
+				
+				String sqlConsultaProduto = "select * from produto where descricao like '%" + txtNomeProduto.getText() + "%'";
+
+				try {
+					produtoDAO.abrirConexao();
+
+					tblGenerica.setModel((TableModel)new TabelaConsultaProduto(produtoDAO.listar(sqlConsultaProduto)));
+
+					produtoDAO.fecharConexao();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}			
+			}
+		});
 		btnNewButton_2.setBounds(1211, 29, 89, 23);
 		add(btnNewButton_2);
 		
@@ -202,6 +225,25 @@ public class TelaVenda extends JPanel {
 		panel.add(scrollPane, BorderLayout.CENTER);
 		
 		tblGenerica = new JTable();
+		tblGenerica.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				if(flag == 1) {
+					
+					txtIdCliente.setText(String.valueOf(tblGenerica.getValueAt(tblGenerica.getSelectedRow(), 0)));
+					txtNomeCliente.setText(String.valueOf(tblGenerica.getValueAt(tblGenerica.getSelectedRow(), 1)));
+					
+				} else {
+					
+					txtIdProduto.setText(String.valueOf(tblGenerica.getValueAt(tblGenerica.getSelectedRow(), 0)));
+					txtNomeProduto.setText(String.valueOf(tblGenerica.getValueAt(tblGenerica.getSelectedRow(), 1)));
+					txtValorUnidade.setText(String.valueOf(tblGenerica.getValueAt(tblGenerica.getSelectedRow(), 2)));
+					
+				}
+				
+			}
+		});
 		scrollPane.setViewportView(tblGenerica);
 
 	}
