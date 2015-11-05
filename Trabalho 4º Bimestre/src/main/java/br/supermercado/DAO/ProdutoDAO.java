@@ -43,7 +43,7 @@ public class ProdutoDAO implements EstrururaDAO<Produto>{
 		ps.setBigDecimal(6, produto.getCusto());
 		ps.setBigDecimal(7, produto.getMargemLucro());
 		
-		int res = ps.executeUpdate();
+		ps.executeUpdate();
 
 		ps.close();
 

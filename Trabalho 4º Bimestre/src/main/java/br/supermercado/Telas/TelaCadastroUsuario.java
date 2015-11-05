@@ -31,6 +31,7 @@ import javax.swing.table.TableModel;
 import br.supermercado.Cliente;
 import br.supermercado.Usuario;
 import br.supermercado.DAO.ClienteDAO;
+import br.supermercado.DAO.UsuarioDAO;
 import br.supermercado.ModelTabelas.TabelaProdutos;
 import br.supermercado.ModelTabelas.TabelaUsuarios;
 
@@ -58,8 +59,7 @@ public class TelaCadastroUsuario extends JPanel {
 	private JComboBox cbNomeCliente;
 	
 	private ClienteDAO clienteDAO = new ClienteDAO();
-	
-	private Usuario usuario = new Usuario();
+	private UsuarioDAO usuarioDAO = new UsuarioDAO();
 
 	/**
 	 * Create the panel.
@@ -99,11 +99,18 @@ public class TelaCadastroUsuario extends JPanel {
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					abrirConexao();
-					gravar();
-					tblUsuarios.setModel(new TabelaUsuarios(listarUsuarios()));
+					usuarioDAO.abrirConexao();
+					
+					Usuario usuario = new Usuario(Integer.parseInt(txtId.getText()),
+							cbNomeCliente.getSelectedItem().toString(),
+							Integer.parseInt(txtIdCliente.getText()),
+							txtSenha.getText());
+					
+					usuarioDAO.gravar(usuario);
+					tblUsuarios.setModel(new TabelaUsuarios(usuarioDAO.listar()));
 					limparCampos();
-					fecharConexao();
+					
+					usuarioDAO.fecharConexao();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -117,11 +124,18 @@ public class TelaCadastroUsuario extends JPanel {
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					abrirConexao();
-					atualizar();
-					tblUsuarios.setModel((TableModel)new TabelaUsuarios(listarUsuarios()));
+					usuarioDAO.abrirConexao();
+					
+					Usuario usuario = new Usuario(Integer.parseInt(txtId.getText()),
+							cbNomeCliente.getSelectedItem().toString(),
+							Integer.parseInt(txtIdCliente.getText()),
+							txtSenha.getText());
+					
+					usuarioDAO.atualizar(usuario);
+					tblUsuarios.setModel((TableModel)new TabelaUsuarios(usuarioDAO.listar()));
 					limparCampos();
-					fecharConexao();
+					
+					usuarioDAO.fecharConexao();
 				} catch (SQLException f) {
 					// TODO Auto-generated catch block
 					f.printStackTrace();
@@ -135,11 +149,13 @@ public class TelaCadastroUsuario extends JPanel {
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					abrirConexao();
-					excluir();
-					tblUsuarios.setModel((TableModel)new TabelaUsuarios(listarUsuarios()));
+					usuarioDAO.abrirConexao();
+					
+					usuarioDAO.excluir(Integer.parseInt(txtId.getText()));
+					tblUsuarios.setModel((TableModel)new TabelaUsuarios(usuarioDAO.listar()));
 					limparCampos();
-					fecharConexao();
+					
+					usuarioDAO.fecharConexao();
 				} catch (SQLException g) {
 					// TODO Auto-generated catch block
 					g.printStackTrace();
@@ -179,6 +195,12 @@ public class TelaCadastroUsuario extends JPanel {
 		DefaultComboBoxModel<Object> model = new DefaultComboBoxModel<>(lista);
 		
 		cbNomeCliente = new JComboBox(model);		
+		cbNomeCliente.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				txtIdCliente.setText(cbNomeCliente.getSelectedItem().toString());
+			}
+		});
 		cbNomeCliente.setBounds(220, 60, 437, 20);
 		add(cbNomeCliente);
 		
@@ -186,11 +208,11 @@ public class TelaCadastroUsuario extends JPanel {
 				
 		
 		try {
-			abrirConexao();
+			usuarioDAO.abrirConexao();
 			
-			tblUsuarios.setModel((TableModel)new TabelaUsuarios(listarUsuarios()));
+			tblUsuarios.setModel((TableModel)new TabelaUsuarios(usuarioDAO.listar()));
 			
-			fecharConexao();
+			usuarioDAO.fecharConexao();
 		} catch (SQLException f) {
 			// TODO Auto-generated catch block
 			f.printStackTrace();
@@ -205,112 +227,5 @@ public class TelaCadastroUsuario extends JPanel {
 		txtSenha.setText("");
 		
 		cbNomeCliente.setSelectedIndex(0);
-	}
-	
-	
-	/**
-	 * Daqui para baixo é feito a parte de comunicação com o Banco de Dados....
-	 */
-	
-	Connection conexao = null;
-	private PreparedStatement ps;
-	
-	public void abrirConexao() throws SQLException{ 
-		
-		String url = "jdbc:postgresql://localhost:5432/Trabalho4thBim";
-		String user = "postgres";
-		String pass = "tezza";
-		
-		conexao = DriverManager.getConnection(url, user, pass);
-		
-	}
-	
-	public void fecharConexao() throws SQLException {
-		conexao.close();
-	}
-	
-	public void gravar() throws SQLException{
-		
-		usuario.setId(Integer.parseInt(txtId.getText()));
-		usuario.setNomeCliente(cbNomeCliente.getSelectedItem().toString());
-		usuario.setIdCliente(Integer.parseInt(txtIdCliente.getText()));
-		usuario.setSenha(txtSenha.getText());
-		
-		ps = conexao.prepareStatement(
-				"INSERT INTO usuario (ID, NOMECLIENTE, IDCLIENTE, SENHA)"
-						+ "VALUES (?, ?, ?, ?)");
-		
-		ps.setInt(1, usuario.getId());
-		ps.setString(2, usuario.getNomeCliente());
-		ps.setInt(3, usuario.getIdCliente());
-		ps.setString(4, usuario.getSenha());
-		
-		int res = ps.executeUpdate();
-		
-		ps.close();
-	}
-	
-	public void atualizar() throws SQLException{
-		
-		usuario.setId(Integer.parseInt(txtId.getText()));
-		
-		usuario.setNomeCliente(cbNomeCliente.getSelectedItem().toString());
-		usuario.setIdCliente(Integer.parseInt(txtIdCliente.getText()));
-		usuario.setSenha(txtSenha.getText());
-		
-		ps = conexao.prepareStatement("UPDATE usuario SET NOMEcliente = '"+usuario.getNomeCliente()
-				+"', IdCLIENTE = '"+usuario.getIdCliente()
-				+"', SENHA = '"+usuario.getSenha()
-				+"' WHERE ID = '"+usuario.getId()+"'");
-		
-		ps.execute();
-		
-		ps.close();
-		
-	}
-	
-	public void excluir() throws SQLException{
-		
-		usuario.setId(Integer.parseInt(txtId.getText()));
-		
-		ps = conexao.prepareStatement("DELETE FROM usuario WHERE ID = ?");
-		
-		ps.setInt(1, usuario.getId());
-		
-		ps.execute();
-		
-		ps.close();
-		
-	}
-	
-	public List<Usuario> listarUsuarios() throws SQLException{
-		
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		
-		// Atributo que faz a busca no banco.
-		ResultSet result;
-		
-		ps = conexao.prepareStatement("SELECT * FROM usuario");
-		
-		result = ps.executeQuery();
-		
-		// Enquanto existe próximo, faça..
-		while (result.next()) {
-			Usuario novo = new Usuario();
-			
-			novo.setId(result.getInt("id"));
-			novo.setNomeCliente(result.getString("NOMEcliente"));
-			novo.setIdCliente(result.getInt("IdCLIENTE"));
-			novo.setSenha(result.getString("SENHA"));
-			
-			usuarios.add(novo);
-			
-		}
-		
-		result.close();
-		
-		ps.close();
-			
-		return usuarios;		
 	}
 }

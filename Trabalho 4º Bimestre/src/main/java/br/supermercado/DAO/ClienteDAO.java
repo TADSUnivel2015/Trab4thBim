@@ -42,7 +42,7 @@ public class ClienteDAO implements EstrururaDAO<Cliente>{
 		ps.setString(7, cliente.getEmail());
 		ps.setString(8, cliente.getGenero());
 
-		int res = ps.executeUpdate();
+		ps.executeUpdate();
 
 		ps.close();
 
