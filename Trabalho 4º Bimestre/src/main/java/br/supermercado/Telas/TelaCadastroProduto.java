@@ -155,7 +155,7 @@ public class TelaCadastroProduto extends JPanel {
 		try {
 			produtoDAO.abrirConexao();
 			
-			tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar()));
+			tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar(null)));
 			
 			produtoDAO.fecharConexao();
 		} catch (SQLException g) {
@@ -180,7 +180,7 @@ public class TelaCadastroProduto extends JPanel {
 							vlrCusto, vlrLucro);
 					
 					produtoDAO.gravar(produto);					
-					tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar()));
+					tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar(null)));
 					limparCampos();
 					
 					produtoDAO.fecharConexao();
@@ -208,7 +208,7 @@ public class TelaCadastroProduto extends JPanel {
 							vlrCusto, vlrLucro);
 					
 					produtoDAO.atualizar(produto);
-					tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar()));
+					tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar(null)));
 					limparCampos();
 					
 					produtoDAO.fecharConexao();
@@ -228,7 +228,7 @@ public class TelaCadastroProduto extends JPanel {
 					produtoDAO.abrirConexao();
 					
 					produtoDAO.excluir(Integer.parseInt(txtId.getText()));
-					tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar()));
+					tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar(null)));
 					limparCampos();
 					
 					produtoDAO.fecharConexao();

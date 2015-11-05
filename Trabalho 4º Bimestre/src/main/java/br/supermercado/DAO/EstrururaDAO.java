@@ -15,7 +15,7 @@ public interface EstrururaDAO <T>{
 	
 	public void excluir(int objeto) throws SQLException;
 	
-	public List<T> listar() throws SQLException;
+	public List<T> listar(String sql) throws SQLException;
 	
 	public void fecharConexao() throws SQLException;
 

@@ -64,6 +64,8 @@ public class TelaCadastroCliente extends JPanel {
 	private JTable tblClientes;
 	
 	private ClienteDAO clienteDAO = new ClienteDAO();
+	
+	private String sql = "select * from cliente";
 
 	
 	public TelaCadastroCliente() throws SQLException {
@@ -168,7 +170,7 @@ public class TelaCadastroCliente extends JPanel {
 		
 		try {
 			clienteDAO.abrirConexao();
-			tblClientes.setModel((TableModel)new TabelaClientes(clienteDAO.listar()));
+			tblClientes.setModel((TableModel)new TabelaClientes(clienteDAO.listar(sql)));
 			clienteDAO.fecharConexao();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -188,7 +190,7 @@ public class TelaCadastroCliente extends JPanel {
 						    cbGenero.getSelectedItem().toString());
 					
 					clienteDAO.gravar(cliente);
-					tblClientes.setModel((TableModel)new TabelaClientes(clienteDAO.listar()));
+					tblClientes.setModel((TableModel)new TabelaClientes(clienteDAO.listar(sql)));
 					
 					clienteDAO.fecharConexao();
 				} catch (SQLException e) {
@@ -214,7 +216,7 @@ public class TelaCadastroCliente extends JPanel {
 						    cbGenero.getSelectedItem().toString());
 					
 					clienteDAO.atualizar(cliente);
-					tblClientes.setModel((TableModel)new TabelaClientes(clienteDAO.listar()));
+					tblClientes.setModel((TableModel)new TabelaClientes(clienteDAO.listar(sql)));
 					
 					clienteDAO.fecharConexao();
 				} catch (SQLException e) {
@@ -234,7 +236,7 @@ public class TelaCadastroCliente extends JPanel {
 					clienteDAO.abrirConexao();
 					
 					clienteDAO.excluir(Integer.parseInt(txtId.getText()));
-					tblClientes.setModel((TableModel)new TabelaClientes(clienteDAO.listar()));
+					tblClientes.setModel((TableModel)new TabelaClientes(clienteDAO.listar(sql)));
 					
 					clienteDAO.fecharConexao();
 				} catch (SQLException e) {

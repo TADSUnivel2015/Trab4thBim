@@ -83,7 +83,7 @@ public class ProdutoDAO implements EstrururaDAO<Produto>{
 
 
 	@Override
-	public List<Produto> listar() throws SQLException {
+	public List<Produto> listar(String sql) throws SQLException {
 
 		List<Produto> produtos = new ArrayList<Produto>();
 

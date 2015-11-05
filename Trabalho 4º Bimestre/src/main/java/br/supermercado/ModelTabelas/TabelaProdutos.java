@@ -32,8 +32,6 @@ public class TabelaProdutos extends AbstractTableModel{
 			return "Custo";
 		if (column == 6) 
 			return "Margem de Lucro";
-		if (column == 7) 
-			return "Valor Final";
 		return null;
 	}
 

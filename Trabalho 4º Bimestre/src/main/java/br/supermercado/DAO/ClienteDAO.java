@@ -93,14 +93,14 @@ public class ClienteDAO implements EstrururaDAO<Cliente>{
 	}
 
 	@Override
-	public List<Cliente> listar() throws SQLException {
+	public List<Cliente> listar(String sql) throws SQLException {
 
 		List<Cliente> clientes = new ArrayList<Cliente>();
 
 		// Atributo que faz a busca no banco.
 		ResultSet result;
 
-		ps = conexao.prepareStatement("SELECT * FROM cliente");
+		ps = conexao.prepareStatement(sql);
 
 		result = ps.executeQuery();
 

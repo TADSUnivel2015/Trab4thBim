@@ -77,14 +77,14 @@ public class UsuarioDAO implements EstrururaDAO<Usuario>{
 
 
 	@Override
-	public List<Usuario> listar() throws SQLException {
+	public List<Usuario> listar(String sql) throws SQLException {
 
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 
 		// Atributo que faz a busca no banco.
 		ResultSet result;
 
-		ps = conexao.prepareStatement("SELECT * FROM usuario");
+		ps = conexao.prepareStatement(sql);
 
 		result = ps.executeQuery();
 

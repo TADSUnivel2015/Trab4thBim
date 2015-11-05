@@ -58,7 +58,7 @@ public class TelaVenda extends JPanel {
 
 		clienteDAO.abrirConexao();
 		
-		Object[] clientesComboBox = clienteDAO.listar().toArray();
+		Object[] clientesComboBox = clienteDAO.listar(null).toArray();
 		
 		DefaultComboBoxModel<Object> modelClientes = new DefaultComboBoxModel<>(clientesComboBox);
 		
@@ -76,7 +76,7 @@ public class TelaVenda extends JPanel {
 		
 		clienteDAO.abrirConexao();
 		
-		Object[] produtosComboBox = clienteDAO.listar().toArray();
+		Object[] produtosComboBox = clienteDAO.listar(null).toArray();
 		
 		DefaultComboBoxModel<Object> modelProdutos = new DefaultComboBoxModel<>(produtosComboBox);
 		
