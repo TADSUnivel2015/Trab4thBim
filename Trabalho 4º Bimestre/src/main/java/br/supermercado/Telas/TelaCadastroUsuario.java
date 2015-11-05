@@ -10,6 +10,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.ComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -66,7 +67,7 @@ public class TelaCadastroUsuario extends JPanel {
 	private String sqlUsuario = "select * from usuario";
 	private JTextField txtNomeCliente;
 	private JTable tblConsultaCliente;
-	
+
 	private int cont = 0;
 	private boolean status;
 
@@ -120,6 +121,8 @@ public class TelaCadastroUsuario extends JPanel {
 					tblUsuarios.setModel(new TabelaUsuarios(usuarioDAO.listar(sqlUsuario)));
 					limparCampos();
 
+					JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
+
 					usuarioDAO.fecharConexao();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -145,6 +148,8 @@ public class TelaCadastroUsuario extends JPanel {
 					tblUsuarios.setModel((TableModel)new TabelaUsuarios(usuarioDAO.listar(sqlUsuario)));
 					limparCampos();
 
+					JOptionPane.showMessageDialog(null, "Dados do usuário atualizados com sucesso!");
+
 					usuarioDAO.fecharConexao();
 				} catch (SQLException f) {
 					// TODO Auto-generated catch block
@@ -158,17 +163,22 @@ public class TelaCadastroUsuario extends JPanel {
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					usuarioDAO.abrirConexao();
 
-					usuarioDAO.excluir(Integer.parseInt(txtId.getText()));
-					tblUsuarios.setModel((TableModel)new TabelaUsuarios(usuarioDAO.listar(sqlUsuario)));
-					limparCampos();
+				int resp = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir " + txtNomeCliente.getText() + "?");
 
-					usuarioDAO.fecharConexao();
-				} catch (SQLException g) {
-					// TODO Auto-generated catch block
-					g.printStackTrace();
+				if (resp == JOptionPane.YES_OPTION == true) {
+					try {
+						usuarioDAO.abrirConexao();
+
+						usuarioDAO.excluir(Integer.parseInt(txtId.getText()));
+						tblUsuarios.setModel((TableModel)new TabelaUsuarios(usuarioDAO.listar(sqlUsuario)));
+						limparCampos();
+
+						usuarioDAO.fecharConexao();
+					} catch (SQLException g) {
+						// TODO Auto-generated catch block
+						g.printStackTrace();
+					}
 				}
 			}
 		});

@@ -2,6 +2,7 @@ package br.supermercado.Telas;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
@@ -35,6 +36,8 @@ import br.supermercado.ModelTabelas.TabelaClientes;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JScrollPane;
+
+import org.jfree.ui.tabbedui.RootPanel;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -192,6 +195,8 @@ public class TelaCadastroCliente extends JPanel {
 					clienteDAO.gravar(cliente);
 					tblClientes.setModel((TableModel)new TabelaClientes(clienteDAO.listar(sql)));
 					
+					JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
+					
 					clienteDAO.fecharConexao();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -218,6 +223,8 @@ public class TelaCadastroCliente extends JPanel {
 					clienteDAO.atualizar(cliente);
 					tblClientes.setModel((TableModel)new TabelaClientes(clienteDAO.listar(sql)));
 					
+					JOptionPane.showMessageDialog(null, "Dados do cliente atualizados com sucesso!");
+					
 					clienteDAO.fecharConexao();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -232,18 +239,24 @@ public class TelaCadastroCliente extends JPanel {
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					clienteDAO.abrirConexao();
+				
+				int resp = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir " + txtNome.getText() + "?");
+				
+				if (resp == JOptionPane.YES_OPTION == true) {
 					
-					clienteDAO.excluir(Integer.parseInt(txtId.getText()));
-					tblClientes.setModel((TableModel)new TabelaClientes(clienteDAO.listar(sql)));
-					
-					clienteDAO.fecharConexao();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				limparCampos();
+					try {
+						clienteDAO.abrirConexao();
+						
+						clienteDAO.excluir(Integer.parseInt(txtId.getText()));
+						tblClientes.setModel((TableModel)new TabelaClientes(clienteDAO.listar(sql)));
+						
+						clienteDAO.fecharConexao();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					limparCampos();
+					}
 			}
 		});
 		btnExcluir.setBounds(895, 109, 89, 29);
