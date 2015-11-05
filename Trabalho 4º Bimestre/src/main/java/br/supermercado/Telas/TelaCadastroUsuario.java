@@ -42,6 +42,8 @@ import javax.swing.DefaultComboBoxModel;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 /**
  * 
@@ -195,12 +197,13 @@ public class TelaCadastroUsuario extends JPanel {
 		DefaultComboBoxModel<Object> model = new DefaultComboBoxModel<>(lista);
 		
 		cbNomeCliente = new JComboBox(model);		
-		cbNomeCliente.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				txtIdCliente.setText(cbNomeCliente.getSelectedItem().toString());
+		cbNomeCliente.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				String part = cbNomeCliente.getSelectedItem().toString();
+				txtIdCliente.setText(part.substring(part.length()-7,part.length()).trim());
 			}
 		});
+		
 		cbNomeCliente.setBounds(220, 60, 437, 20);
 		add(cbNomeCliente);
 		
