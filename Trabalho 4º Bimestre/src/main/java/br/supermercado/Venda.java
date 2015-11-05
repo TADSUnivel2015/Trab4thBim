@@ -9,7 +9,9 @@ public class Venda {
 	
 	private int id;
 	private String nomeCliente;
+	private int idClinte;
 	private String nomeProduto;
+	private String idProduto;
 	private BigDecimal totalCompra;
 	private BigDecimal vlrPagamento;
 	private BigDecimal VlrTroco;
@@ -21,19 +23,23 @@ public class Venda {
 		
 	}
 
-	public Venda(int id, String nomeCliente, String nomeProduto,
-			BigDecimal totalCompra, BigDecimal vlrPagamento,
+	public Venda(int id, String nomeCliente, int idClinte, String nomeProduto,
+			String idProduto, BigDecimal totalCompra, BigDecimal vlrPagamento,
 			BigDecimal vlrTroco, Date data, List<Venda> vendas) {
-		super();
+		
 		this.id = id;
 		this.nomeCliente = nomeCliente;
+		this.idClinte = idClinte;
 		this.nomeProduto = nomeProduto;
+		this.idProduto = idProduto;
 		this.totalCompra = totalCompra;
 		this.vlrPagamento = vlrPagamento;
 		VlrTroco = vlrTroco;
 		this.data = data;
 		this.vendas = vendas;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -51,12 +57,28 @@ public class Venda {
 		this.nomeCliente = nomeCliente;
 	}
 
+	public int getIdClinte() {
+		return idClinte;
+	}
+
+	public void setIdClinte(int idClinte) {
+		this.idClinte = idClinte;
+	}
+
 	public String getNomeProduto() {
 		return nomeProduto;
 	}
 
 	public void setNomeProduto(String nomeProduto) {
 		this.nomeProduto = nomeProduto;
+	}
+
+	public String getIdProduto() {
+		return idProduto;
+	}
+
+	public void setIdProduto(String idProduto) {
+		this.idProduto = idProduto;
 	}
 
 	public BigDecimal getTotalCompra() {
@@ -98,5 +120,5 @@ public class Venda {
 	public void setVendas(List<Venda> vendas) {
 		this.vendas = vendas;
 	}
-	
+
 }
