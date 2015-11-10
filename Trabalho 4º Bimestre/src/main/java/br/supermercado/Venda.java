@@ -15,8 +15,6 @@ public class Venda {
 	private BigDecimal VlrTroco;
 	private Date data;
 	private String hora;
-	
-	private List<Venda> vendas;
 
 	public Venda() {
 		
@@ -24,7 +22,7 @@ public class Venda {
 
 	public Venda(int idVenda, String nomeCliente, int idClinte,
 			BigDecimal totalCompra, BigDecimal vlrPagamento,
-			BigDecimal vlrTroco, Date data, String hora, List<Venda> vendas) {
+			BigDecimal vlrTroco, Date data, String hora) {
 		super();
 		this.idVenda = idVenda;
 		this.nomeCliente = nomeCliente;
@@ -34,7 +32,6 @@ public class Venda {
 		VlrTroco = vlrTroco;
 		this.data = data;
 		this.hora = hora;
-		this.vendas = vendas;
 	}
 
 	public int getIdVenda() {
@@ -100,13 +97,4 @@ public class Venda {
 	public void setHora(String hora) {
 		this.hora = hora;
 	}
-
-	public List<Venda> getVendas() {
-		return vendas;
-	}
-
-	public void setVendas(List<Venda> vendas) {
-		this.vendas = vendas;
-	}
-
 }
