@@ -1,5 +1,6 @@
 package br.supermercado;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +11,9 @@ public class ItemVenda {
 	private int idProduto;
 	private String descricao;
 	private String categoria;
-	private String vlrUnidade;
+	private BigDecimal vlrUnidade;
 	private int qtd;
-	private String vlrTotal;
+	private BigDecimal vlrTotal;
 	
 	List<ItemVenda> itensVenda = new ArrayList<ItemVenda>();
 
@@ -21,7 +22,7 @@ public class ItemVenda {
 	}
 
 	public ItemVenda(int idItem, int idVenda, int idProduto, String descricao,
-			String categoria, String vlrUnidade, int qtd, String vlrTotal,
+			String categoria, BigDecimal vlrUnidade, int qtd, BigDecimal vlrTotal,
 			List<ItemVenda> itensVenda) {
 		super();
 		this.idItem = idItem;
@@ -75,11 +76,11 @@ public class ItemVenda {
 		this.categoria = categoria;
 	}
 
-	public String getVlrUnidade() {
+	public BigDecimal getVlrUnidade() {
 		return vlrUnidade;
 	}
 
-	public void setVlrUnidade(String vlrUnidade) {
+	public void setVlrUnidade(BigDecimal vlrUnidade) {
 		this.vlrUnidade = vlrUnidade;
 	}
 
@@ -91,11 +92,11 @@ public class ItemVenda {
 		this.qtd = qtd;
 	}
 
-	public String getVlrTotal() {
+	public BigDecimal getVlrTotal() {
 		return vlrTotal;
 	}
 
-	public void setVlrTotal(String vlrTotal) {
+	public void setVlrTotal(BigDecimal vlrTotal) {
 		this.vlrTotal = vlrTotal;
 	}
 

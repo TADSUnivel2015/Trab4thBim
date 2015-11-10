@@ -57,6 +57,8 @@ public class TelaVenda extends JPanel {
 	private JTextField txtTroco;
 	
 	private int flag = 1;
+	private JTextField textField;
+	private JTextField textField_1;
 	
 
 	/**
@@ -67,11 +69,11 @@ public class TelaVenda extends JPanel {
 		setLayout(null);
 		
 		JLabel lblNomeDoCliente = new JLabel("Nome do Cliente");
-		lblNomeDoCliente.setBounds(45, 33, 120, 14);
+		lblNomeDoCliente.setBounds(45, 59, 120, 14);
 		add(lblNomeDoCliente);		
 		
 		JLabel lblNomeDoProduto = new JLabel("Descri\u00E7\u00E3o do Produto");
-		lblNomeDoProduto.setBounds(662, 33, 132, 14);
+		lblNomeDoProduto.setBounds(662, 59, 132, 14);
 		add(lblNomeDoProduto);
 		
 		JLabel lblValorTotal = new JLabel("Valor Unidade");
@@ -115,7 +117,7 @@ public class TelaVenda extends JPanel {
 		scrollPane_1.setViewportView(tblVenda);
 		
 		txtNomeCliente = new JTextField();
-		txtNomeCliente.setBounds(175, 30, 378, 20);
+		txtNomeCliente.setBounds(156, 56, 397, 20);
 		add(txtNomeCliente);
 		txtNomeCliente.setColumns(10);
 		
@@ -141,11 +143,11 @@ public class TelaVenda extends JPanel {
 				
 			}
 		});
-		btnNewButton_1.setBounds(563, 30, 89, 20);
+		btnNewButton_1.setBounds(563, 56, 89, 20);
 		add(btnNewButton_1);
 		
 		txtNomeProduto = new JTextField();
-		txtNomeProduto.setBounds(804, 30, 397, 20);
+		txtNomeProduto.setBounds(793, 56, 408, 20);
 		add(txtNomeProduto);
 		txtNomeProduto.setColumns(10);
 		
@@ -169,7 +171,7 @@ public class TelaVenda extends JPanel {
 				}			
 			}
 		});
-		btnNewButton_2.setBounds(1211, 29, 89, 23);
+		btnNewButton_2.setBounds(1211, 55, 89, 23);
 		add(btnNewButton_2);
 		
 		JLabel lblQuantidade = new JLabel("Quantidade");
@@ -197,22 +199,22 @@ public class TelaVenda extends JPanel {
 		txtValorTotal.setColumns(10);
 		
 		JLabel lblIdCliente = new JLabel("Id Cliente");
-		lblIdCliente.setBounds(45, 65, 68, 14);
+		lblIdCliente.setBounds(45, 87, 68, 14);
 		add(lblIdCliente);
 		
 		txtIdCliente = new JTextField();
 		txtIdCliente.setEditable(false);
-		txtIdCliente.setBounds(123, 62, 86, 20);
+		txtIdCliente.setBounds(123, 84, 86, 20);
 		add(txtIdCliente);
 		txtIdCliente.setColumns(10);
 		
 		JLabel lblIdProduto = new JLabel("Id Produto");
-		lblIdProduto.setBounds(662, 65, 68, 14);
+		lblIdProduto.setBounds(662, 87, 68, 14);
 		add(lblIdProduto);
 		
 		txtIdProduto = new JTextField();
 		txtIdProduto.setEditable(false);
-		txtIdProduto.setBounds(729, 62, 89, 20);
+		txtIdProduto.setBounds(729, 84, 77, 20);
 		add(txtIdProduto);
 		txtIdProduto.setColumns(10);
 		
@@ -245,6 +247,24 @@ public class TelaVenda extends JPanel {
 			}
 		});
 		scrollPane.setViewportView(tblGenerica);
+		
+		JLabel lblNewLabel = new JLabel("Categoria");
+		lblNewLabel.setBounds(816, 87, 68, 14);
+		add(lblNewLabel);
+		
+		textField = new JTextField();
+		textField.setBounds(880, 84, 179, 20);
+		add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Id Venda");
+		lblNewLabel_1.setBounds(45, 34, 61, 14);
+		add(lblNewLabel_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(123, 28, 86, 20);
+		add(textField_1);
+		textField_1.setColumns(10);
 
 	}
 	
