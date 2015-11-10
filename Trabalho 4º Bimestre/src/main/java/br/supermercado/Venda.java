@@ -7,15 +7,14 @@ import java.util.List;
 
 public class Venda {
 	
-	private int id;
+	private int idVenda;
 	private String nomeCliente;
 	private int idClinte;
-	private String nomeProduto;
-	private String idProduto;
 	private BigDecimal totalCompra;
 	private BigDecimal vlrPagamento;
 	private BigDecimal VlrTroco;
 	private Date data;
+	private String hora;
 	
 	private List<Venda> vendas;
 
@@ -23,30 +22,27 @@ public class Venda {
 		
 	}
 
-	public Venda(int id, String nomeCliente, int idClinte, String nomeProduto,
-			String idProduto, BigDecimal totalCompra, BigDecimal vlrPagamento,
-			BigDecimal vlrTroco, Date data, List<Venda> vendas) {
-		
-		this.id = id;
+	public Venda(int idVenda, String nomeCliente, int idClinte,
+			BigDecimal totalCompra, BigDecimal vlrPagamento,
+			BigDecimal vlrTroco, Date data, String hora, List<Venda> vendas) {
+		super();
+		this.idVenda = idVenda;
 		this.nomeCliente = nomeCliente;
 		this.idClinte = idClinte;
-		this.nomeProduto = nomeProduto;
-		this.idProduto = idProduto;
 		this.totalCompra = totalCompra;
 		this.vlrPagamento = vlrPagamento;
 		VlrTroco = vlrTroco;
 		this.data = data;
+		this.hora = hora;
 		this.vendas = vendas;
 	}
 
-
-
-	public int getId() {
-		return id;
+	public int getIdVenda() {
+		return idVenda;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdVenda(int idVenda) {
+		this.idVenda = idVenda;
 	}
 
 	public String getNomeCliente() {
@@ -63,22 +59,6 @@ public class Venda {
 
 	public void setIdClinte(int idClinte) {
 		this.idClinte = idClinte;
-	}
-
-	public String getNomeProduto() {
-		return nomeProduto;
-	}
-
-	public void setNomeProduto(String nomeProduto) {
-		this.nomeProduto = nomeProduto;
-	}
-
-	public String getIdProduto() {
-		return idProduto;
-	}
-
-	public void setIdProduto(String idProduto) {
-		this.idProduto = idProduto;
 	}
 
 	public BigDecimal getTotalCompra() {
@@ -111,6 +91,14 @@ public class Venda {
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+
+	public String getHora() {
+		return hora;
+	}
+
+	public void setHora(String hora) {
+		this.hora = hora;
 	}
 
 	public List<Venda> getVendas() {
