@@ -25,6 +25,8 @@ public class TabelaConsultaProduto extends AbstractTableModel {
 			return "Nome Produto";
 		if (column == 2)
 			return "Valor";
+		if (column == 3)
+			return "Categoria";
 
 		return null;
 	}
@@ -32,7 +34,7 @@ public class TabelaConsultaProduto extends AbstractTableModel {
 	@Override
 	public int getColumnCount() {
 
-		return 3;
+		return 4;
 	}
 
 	@Override
@@ -47,6 +49,7 @@ public class TabelaConsultaProduto extends AbstractTableModel {
 		case 0: return produtos.get(row).getId();
 		case 1: return produtos.get(row).getDescricao();
 		case 2: return produtos.get(row).getCusto();
+		case 3: return produtos.get(row).getCategoria();
 		}
 		return null;
 		

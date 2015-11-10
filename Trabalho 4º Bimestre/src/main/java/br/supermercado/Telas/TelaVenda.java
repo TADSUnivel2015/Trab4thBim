@@ -57,7 +57,7 @@ public class TelaVenda extends JPanel {
 	private JTextField txtTroco;
 	
 	private int flag = 1;
-	private JTextField textField;
+	private JTextField txtCategoriaProduto;
 	private JTextField textField_1;
 	
 
@@ -77,7 +77,7 @@ public class TelaVenda extends JPanel {
 		add(lblNomeDoProduto);
 		
 		JLabel lblValorTotal = new JLabel("Valor Unidade");
-		lblValorTotal.setBounds(1021, 172, 110, 14);
+		lblValorTotal.setBounds(1020, 200, 110, 14);
 		add(lblValorTotal);
 		
 		JLabel lblValorPagamento = new JLabel("VALOR PAGAMENTO");
@@ -175,17 +175,18 @@ public class TelaVenda extends JPanel {
 		add(btnNewButton_2);
 		
 		JLabel lblQuantidade = new JLabel("Quantidade");
-		lblQuantidade.setBounds(1021, 136, 89, 14);
+		lblQuantidade.setBounds(1020, 161, 89, 14);
 		add(lblQuantidade);
 		
 		txtValorUnidade = new JTextField();
-		txtValorUnidade.setBounds(1131, 169, 86, 20);
+		txtValorUnidade.setEditable(false);
+		txtValorUnidade.setBounds(1131, 197, 86, 20);
 		add(txtValorUnidade);
 		txtValorUnidade.setColumns(10);
 		
 		txtQuantidade = new JTextField();
 		txtQuantidade.setColumns(10);
-		txtQuantidade.setBounds(1131, 133, 86, 20);
+		txtQuantidade.setBounds(1131, 158, 86, 20);
 		add(txtQuantidade);
 		
 		JLabel lblValorTotal_1 = new JLabel("Valor Total");
@@ -241,6 +242,7 @@ public class TelaVenda extends JPanel {
 					txtIdProduto.setText(String.valueOf(tblGenerica.getValueAt(tblGenerica.getSelectedRow(), 0)));
 					txtNomeProduto.setText(String.valueOf(tblGenerica.getValueAt(tblGenerica.getSelectedRow(), 1)));
 					txtValorUnidade.setText(String.valueOf(tblGenerica.getValueAt(tblGenerica.getSelectedRow(), 2)));
+					txtCategoriaProduto.setText(String.valueOf(tblGenerica.getValueAt(tblGenerica.getSelectedRow(), 3)));
 					
 				}
 				
@@ -252,10 +254,11 @@ public class TelaVenda extends JPanel {
 		lblNewLabel.setBounds(816, 87, 68, 14);
 		add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(880, 84, 179, 20);
-		add(textField);
-		textField.setColumns(10);
+		txtCategoriaProduto = new JTextField();
+		txtCategoriaProduto.setEditable(false);
+		txtCategoriaProduto.setBounds(880, 84, 179, 20);
+		add(txtCategoriaProduto);
+		txtCategoriaProduto.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Id Venda");
 		lblNewLabel_1.setBounds(45, 34, 61, 14);
