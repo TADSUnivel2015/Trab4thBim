@@ -50,17 +50,7 @@ public class ClienteDAO implements EstrururaDAO<Cliente>{
 
 	@Override
 	public void atualizar(Cliente cliente) throws SQLException {
-		//		
-		//		cliente.setId(Integer.parseInt(txtId.getText()));
-		//		
-		//		cliente.setNome(txtNome.getText());
-		//		cliente.setTelefone(txtTelefone.getText());
-		//		cliente.setEndereco(txtEndereco.getText());
-		//		cliente.setCidade(txtCidade.getText());
-		//		cliente.setEstado(cbEstado.getSelectedItem().toString());
-		//		cliente.setEmail(txtEmail.getText());
-		//		cliente.setGenero(cbGenero.getSelectedItem().toString());
-
+	
 		ps = conexao.prepareStatement("UPDATE CLIENTE SET NOME = '"+cliente.getNome()
 				+"', TELEFONE = '"+cliente.getTelefone()
 				+"', ENDERECO = '"+cliente.getEndereco()
@@ -79,8 +69,6 @@ public class ClienteDAO implements EstrururaDAO<Cliente>{
 
 	@Override
 	public void excluir(int id) throws SQLException {
-
-		//		cliente.setId(Integer.parseInt(txtId.getText()));
 
 		ps = conexao.prepareStatement("DELETE FROM CLIENTE WHERE ID = ?");
 
