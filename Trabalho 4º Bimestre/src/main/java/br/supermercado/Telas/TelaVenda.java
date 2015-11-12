@@ -102,7 +102,7 @@ public class TelaVenda extends JPanel {
 		txtTroco.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Adicionar");
-		btnNewButton.setBounds(948, 251, 352, 36);
+		btnNewButton.setBounds(948, 251, 210, 36);
 		add(btnNewButton);
 		
 		JPanel panel_1 = new JPanel();
@@ -268,6 +268,14 @@ public class TelaVenda extends JPanel {
 		textField_1.setBounds(123, 28, 86, 20);
 		add(textField_1);
 		textField_1.setColumns(10);
+		
+		JButton btnNewButton_3 = new JButton("Remover Item");
+		btnNewButton_3.setBounds(1165, 251, 135, 36);
+		add(btnNewButton_3);
+		
+		JButton btnNewButton_4 = new JButton("Finalizar Venda");
+		btnNewButton_4.setBounds(1211, 548, 89, 24);
+		add(btnNewButton_4);
 
 	}
 	
