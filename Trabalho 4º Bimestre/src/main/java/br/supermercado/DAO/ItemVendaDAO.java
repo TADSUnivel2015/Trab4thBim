@@ -14,7 +14,7 @@ import br.supermercado.ItemVenda;
 public class ItemVendaDAO implements EstrururaDAO<ItemVenda> {
 
 	private Connection conexao = null;
-	private PreparedStatement ps = null;
+	private PreparedStatement ps;
 	
 	@Override
 	public void abrirConexao() throws SQLException {
