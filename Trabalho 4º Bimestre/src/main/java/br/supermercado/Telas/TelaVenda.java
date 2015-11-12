@@ -40,7 +40,7 @@ import java.awt.event.MouseEvent;
 
 public class TelaVenda extends JPanel {
 	
-	private JTable tblVenda;
+	private JTable tblItensVenda;
 	private JTable tblGenerica;
 	
 	private ClienteDAO clienteDAO = new ClienteDAO();
@@ -113,8 +113,8 @@ public class TelaVenda extends JPanel {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		panel_1.add(scrollPane_1, BorderLayout.CENTER);
 		
-		tblVenda = new JTable();
-		scrollPane_1.setViewportView(tblVenda);
+		tblItensVenda = new JTable();
+		scrollPane_1.setViewportView(tblItensVenda);
 		
 		txtNomeCliente = new JTextField();
 		txtNomeCliente.setBounds(156, 56, 397, 20);
