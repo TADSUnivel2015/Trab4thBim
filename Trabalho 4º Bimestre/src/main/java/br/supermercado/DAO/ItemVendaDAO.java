@@ -56,6 +56,14 @@ public class ItemVendaDAO implements EstrururaDAO<ItemVenda> {
 	@Override
 	public void excluir(int id) throws SQLException {
 		
+		ps = conexao.prepareStatement("DELETE FROM itemVenda WHERE ID = ?");
+	
+		ps.setInt(1, id);
+	
+		ps.execute();
+	
+		ps.close();	
+
 	}
 
 	@Override

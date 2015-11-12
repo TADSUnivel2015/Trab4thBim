@@ -60,7 +60,6 @@ public class VendaDAO implements EstrururaDAO<Venda>{
 	
 	@Override
 	public List<Venda> listar(String sql) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
