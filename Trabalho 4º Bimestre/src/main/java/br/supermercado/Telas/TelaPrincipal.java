@@ -139,6 +139,8 @@ public class TelaPrincipal extends JFrame {
 				telaVenda.setCloseAction(action);
 				
 				tabbedPane.addTab("Tela De Venda", telaVenda);
+				
+				mostrarUltima();
 			}
 		});
 		mnVendas.add(mntmRealizarVenda);
@@ -194,6 +196,8 @@ public class TelaPrincipal extends JFrame {
 		telaCadastroCliente.setCloseAction(action);
 
 		tabbedPane.addTab("Cadastro de Cliente ", telaCadastroCliente);
+		
+		mostrarUltima();
 	}
 
 	private void abrirTelaCadastroUsuario() throws SQLException {
@@ -211,6 +215,7 @@ public class TelaPrincipal extends JFrame {
 		
 		tabbedPane.addTab("Cadastro de Usuário", telaCadastroUsuario);
 		
+		mostrarUltima();
 	}
 	
 	private void abrirTelaCadastroProduto() throws SQLException {
@@ -226,5 +231,11 @@ public class TelaPrincipal extends JFrame {
 		telaCadastroProduto.setCloseAction(action);
 		
 		tabbedPane.addTab("Cadastro de Produto", telaCadastroProduto);
+		
+		mostrarUltima();
+	}
+	
+	private void mostrarUltima() {
+		tabbedPane.setSelectedIndex(tabbedPane.getTabCount() - 1);
 	}
 }
