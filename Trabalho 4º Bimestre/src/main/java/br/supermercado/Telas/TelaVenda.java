@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.JobAttributes;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -116,39 +117,45 @@ public class TelaVenda extends JPanel {
 		JButton btnNewButton = new JButton("Adicionar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String sqlConsultaItens = "SELECT * FROM itemvenda where idvenda = " + Integer.parseInt(txtIdVenda.getText());
 
-				txtValorTotal.setText("0.0");
-				txtValorUnidade.setText("0.0");				
+				if (!txtNomeCliente.getText().equals("")){
 
-				BigDecimal vlrUnidade = new BigDecimal(txtValorUnidade.getText());
-				BigDecimal vlrTotal = new BigDecimal(txtValorTotal.getText());	
+					String sqlConsultaItens = "SELECT * FROM itemvenda where idvenda = " + Integer.parseInt(txtIdVenda.getText());
 
-				try {
+					txtValorTotal.setText("0.0");
+					txtValorUnidade.setText("0.0");				
 
-					itemVendaDAO.abrirConexao();
+					BigDecimal vlrUnidade = new BigDecimal(txtValorUnidade.getText());
+					BigDecimal vlrTotal = new BigDecimal(txtValorTotal.getText());	
 
-					ItemVenda intemVenda = new ItemVenda(Integer.parseInt(txtIdVenda.getText())
-							, Integer.parseInt(txtIdProduto.getText())
-							, txtNomeProduto.getText()
-							, txtCategoriaProduto.getText()
-							, vlrUnidade
-							, Integer.parseInt(txtQuantidade.getText())
-							, vlrTotal);
+					try {
 
-					itemVendaDAO.gravar(intemVenda);
+						itemVendaDAO.abrirConexao();
 
-					tblItensVenda.setModel((TableModel)new TabelaItensVenda(itemVendaDAO.listar(sqlConsultaItens)));
+						ItemVenda intemVenda = new ItemVenda(Integer.parseInt(txtIdVenda.getText())
+								, Integer.parseInt(txtIdProduto.getText())
+								, txtNomeProduto.getText()
+								, txtCategoriaProduto.getText()
+								, vlrUnidade
+								, Integer.parseInt(txtQuantidade.getText())
+								, vlrTotal);
 
-					itemVendaDAO.fecharConexao();
+						itemVendaDAO.gravar(intemVenda);
 
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+						tblItensVenda.setModel((TableModel)new TabelaItensVenda(itemVendaDAO.listar(sqlConsultaItens)));
+
+						itemVendaDAO.fecharConexao();
+
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Por favor, insira o nome do cliente.");
 				}
 			}
 		});
-		btnNewButton.setBounds(948, 251, 352, 36);
+		btnNewButton.setBounds(948, 251, 242, 36);
 		add(btnNewButton);
 
 		JPanel panel_1 = new JPanel();
@@ -160,6 +167,15 @@ public class TelaVenda extends JPanel {
 		panel_1.add(scrollPane_1, BorderLayout.CENTER);
 
 		tblItensVenda = new JTable();
+		tblItensVenda.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				txtIdProduto.setText(String.valueOf(tblItensVenda.getValueAt(tblItensVenda.getSelectedRow(), 0)));
+				txtNomeProduto.setText(String.valueOf(tblItensVenda.getValueAt(tblItensVenda.getSelectedRow(), 1)));
+				txtValorUnidade.setText(String.valueOf(tblItensVenda.getValueAt(tblItensVenda.getSelectedRow(), 2)));
+				txtCategoriaProduto.setText(String.valueOf(tblItensVenda.getValueAt(tblItensVenda.getSelectedRow(), 3)));
+			}
+		});
 		scrollPane_1.setViewportView(tblItensVenda);
 
 		txtNomeCliente = new JTextField();
@@ -231,6 +247,7 @@ public class TelaVenda extends JPanel {
 		txtValorUnidade.setColumns(10);
 
 		txtQuantidade = new JTextField();
+		txtQuantidade.setText("1");
 		txtQuantidade.setColumns(10);
 		txtQuantidade.setBounds(1131, 158, 86, 20);
 		add(txtQuantidade);
@@ -338,11 +355,11 @@ public class TelaVenda extends JPanel {
 								, vlrTroco
 								, getDate()
 								, getTime());
-						
+
 						vendaDAO.gravar(venda);
-						
+
 						limparCampos();
-						
+
 						vendaDAO.fecharConexao();
 
 					} catch (SQLException e1) {
@@ -354,6 +371,39 @@ public class TelaVenda extends JPanel {
 		});
 		btnFinalizarVenda.setBounds(1083, 543, 217, 29);
 		add(btnFinalizarVenda);
+
+		JButton btnNewButton_3 = new JButton("Remover");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				int resp = JOptionPane.showConfirmDialog(null, "Deseja realmente remover este item?");
+
+				if (resp == JOptionPane.YES_OPTION == true) {
+
+					String sqlConsultaItens = "SELECT * FROM itemvenda where idvenda = " + Integer.parseInt(txtIdVenda.getText());
+
+					try {
+						itemVendaDAO.abrirConexao();
+
+						itemVendaDAO.excluir(Integer.parseInt(tblItensVenda.getValueAt(tblItensVenda.getSelectedRow(), 0).toString()));
+
+
+
+						JOptionPane.showMessageDialog(null, "Item deletado");
+						tblItensVenda.setModel((TableModel)new TabelaItensVenda(itemVendaDAO.listar(sqlConsultaItens)));
+
+
+						itemVendaDAO.fecharConexao();
+
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		btnNewButton_3.setBounds(1196, 251, 104, 36);
+		add(btnNewButton_3);
 
 	}
 
@@ -380,7 +430,7 @@ public class TelaVenda extends JPanel {
 
 		return date; 
 	}
-	
+
 	private String getTime() {
 
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");

@@ -6,6 +6,7 @@ import java.util.List;
 
 public class ItemVenda {
 	
+	private int id;
 	private int idVenda;
 	private int idProduto;
 	private String descricao;
@@ -28,6 +29,14 @@ public class ItemVenda {
 		this.vlrUnidade = vlrUnidade;
 		this.qtd = qtd;
 		this.vlrTotal = vlrTotal;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getIdVenda() {

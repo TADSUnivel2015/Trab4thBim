@@ -60,6 +60,7 @@ public class TelaCadastroProduto extends JPanel {
 
 	private ProdutoDAO produtoDAO = new ProdutoDAO();
 
+	private String consultaSQL = "SELECT * FROM produto";
 
 	private JTable tblProdutos;
 
@@ -156,7 +157,7 @@ public class TelaCadastroProduto extends JPanel {
 		try {
 			produtoDAO.abrirConexao();
 
-			tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar(null)));
+			tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar(consultaSQL)));
 
 			produtoDAO.fecharConexao();
 		} catch (SQLException g) {
@@ -181,7 +182,7 @@ public class TelaCadastroProduto extends JPanel {
 							vlrCusto, vlrLucro);
 
 					produtoDAO.gravar(produto);					
-					tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar(null)));
+					tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar(consultaSQL)));
 					limparCampos();
 
 					JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
@@ -199,6 +200,7 @@ public class TelaCadastroProduto extends JPanel {
 		JButton btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				try {
 					produtoDAO.abrirConexao();
 
@@ -211,7 +213,7 @@ public class TelaCadastroProduto extends JPanel {
 							vlrCusto, vlrLucro);
 
 					produtoDAO.atualizar(produto);
-					tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar(null)));
+					tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar(consultaSQL)));
 					limparCampos();
 
 					JOptionPane.showMessageDialog(null, "Dados do produto atualizados com sucesso!");
@@ -237,7 +239,7 @@ public class TelaCadastroProduto extends JPanel {
 						produtoDAO.abrirConexao();
 
 						produtoDAO.excluir(Integer.parseInt(txtId.getText()));
-						tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar(null)));
+						tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar(consultaSQL)));
 						limparCampos();
 
 						produtoDAO.fecharConexao();

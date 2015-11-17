@@ -80,6 +80,7 @@ public class ItemVendaDAO implements EstrururaDAO<ItemVenda> {
 		while (result.next()) {
 			ItemVenda novo = new ItemVenda();
 
+			novo.setId(result.getInt("id"));
 			novo.setIdProduto(result.getInt("IdItemVenda"));
 			novo.setIdVenda(result.getInt("idVenda"));
 			novo.setDescricao(result.getString("descricao"));

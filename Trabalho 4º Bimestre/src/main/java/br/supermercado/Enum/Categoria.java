@@ -12,27 +12,29 @@ package br.supermercado.Enum;
 
 public enum Categoria {
 	
-	ACOUGUE("Açougue"),
-	VERDURA("Verduras"),
-	FRUTA("Frutas"),
-	FRIOeLATICINIO("Frios e Laticínios"),
-	CONGELADO("Congelados"),
-	MERCEARIA("Mercearia"),
-	LIMPEZA("Limpeza"),
-	HIGIENEePERFUMARIA("Higiene e Perfumaria"),
-	BAZAR("Bazar"),
-	BEBIDA("Bebidas"),
-	GAS("Gás");
+	AÇOUGUE(""),
+	VERDURA(""),
+	FRUTA(""),
+	FRIOS(""),
+	LATICÍNIO(""),
+	CONGELADO(""),
+	MERCEARIA(""),
+	LIMPEZA(""),
+	HIGIENE(""),
+	PERFUMARIA(""),
+	BAZAR(""),
+	BEBIDA(""),
+	GÁS("");
 	
+	private Categoria(String nome) {
+		this.nome = nome;
+	}
+
 	private String nome;
 
 	public String getNome() {
 		return nome;
 	}
 
-	private Categoria(String nome) {
-		this.nome = nome;
-	}
-	
 
 }

@@ -90,7 +90,7 @@ public class ProdutoDAO implements EstrururaDAO<Produto>{
 		// Atributo que faz a busca no banco.
 		ResultSet result;
 
-		ps = conexao.prepareStatement("SELECT * FROM produto");
+		ps = conexao.prepareStatement(sql);
 
 		result = ps.executeQuery();
 
