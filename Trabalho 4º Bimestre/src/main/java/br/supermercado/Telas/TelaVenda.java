@@ -102,6 +102,10 @@ public class TelaVenda extends JPanel {
 		txtTroco.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Adicionar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton.setBounds(948, 251, 352, 36);
 		add(btnNewButton);
 		
