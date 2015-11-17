@@ -145,6 +145,18 @@ public class TelaPrincipal extends JFrame {
 		});
 		mnVendas.add(mntmRealizarVenda);
 		
+		JMenu mnRelatrios = new JMenu("Relat\u00F3rios");
+		menuBar.add(mnRelatrios);
+		
+		JMenuItem mntmCliente_1 = new JMenuItem("Cliente");
+		mnRelatrios.add(mntmCliente_1);
+		
+		JMenuItem mntmProduto = new JMenuItem("Produto");
+		mnRelatrios.add(mntmProduto);
+		
+		JMenuItem mntmVenda = new JMenuItem("Venda");
+		mnRelatrios.add(mntmVenda);
+		
 		JMenu mnBloquear = new JMenu("Bloquear");
 		menuBar.add(mnBloquear);
 		
