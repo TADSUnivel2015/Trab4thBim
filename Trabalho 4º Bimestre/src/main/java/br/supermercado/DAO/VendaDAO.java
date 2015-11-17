@@ -1,6 +1,7 @@
 package br.supermercado.DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -35,7 +36,11 @@ public class VendaDAO implements EstrururaDAO<Venda>{
 
 		ps.setInt(1, venda.getIdVenda());
 		ps.setInt(2, venda.getIdClinte());
-		ps.setString(3, venda.getData());
+		
+		java.util.Date utilDate = venda.getData();  
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); 
+		
+		ps.setDate(3, sqlDate);
 		ps.setString(4, venda.getHora());
 		ps.setBigDecimal(5, venda.getTotalCompra());
 

@@ -19,6 +19,10 @@ import java.awt.Font;
 import java.awt.BorderLayout;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -330,6 +334,18 @@ public class TelaVenda extends JPanel {
 				BigDecimal vlrPagamento = new BigDecimal(txtValorPagamento.getText());
 				BigDecimal vlrTroco = new BigDecimal(txtTroco.getText());
 				
+				String texto = "16/11/2015";
+				String formato = "dd/mm/yyyy";
+				
+				Date date = null;
+				try {
+					date = new SimpleDateFormat(formato).parse(texto);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
+				
+				
 				int resp = JOptionPane.showConfirmDialog(null, "Deseja realmente finalizar a compra?");
 				
 				if (resp == JOptionPane.YES_OPTION == true) {
@@ -343,8 +359,15 @@ public class TelaVenda extends JPanel {
 								, totalCompra
 								, vlrPagamento
 								, vlrTroco
-								, "16/11/2015"
+								, date
 								, "22:29");
+						vendaDAO.gravar(venda);
+						
+						JOptionPane.showMessageDialog(null, "Venda realizada");
+						
+						limparCampos();
+						
+						vendaDAO.fecharConexao();
 						
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
