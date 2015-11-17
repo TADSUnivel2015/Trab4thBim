@@ -17,6 +17,7 @@ import br.supermercado.ExtendsMoldura.CadastroProduto;
 import br.supermercado.ExtendsMoldura.CadastroUsuario;
 import br.supermercado.ExtendsMoldura.RelatorioCliente;
 import br.supermercado.ExtendsMoldura.RelatorioProduto;
+import br.supermercado.ExtendsMoldura.RelatorioVenda;
 import br.supermercado.ExtendsMoldura.Venda;
 import br.supermercado.Login.Login;
 import br.supermercado.Login.PainelBloqueio;
@@ -45,12 +46,12 @@ public class TelaPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-				
+
 					TelaPrincipal frame = new TelaPrincipal();
 					frame.setVisible(true);
 					frame.setExtendedState(MAXIMIZED_BOTH);
 					frame.setResizable(false);
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -62,7 +63,7 @@ public class TelaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaPrincipal() {
-		
+
 		bloqueioTelaPrincipal();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -87,7 +88,7 @@ public class TelaPrincipal extends JFrame {
 
 		});
 		mnCadastros.add(mntmCliente);
-		
+
 		JMenuItem mntmCadastroDeFuncionrio = new JMenuItem("Cadastro de usu\u00E1rio");
 		mntmCadastroDeFuncionrio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -100,7 +101,7 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mnCadastros.add(mntmCadastroDeFuncionrio);
-		
+
 		JMenuItem mntmCadastroDeProduto = new JMenuItem("Cadastro de produto");
 		mntmCadastroDeProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -113,10 +114,10 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mnCadastros.add(mntmCadastroDeProduto);
-		
+
 		JMenu mnVendas = new JMenu("Vendas");
 		menuBar.add(mnVendas);
-		
+
 		JMenuItem mntmRealizarVenda = new JMenuItem("Realizar venda");
 		mntmRealizarVenda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -129,10 +130,10 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mnVendas.add(mntmRealizarVenda);
-		
+
 		JMenu mnRelatrios = new JMenu("Relat\u00F3rios");
 		menuBar.add(mnRelatrios);
-		
+
 		JMenuItem mntmCliente_1 = new JMenuItem("Cliente");
 		mntmCliente_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -145,7 +146,7 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mnRelatrios.add(mntmCliente_1);
-		
+
 		JMenuItem mntmProduto = new JMenuItem("Produto");
 		mntmProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -158,13 +159,23 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mnRelatrios.add(mntmProduto);
-		
+
 		JMenuItem mntmVenda = new JMenuItem("Venda");
+		mntmVenda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					abrirTelaRelatorioVenda();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		mnRelatrios.add(mntmVenda);
-		
+
 		JMenu mnBloquear = new JMenu("Bloquear");
 		menuBar.add(mnBloquear);
-		
+
 		JMenuItem mntmCliqueParaBloquear = new JMenuItem("Clique para Bloquear!");
 		mntmCliqueParaBloquear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -181,7 +192,7 @@ public class TelaPrincipal extends JFrame {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 	}
-	
+
 	private void bloqueioTelaPrincipal() {
 		Runnable acaoOk = new Runnable() {
 			@Override
@@ -199,29 +210,29 @@ public class TelaPrincipal extends JFrame {
 
 		glass.setVisible(true);
 	}
-	
+
 	private void abrirTelaVenda() throws SQLException {
-		
+
 		Venda telaVenda = new Venda();
 		ActionListener action = new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tabbedPane.remove(telaVenda);						
 			}
 		};
 		telaVenda.setCloseAction(action);
-		
+
 		tabbedPane.addTab("Tela De Venda", telaVenda);
-		
+
 		mostrarUltima();
 	}
-	
+
 
 	private void abrirTelaCadastroCliente() throws SQLException {
 		CadastroCliente telaCadastroCliente = new CadastroCliente();
 		ActionListener action = new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tabbedPane.remove(telaCadastroCliente);			
@@ -230,81 +241,98 @@ public class TelaPrincipal extends JFrame {
 		telaCadastroCliente.setCloseAction(action);
 
 		tabbedPane.addTab("Cadastro de Cliente ", telaCadastroCliente);
-		
+
 		mostrarUltima();
 	}
 
 	private void abrirTelaCadastroUsuario() throws SQLException {
-		
+
 		CadastroUsuario telaCadastroUsuario = new CadastroUsuario();
 		ActionListener action = new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tabbedPane.remove(telaCadastroUsuario);
 			}
 		};
-		
+
 		telaCadastroUsuario.setCloseAction(action);
-		
+
 		tabbedPane.addTab("Cadastro de Usuário", telaCadastroUsuario);
-		
+
 		mostrarUltima();
 	}
-	
+
 	private void abrirTelaCadastroProduto() throws SQLException {
-		
+
 		CadastroProduto telaCadastroProduto = new CadastroProduto();
 		ActionListener action = new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tabbedPane.remove(telaCadastroProduto);						
 			}
 		};
 		telaCadastroProduto.setCloseAction(action);
-		
+
 		tabbedPane.addTab("Cadastro de Produto", telaCadastroProduto);
-		
+
 		mostrarUltima();
 	}
-	
+
 	private void abrirRelatorioCliente() throws SQLException {
-		
+
 		RelatorioCliente telaRelatorioCliente = new RelatorioCliente();
 		ActionListener action = new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tabbedPane.remove(telaRelatorioCliente);				
 			}
 		};
-		
+
 		telaRelatorioCliente.setCloseAction(action);
-		
+
 		tabbedPane.addTab("Relatório de Cliente", telaRelatorioCliente);
-		
+
 		mostrarUltima();		
 	}
-	
+
 	private void abrirTelaRelatorioProduto() throws SQLException {
-	
+
 		RelatorioProduto telaRelatorioProduto = new RelatorioProduto();
 		ActionListener action = new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tabbedPane.remove(telaRelatorioProduto);				
 			}
 		};
-		
+
 		telaRelatorioProduto.setCloseAction(action);
-		
+
 		tabbedPane.addTab("Relatório de Produto", telaRelatorioProduto);
-		
+
 		mostrarUltima();		
 	}
-	
+
+	private void abrirTelaRelatorioVenda() throws SQLException {
+		
+		RelatorioVenda telaRelatorioVenda = new RelatorioVenda();
+		ActionListener action = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tabbedPane.remove(telaRelatorioVenda);			
+			}
+		};
+		telaRelatorioVenda.setCloseAction(action);
+		
+		tabbedPane.addTab("Relatório de Venda", telaRelatorioVenda);
+		
+		mostrarUltima();
+	}
+
 	private void mostrarUltima() {
 		tabbedPane.setSelectedIndex(tabbedPane.getTabCount() - 1);
 	}
