@@ -23,7 +23,6 @@ public class Venda {
 	public Venda(int idVenda, String nomeCliente, int idClinte,
 			BigDecimal totalCompra, BigDecimal vlrPagamento,
 			BigDecimal vlrTroco, Date data, String hora) {
-		super();
 		this.idVenda = idVenda;
 		this.nomeCliente = nomeCliente;
 		this.idClinte = idClinte;
