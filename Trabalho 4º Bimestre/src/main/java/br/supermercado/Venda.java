@@ -13,7 +13,7 @@ public class Venda {
 	private BigDecimal totalCompra;
 	private BigDecimal vlrPagamento;
 	private BigDecimal VlrTroco;
-	private Date data;
+	private String data;
 	private String hora;
 
 	public Venda() {
@@ -22,7 +22,7 @@ public class Venda {
 
 	public Venda(int idVenda, String nomeCliente, int idClinte,
 			BigDecimal totalCompra, BigDecimal vlrPagamento,
-			BigDecimal vlrTroco, Date data, String hora) {
+			BigDecimal vlrTroco, String data, String hora) {
 		super();
 		this.idVenda = idVenda;
 		this.nomeCliente = nomeCliente;
@@ -82,11 +82,11 @@ public class Venda {
 		VlrTroco = vlrTroco;
 	}
 
-	public Date getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 

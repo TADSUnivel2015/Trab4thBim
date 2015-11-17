@@ -35,7 +35,7 @@ public class VendaDAO implements EstrururaDAO<Venda>{
 
 		ps.setInt(1, venda.getIdVenda());
 		ps.setInt(2, venda.getIdClinte());
-		ps.setDate(3, venda.getData());
+		ps.setString(3, venda.getData());
 		ps.setString(4, venda.getHora());
 		ps.setBigDecimal(5, venda.getTotalCompra());
 

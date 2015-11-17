@@ -11,6 +11,7 @@ import java.awt.Insets;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
@@ -26,9 +27,12 @@ import javax.swing.table.TableModel;
 import com.bea.xml.stream.samples.Parse;
 
 import br.supermercado.ItemVenda;
+import br.supermercado.Venda;
 import br.supermercado.DAO.ClienteDAO;
 import br.supermercado.DAO.ItemVendaDAO;
 import br.supermercado.DAO.ProdutoDAO;
+import br.supermercado.DAO.VendaDAO;
+import br.supermercado.ModelTabelas.TabelaClientes;
 import br.supermercado.ModelTabelas.TabelaConsultaCliente;
 import br.supermercado.ModelTabelas.TabelaConsultaProduto;
 import br.supermercado.ModelTabelas.TabelaItensVenda;
@@ -49,8 +53,8 @@ public class TelaVenda extends JPanel {
 	
 	private ClienteDAO clienteDAO = new ClienteDAO();
 	private ProdutoDAO produtoDAO = new ProdutoDAO();
-
 	private ItemVendaDAO  itemVendaDAO  = new ItemVendaDAO();
+	private VendaDAO vendaDAO = new VendaDAO();
 	
 	private JTextField txtNomeCliente;
 	private JTextField txtNomeProduto;
@@ -143,7 +147,8 @@ public class TelaVenda extends JPanel {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+					
+				limparCampos();
 			}
 		});
 		btnNewButton.setBounds(948, 251, 210, 36);
@@ -320,6 +325,35 @@ public class TelaVenda extends JPanel {
 		JButton btnNewButton_4 = new JButton("Finalizar Venda");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				BigDecimal totalCompra = new BigDecimal(txtValorTotal.getText());
+				BigDecimal vlrPagamento = new BigDecimal(txtValorPagamento.getText());
+				BigDecimal vlrTroco = new BigDecimal(txtTroco.getText());
+				
+				int resp = JOptionPane.showConfirmDialog(null, "Deseja realmente finalizar a compra?");
+				
+				if (resp == JOptionPane.YES_OPTION == true) {
+					
+					try {
+						vendaDAO.abrirConexao();
+						
+						Venda venda = new Venda(Integer.parseInt(txtIdVenda.getText())
+								, txtNomeCliente.getText()
+								, Integer.parseInt(txtIdCliente.getText())
+								, totalCompra
+								, vlrPagamento
+								, vlrTroco
+								, "16/11/2015"
+								, "22:29");
+						
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			
+		
+				}
+		
 			}
 		});
 		btnNewButton_4.setBounds(1148, 548, 152, 24);
@@ -329,12 +363,11 @@ public class TelaVenda extends JPanel {
 	
 	private void limparCampos(){
 
-		txtNomeCliente.setText("");
 		txtNomeProduto.setText("");
+		txtCategoriaProduto.setText("");
 		txtValorUnidade.setText("");
 		txtQuantidade.setText("1");
 		txtValorTotal.setText("0.0");
-		txtIdCliente.setText("");
 		txtIdProduto.setText("");
 		txtValorPagamento.setText("0.0");
 		txtTroco.setText("0.0");
