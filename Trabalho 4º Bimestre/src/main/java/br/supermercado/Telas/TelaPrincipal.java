@@ -16,6 +16,7 @@ import br.supermercado.ExtendsMoldura.CadastroCliente;
 import br.supermercado.ExtendsMoldura.CadastroProduto;
 import br.supermercado.ExtendsMoldura.CadastroUsuario;
 import br.supermercado.ExtendsMoldura.RelatorioCliente;
+import br.supermercado.ExtendsMoldura.RelatorioProduto;
 import br.supermercado.ExtendsMoldura.Venda;
 import br.supermercado.Login.Login;
 import br.supermercado.Login.PainelBloqueio;
@@ -146,6 +147,16 @@ public class TelaPrincipal extends JFrame {
 		mnRelatrios.add(mntmCliente_1);
 		
 		JMenuItem mntmProduto = new JMenuItem("Produto");
+		mntmProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					abrirTelaRelatorioProduto();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		mnRelatrios.add(mntmProduto);
 		
 		JMenuItem mntmVenda = new JMenuItem("Venda");
@@ -272,6 +283,24 @@ public class TelaPrincipal extends JFrame {
 		telaRelatorioCliente.setCloseAction(action);
 		
 		tabbedPane.addTab("Relatório de Cliente", telaRelatorioCliente);
+		
+		mostrarUltima();		
+	}
+	
+	private void abrirTelaRelatorioProduto() throws SQLException {
+	
+		RelatorioProduto telaRelatorioProduto = new RelatorioProduto();
+		ActionListener action = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tabbedPane.remove(telaRelatorioProduto);				
+			}
+		};
+		
+		telaRelatorioProduto.setCloseAction(action);
+		
+		tabbedPane.addTab("Relatório de Produto", telaRelatorioProduto);
 		
 		mostrarUltima();		
 	}
