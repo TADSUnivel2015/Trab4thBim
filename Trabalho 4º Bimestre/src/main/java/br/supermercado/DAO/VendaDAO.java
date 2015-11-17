@@ -29,7 +29,7 @@ public class VendaDAO implements EstrururaDAO<Venda>{
 	@Override
 	public void gravar(Venda venda) throws SQLException {
 
-		ps = conexao.prepareStatement("INSERT INTO venda (IdVenda, idCliente, dataVenda, horaVenda, tatalCompra)"
+		ps = conexao.prepareStatement("INSERT INTO venda (IdVenda, idCliente, dataVenda, horaVenda, totalcompra)"
 				+ "VALUES (?, ?, ?, ?, ?)");
 
 		java.util.Date utilDate = venda.getData();  

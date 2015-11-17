@@ -336,8 +336,14 @@ public class TelaVenda extends JPanel {
 								, totalCompra
 								, vlrPagamento
 								, vlrTroco
-								, getDateTime()
-								, "22:29");
+								, getDate()
+								, getTime());
+						
+						vendaDAO.gravar(venda);
+						
+						limparCampos();
+						
+						vendaDAO.fecharConexao();
 
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
@@ -365,7 +371,7 @@ public class TelaVenda extends JPanel {
 
 	}
 
-	private Date getDateTime() {
+	private Date getDate() {
 
 		//		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
@@ -373,6 +379,14 @@ public class TelaVenda extends JPanel {
 		Date date = new Date(); 
 
 		return date; 
+	}
+	
+	private String getTime() {
+
+		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+		Date date = new Date(); 
+
+		return dateFormat.format(date); 
 	}
 
 
