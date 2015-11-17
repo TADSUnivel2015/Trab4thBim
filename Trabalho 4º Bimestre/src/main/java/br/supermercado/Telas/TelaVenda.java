@@ -27,12 +27,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
+import br.supermercado.ItemVenda;
 import br.supermercado.Venda;
 import br.supermercado.DAO.ClienteDAO;
+import br.supermercado.DAO.ItemVendaDAO;
 import br.supermercado.DAO.ProdutoDAO;
 import br.supermercado.DAO.VendaDAO;
 import br.supermercado.ModelTabelas.TabelaConsultaCliente;
 import br.supermercado.ModelTabelas.TabelaConsultaProduto;
+import br.supermercado.ModelTabelas.TabelaItensVenda;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -47,12 +50,13 @@ import java.awt.event.MouseEvent;
 
 public class TelaVenda extends JPanel {
 
-	private JTable tblVenda;
+	private JTable tblItensVenda;
 	private JTable tblGenerica;
 
 	private ClienteDAO clienteDAO = new ClienteDAO();
 	private ProdutoDAO produtoDAO = new ProdutoDAO();
 	private VendaDAO vendaDAO = new VendaDAO();
+	private ItemVendaDAO itemVendaDAO = new ItemVendaDAO();
 
 	private JTextField txtNomeCliente;
 	private JTextField txtNomeProduto;
@@ -112,6 +116,36 @@ public class TelaVenda extends JPanel {
 		JButton btnNewButton = new JButton("Adicionar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String sqlConsultaItens = "SELECT * FROM itemvenda where idvenda = " + Integer.parseInt(txtIdVenda.getText());
+
+				txtValorTotal.setText("0.0");
+				txtValorUnidade.setText("0.0");				
+
+				BigDecimal vlrUnidade = new BigDecimal(txtValorUnidade.getText());
+				BigDecimal vlrTotal = new BigDecimal(txtValorTotal.getText());	
+
+				try {
+
+					itemVendaDAO.abrirConexao();
+
+					ItemVenda intemVenda = new ItemVenda(Integer.parseInt(txtIdVenda.getText())
+							, Integer.parseInt(txtIdProduto.getText())
+							, txtNomeProduto.getText()
+							, txtCategoriaProduto.getText()
+							, vlrUnidade
+							, Integer.parseInt(txtQuantidade.getText())
+							, vlrTotal);
+
+					itemVendaDAO.gravar(intemVenda);
+
+					tblItensVenda.setModel((TableModel)new TabelaItensVenda(itemVendaDAO.listar(sqlConsultaItens)));
+
+					itemVendaDAO.fecharConexao();
+
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnNewButton.setBounds(948, 251, 352, 36);
@@ -125,8 +159,8 @@ public class TelaVenda extends JPanel {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		panel_1.add(scrollPane_1, BorderLayout.CENTER);
 
-		tblVenda = new JTable();
-		scrollPane_1.setViewportView(tblVenda);
+		tblItensVenda = new JTable();
+		scrollPane_1.setViewportView(tblItensVenda);
 
 		txtNomeCliente = new JTextField();
 		txtNomeCliente.setBounds(156, 56, 397, 20);
@@ -332,14 +366,14 @@ public class TelaVenda extends JPanel {
 	}
 
 	private Date getDateTime() {
-		
-//		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		
+
+		//		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
 		Date date = new Date(); 
-		
+
 		return date; 
 	}
 
-	
+
 }
