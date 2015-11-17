@@ -16,11 +16,16 @@ import br.supermercado.Enum.Mes;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaRelatorioVenda extends JPanel {
+	
 	private JTable tblGenerica;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextField txtNomeCliente;
+	
+	private int flag = 1;
 
 	/**
 	 * Create the panel.
@@ -70,7 +75,7 @@ public class TelaRelatorioVenda extends JPanel {
 		
 		JComboBox cbCategoria = new JComboBox(Categoria.values());
 		cbCategoria.setMaximumRowCount(12);
-		cbCategoria.setBounds(687, 46, 124, 23);
+		cbCategoria.setBounds(687, 46, 120, 23);
 		add(cbCategoria);
 		
 		txtNomeCliente = new JTextField();
@@ -79,6 +84,13 @@ public class TelaRelatorioVenda extends JPanel {
 		add(txtNomeCliente);
 		
 		JButton btnNewButton = new JButton("Procurar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				flag = 1;
+				
+			}
+		});
 		btnNewButton.setBounds(1160, 46, 93, 23);
 		add(btnNewButton);
 		
@@ -87,6 +99,13 @@ public class TelaRelatorioVenda extends JPanel {
 		add(button);
 		
 		JButton button_1 = new JButton("Pesquisar");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				flag = 2;
+				
+			}
+		});
 		button_1.setBounds(893, 92, 175, 31);
 		add(button_1);
 		
