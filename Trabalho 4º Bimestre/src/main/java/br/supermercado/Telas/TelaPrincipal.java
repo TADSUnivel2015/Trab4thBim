@@ -15,6 +15,7 @@ import javax.swing.JTabbedPane;
 import br.supermercado.ExtendsMoldura.CadastroCliente;
 import br.supermercado.ExtendsMoldura.CadastroProduto;
 import br.supermercado.ExtendsMoldura.CadastroUsuario;
+import br.supermercado.ExtendsMoldura.RelatorioCliente;
 import br.supermercado.ExtendsMoldura.Venda;
 import br.supermercado.Login.Login;
 import br.supermercado.Login.PainelBloqueio;
@@ -125,23 +126,6 @@ public class TelaPrincipal extends JFrame {
 					e.printStackTrace();
 				}
 			}
-
-			private void abrirTelaVenda() throws SQLException {
-				
-				Venda telaVenda = new Venda();
-				ActionListener action = new ActionListener() {
-					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						tabbedPane.remove(telaVenda);						
-					}
-				};
-				telaVenda.setCloseAction(action);
-				
-				tabbedPane.addTab("Tela De Venda", telaVenda);
-				
-				mostrarUltima();
-			}
 		});
 		mnVendas.add(mntmRealizarVenda);
 		
@@ -149,6 +133,16 @@ public class TelaPrincipal extends JFrame {
 		menuBar.add(mnRelatrios);
 		
 		JMenuItem mntmCliente_1 = new JMenuItem("Cliente");
+		mntmCliente_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					abrirRelatorioCliente();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		mnRelatrios.add(mntmCliente_1);
 		
 		JMenuItem mntmProduto = new JMenuItem("Produto");
@@ -193,6 +187,23 @@ public class TelaPrincipal extends JFrame {
 		setGlassPane(glass);
 
 		glass.setVisible(true);
+	}
+	
+	private void abrirTelaVenda() throws SQLException {
+		
+		Venda telaVenda = new Venda();
+		ActionListener action = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tabbedPane.remove(telaVenda);						
+			}
+		};
+		telaVenda.setCloseAction(action);
+		
+		tabbedPane.addTab("Tela De Venda", telaVenda);
+		
+		mostrarUltima();
 	}
 	
 
@@ -245,6 +256,24 @@ public class TelaPrincipal extends JFrame {
 		tabbedPane.addTab("Cadastro de Produto", telaCadastroProduto);
 		
 		mostrarUltima();
+	}
+	
+	private void abrirRelatorioCliente() throws SQLException {
+		
+		RelatorioCliente telaRelatorioCliente = new RelatorioCliente();
+		ActionListener action = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tabbedPane.remove(telaRelatorioCliente);				
+			}
+		};
+		
+		telaRelatorioCliente.setCloseAction(action);
+		
+		tabbedPane.addTab("Relatório de Cliente", telaRelatorioCliente);
+		
+		mostrarUltima();		
 	}
 	
 	private void mostrarUltima() {
