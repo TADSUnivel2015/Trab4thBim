@@ -32,9 +32,12 @@ public class VendaDAO implements EstrururaDAO<Venda>{
 		ps = conexao.prepareStatement("INSERT INTO venda (IdVenda, idCliente, dataVenda, horaVenda, tatalCompra)"
 				+ "VALUES (?, ?, ?, ?, ?)");
 
+		java.util.Date utilDate = venda.getData();  
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());  
+		
 		ps.setInt(1, venda.getIdVenda());
 		ps.setInt(2, venda.getIdClinte());
-		ps.setDate(3, venda.getData());
+		ps.setDate(3, sqlDate);
 		ps.setString(4, venda.getHora());
 		ps.setBigDecimal(5, venda.getTotalCompra());
 

@@ -1,8 +1,8 @@
 package br.supermercado;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Venda {
@@ -22,14 +22,14 @@ public class Venda {
 
 	public Venda(int idVenda, String nomeCliente, int idClinte,
 			BigDecimal totalCompra, BigDecimal vlrPagamento,
-			BigDecimal vlrTroco, Date data, String hora) {
+			BigDecimal vlrTroco, Date date, String hora) {
 		this.idVenda = idVenda;
 		this.nomeCliente = nomeCliente;
 		this.idClinte = idClinte;
 		this.totalCompra = totalCompra;
 		this.vlrPagamento = vlrPagamento;
 		VlrTroco = vlrTroco;
-		this.data = data;
+		this.data = date;
 		this.hora = hora;
 	}
 
