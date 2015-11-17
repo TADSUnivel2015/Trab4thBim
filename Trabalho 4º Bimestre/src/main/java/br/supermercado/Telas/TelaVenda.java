@@ -16,16 +16,22 @@ import javax.swing.JButton;
 
 import java.awt.Font;
 import java.awt.BorderLayout;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
+import com.bea.xml.stream.samples.Parse;
+
+import br.supermercado.ItemVenda;
 import br.supermercado.DAO.ClienteDAO;
+import br.supermercado.DAO.ItemVendaDAO;
 import br.supermercado.DAO.ProdutoDAO;
 import br.supermercado.ModelTabelas.TabelaConsultaCliente;
 import br.supermercado.ModelTabelas.TabelaConsultaProduto;
+import br.supermercado.ModelTabelas.TabelaItensVenda;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -39,12 +45,12 @@ import java.awt.event.MouseEvent;
  */
 
 public class TelaVenda extends JPanel {
-	
-	private JTable tblItensVenda;
 	private JTable tblGenerica;
 	
 	private ClienteDAO clienteDAO = new ClienteDAO();
 	private ProdutoDAO produtoDAO = new ProdutoDAO();
+
+	private ItemVendaDAO  itemVendaDAO  = new ItemVendaDAO();
 	
 	private JTextField txtNomeCliente;
 	private JTextField txtNomeProduto;
@@ -58,7 +64,8 @@ public class TelaVenda extends JPanel {
 	
 	private int flag = 1;
 	private JTextField txtCategoriaProduto;
-	private JTextField textField_1;
+	private JTextField txtIdVenda;
+	private JTable tblItensVenda;
 	
 
 	/**
@@ -100,8 +107,45 @@ public class TelaVenda extends JPanel {
 		txtTroco.setBounds(578, 547, 146, 23);
 		add(txtTroco);
 		txtTroco.setColumns(10);
+	
 		
 		JButton btnNewButton = new JButton("Adicionar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				String sqlConsultaItens = "SELECT * FROM itemvenda where idvenda = " + Integer.parseInt(txtIdVenda.getText());
+
+				txtValorTotal.setText("0.0");
+				txtValorUnidade.setText("0.0");				
+				
+				BigDecimal vlrUnidade = new BigDecimal(txtValorUnidade.getText());
+				BigDecimal vlrTotal = new BigDecimal(txtValorTotal.getText());	
+				
+				try {
+					
+					itemVendaDAO.abrirConexao();
+					
+					ItemVenda inteVenda = new ItemVenda(Integer.parseInt(txtIdVenda.getText())
+							, Integer.parseInt(txtIdProduto.getText())
+							, txtNomeProduto.getText()
+							, txtCategoriaProduto.getText()
+							, vlrUnidade
+							, Integer.parseInt(txtQuantidade.getText())
+							, vlrTotal);
+					
+					itemVendaDAO.gravar(inteVenda);
+					
+					tblItensVenda.setModel((TableModel)new TabelaItensVenda(itemVendaDAO.listar(sqlConsultaItens)));
+					
+					itemVendaDAO.fecharConexao();
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
 		btnNewButton.setBounds(948, 251, 210, 36);
 		add(btnNewButton);
 		
@@ -264,17 +308,21 @@ public class TelaVenda extends JPanel {
 		lblNewLabel_1.setBounds(45, 34, 61, 14);
 		add(lblNewLabel_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(123, 28, 86, 20);
-		add(textField_1);
-		textField_1.setColumns(10);
+		txtIdVenda = new JTextField();
+		txtIdVenda.setBounds(123, 28, 86, 20);
+		add(txtIdVenda);
+		txtIdVenda.setColumns(10);
 		
 		JButton btnNewButton_3 = new JButton("Remover Item");
 		btnNewButton_3.setBounds(1165, 251, 135, 36);
 		add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("Finalizar Venda");
-		btnNewButton_4.setBounds(1211, 548, 89, 24);
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnNewButton_4.setBounds(1148, 548, 152, 24);
 		add(btnNewButton_4);
 
 	}
@@ -284,12 +332,12 @@ public class TelaVenda extends JPanel {
 		txtNomeCliente.setText("");
 		txtNomeProduto.setText("");
 		txtValorUnidade.setText("");
-		txtQuantidade.setText("");
-		txtValorTotal.setText("");
+		txtQuantidade.setText("1");
+		txtValorTotal.setText("0.0");
 		txtIdCliente.setText("");
 		txtIdProduto.setText("");
-		txtValorPagamento.setText("");
-		txtTroco.setText("");
+		txtValorPagamento.setText("0.0");
+		txtTroco.setText("0.0");
 		
 	}
 }

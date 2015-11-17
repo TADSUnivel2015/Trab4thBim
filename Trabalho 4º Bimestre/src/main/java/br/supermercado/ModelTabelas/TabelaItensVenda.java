@@ -21,7 +21,7 @@ public class TabelaItensVenda extends AbstractTableModel {
 	public String getColumnName(int col) {
 		
 		switch (col) {
-		case 0: return "Id";
+		case 0: return "IdProduto";
 		case 1: return "IdVenda";
 		case 2: return "Descrição";
 		case 3: return "Categoria";
@@ -47,7 +47,7 @@ public class TabelaItensVenda extends AbstractTableModel {
 	public Object getValueAt(int row, int col) {
 		
 		switch (col) {
-		case 0: return itensVenda.get(row).getIdItem();
+		case 0: return itensVenda.get(row).getIdProduto();
 		case 1: return itensVenda.get(row).getIdVenda();
 		case 2: return itensVenda.get(row).getDescricao();
 		case 3: return itensVenda.get(row).getCategoria();

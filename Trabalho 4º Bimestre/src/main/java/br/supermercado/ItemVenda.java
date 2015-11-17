@@ -6,7 +6,6 @@ import java.util.List;
 
 public class ItemVenda {
 	
-	private int idItem;
 	private int idVenda;
 	private int idProduto;
 	private String descricao;
@@ -14,18 +13,14 @@ public class ItemVenda {
 	private BigDecimal vlrUnidade;
 	private int qtd;
 	private BigDecimal vlrTotal;
-	
-	List<ItemVenda> itensVenda = new ArrayList<ItemVenda>();
 
 	public ItemVenda() {
 
 	}
 
-	public ItemVenda(int idItem, int idVenda, int idProduto, String descricao,
-			String categoria, BigDecimal vlrUnidade, int qtd, BigDecimal vlrTotal,
-			List<ItemVenda> itensVenda) {
-		super();
-		this.idItem = idItem;
+	public ItemVenda(int idVenda, int idProduto, String descricao,
+			String categoria, BigDecimal vlrUnidade, int qtd,
+			BigDecimal vlrTotal) {;
 		this.idVenda = idVenda;
 		this.idProduto = idProduto;
 		this.descricao = descricao;
@@ -33,15 +28,6 @@ public class ItemVenda {
 		this.vlrUnidade = vlrUnidade;
 		this.qtd = qtd;
 		this.vlrTotal = vlrTotal;
-		this.itensVenda = itensVenda;
-	}
-
-	public int getIdItem() {
-		return idItem;
-	}
-
-	public void setIdItem(int idItem) {
-		this.idItem = idItem;
 	}
 
 	public int getIdVenda() {
@@ -99,13 +85,5 @@ public class ItemVenda {
 	public void setVlrTotal(BigDecimal vlrTotal) {
 		this.vlrTotal = vlrTotal;
 	}
-
-	public List<ItemVenda> getItensVenda() {
-		return itensVenda;
-	}
-
-	public void setItensVenda(List<ItemVenda> itensVenda) {
-		this.itensVenda = itensVenda;
-	}	
-
+	
 }

@@ -31,10 +31,10 @@ public class ItemVendaDAO implements EstrururaDAO<ItemVenda> {
 	public void gravar(ItemVenda itemVenda) throws SQLException {
 	
 		ps = conexao.prepareStatement(
-				"INSERT INTO itemVenda (IDItemVenda, idVenda, descricao, categoria, quantidade, vlrUnidade, vlrTotal)"
+				"INSERT INTO itemVenda (iditemvenda, idVenda, descricao, categoria, quantidade, vlrUnidade, vlrTotal)"
 						+ "VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-		ps.setInt(1, itemVenda.getIdItem());
+		ps.setInt(1, itemVenda.getIdProduto());
 		ps.setInt(2, itemVenda.getIdVenda());
 		ps.setString(3, itemVenda.getDescricao());
 		ps.setString(4, itemVenda.getCategoria());
@@ -82,10 +82,10 @@ public class ItemVendaDAO implements EstrururaDAO<ItemVenda> {
 		while (result.next()) {
 			ItemVenda novo = new ItemVenda();
 
-			novo.setIdItem(result.getInt("IdItemVenda"));
+			novo.setIdProduto(result.getInt("IdItemVenda"));
 			novo.setIdVenda(result.getInt("idVenda"));
-			novo.setDescricao(result.getString("descricao"));
 			novo.setCategoria(result.getString("categoria"));
+			novo.setDescricao(result.getString("descricao"));
 			novo.setQtd(result.getInt("quantidade"));
 			novo.setVlrUnidade(result.getBigDecimal("vlrUnidade"));
 			novo.setVlrTotal(result.getBigDecimal("vlrTotal"));
