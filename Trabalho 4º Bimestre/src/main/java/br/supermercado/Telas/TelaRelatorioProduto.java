@@ -106,6 +106,10 @@ public class TelaRelatorioProduto extends JPanel {
 		scrollPane.setViewportView(tblProduto);
 
 		JButton btnExportarParaPdf = new JButton("Exportar para PDF");
+		btnExportarParaPdf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnExportarParaPdf.setBounds(1056, 37, 175, 31);
 		add(btnExportarParaPdf);
 
