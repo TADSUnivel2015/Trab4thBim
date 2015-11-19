@@ -11,8 +11,6 @@ public class Venda {
 	private String nomeCliente;
 	private int idClinte;
 	private BigDecimal totalCompra;
-	private BigDecimal vlrPagamento;
-	private BigDecimal VlrTroco;
 	private Date data;
 	private String hora;
 
@@ -21,14 +19,11 @@ public class Venda {
 	}
 
 	public Venda(int idVenda, String nomeCliente, int idClinte,
-			BigDecimal totalCompra, BigDecimal vlrPagamento,
-			BigDecimal vlrTroco, Date date, String hora) {
+			BigDecimal totalCompra, Date date, String hora) {
 		this.idVenda = idVenda;
 		this.nomeCliente = nomeCliente;
 		this.idClinte = idClinte;
 		this.totalCompra = totalCompra;
-		this.vlrPagamento = vlrPagamento;
-		VlrTroco = vlrTroco;
 		this.data = date;
 		this.hora = hora;
 	}
@@ -63,22 +58,6 @@ public class Venda {
 
 	public void setTotalCompra(BigDecimal totalCompra) {
 		this.totalCompra = totalCompra;
-	}
-
-	public BigDecimal getVlrPagamento() {
-		return vlrPagamento;
-	}
-
-	public void setVlrPagamento(BigDecimal vlrPagamento) {
-		this.vlrPagamento = vlrPagamento;
-	}
-
-	public BigDecimal getVlrTroco() {
-		return VlrTroco;
-	}
-
-	public void setVlrTroco(BigDecimal vlrTroco) {
-		VlrTroco = vlrTroco;
 	}
 
 	public Date getData() {
