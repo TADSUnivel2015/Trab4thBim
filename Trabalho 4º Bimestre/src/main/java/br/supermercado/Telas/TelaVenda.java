@@ -337,8 +337,6 @@ public class TelaVenda extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 				BigDecimal totalCompra = new BigDecimal(txtValorTotal.getText());
-				BigDecimal vlrPagamento = new BigDecimal(txtValorPagamento.getText());
-				BigDecimal vlrTroco = new BigDecimal(txtTroco.getText());
 
 				int resp = JOptionPane.showConfirmDialog(null, "Deseja realmente finalizar a compra?");
 
@@ -351,8 +349,6 @@ public class TelaVenda extends JPanel {
 								, txtNomeCliente.getText()
 								, Integer.parseInt(txtIdCliente.getText())
 								, totalCompra
-								, vlrPagamento
-								, vlrTroco
 								, getDate()
 								, getTime());
 

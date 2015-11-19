@@ -3,7 +3,9 @@ package br.supermercado.DAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.supermercado.Usuario;
@@ -70,9 +72,36 @@ public class VendaDAO implements EstrururaDAO<Venda>{
 
 
 	@Override
-	public List<Venda> listar(String sql) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Venda> listar(String sql) throws SQLException {
+		
+		List<Venda> vendas = new ArrayList<Venda>();
+
+		// Atributo que faz a busca no banco.
+		ResultSet result;
+
+		ps = conexao.prepareStatement(sql);
+
+		result = ps.executeQuery();
+
+		// Enquanto existe próximo, faça..
+		while (result.next()) {
+			Venda novo = new Venda();
+
+			novo.setIdVenda(result.getInt("idvenda"));
+			novo.setIdClinte(result.getInt("idcliente"));
+			novo.setNomeCliente(result.getString("NOMEcliente"));
+			novo.setData(result.getDate("datavenda"));
+			novo.setTotalCompra(result.getBigDecimal("totalcompra"));
+
+			vendas.add(novo);
+
+		}
+
+		result.close();
+
+		ps.close();
+
+		return vendas;	
 	}
 
 

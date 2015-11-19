@@ -1,5 +1,6 @@
 package br.supermercado.Telas;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
@@ -11,13 +12,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JComboBox;
 
+import br.supermercado.DAO.VendaDAO;
 import br.supermercado.Enum.Categoria;
 import br.supermercado.Enum.Mes;
+import br.supermercado.ModelTabelas.TabelaProdutos;
+import br.supermercado.ModelTabelas.TabelaVendas;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 
 public class TelaRelatorioVenda extends JPanel {
 	
@@ -26,6 +33,12 @@ public class TelaRelatorioVenda extends JPanel {
 	private JTextField txtNomeCliente;
 	
 	private int flag = 1;
+	private JFormattedTextField txtDia;
+	private JComboBox cbMes;
+	
+	private String consultaSQL = null;
+	
+	private VendaDAO vendaDAO = new VendaDAO();
 
 	/**
 	 * Create the panel.
@@ -37,10 +50,10 @@ public class TelaRelatorioVenda extends JPanel {
 		lblFiltrarPor.setBounds(36, 50, 76, 14);
 		add(lblFiltrarPor);
 		
-		JRadioButton rdDia = new JRadioButton("Por dia");
-		buttonGroup.add(rdDia);
-		rdDia.setBounds(118, 46, 69, 23);
-		add(rdDia);
+		JRadioButton rbDia = new JRadioButton("Por dia");
+		buttonGroup.add(rbDia);
+		rbDia.setBounds(118, 46, 69, 23);
+		add(rbDia);
 		
 		JRadioButton rbMes = new JRadioButton("Por m\u00EAs");
 		buttonGroup.add(rbMes);
@@ -68,7 +81,7 @@ public class TelaRelatorioVenda extends JPanel {
 		tblGenerica = new JTable();
 		scrollPane.setViewportView(tblGenerica);
 		
-		JComboBox cbMes = new JComboBox(Mes.values());
+		cbMes = new JComboBox(Mes.values());
 		cbMes.setMaximumRowCount(12);
 		cbMes.setBounds(377, 46, 153, 23);
 		add(cbMes);
@@ -104,12 +117,75 @@ public class TelaRelatorioVenda extends JPanel {
 				
 				flag = 2;
 				
+				if (rbDia.isSelected() == false
+						|| rbMes.isSelected() == false
+						|| rbCategoria.isSelected() == false
+						|| rbNomeCliente.isSelected() == false){
+					
+					if (rbDia.isSelected()) {
+
+						String dia = txtDia.getText();
+						consultaSQL = "select * from venda where data day(data)= '" + dia + "'";
+						// select * from venda where data month(data) = mes
+					}
+					
+					if (rbMes.isSelected()) {
+
+						int mes = cbMes.getSelectedIndex() + 1;
+						
+						consultaSQL = "select * from venda where data month(data) = '" + mes + "'";
+					}
+					
+					if (rbCategoria.isSelected()) {
+
+						String categoria = cbCategoria.getSelectedItem().toString();
+						consultaSQL = "select * from venda where categoria = '" + categoria + "'";
+					}
+					
+					if (rbNomeCliente.isSelected()) {
+
+						String nomeCliente = txtNomeCliente.getText();
+						
+						consultaSQL = "select * from venda where nomecliente = '" + nomeCliente + "'";
+					}
+					
+					
+
+					try {
+
+						vendaDAO.abrirConexao();
+
+						tblGenerica.setModel(new TabelaVendas(vendaDAO.listar(consultaSQL)));
+
+						limparcampos();
+
+						vendaDAO.fecharConexao();
+
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "Por gentileza, selecione um filtro de pesquisa!");
+				}
+//				
+			}
+
+			private void limparcampos() {
+				
+				txtDia.setText("");
+				txtNomeCliente.setText("");
+				
+				cbMes.setSelectedIndex(0);
+				cbCategoria.setSelectedIndex(0);
+				
 			}
 		});
 		button_1.setBounds(893, 92, 175, 31);
 		add(button_1);
 		
-		JFormattedTextField txtDia = new JFormattedTextField();
+		txtDia = new JFormattedTextField();
 		txtDia.setBounds(193, 47, 93, 20);
 		add(txtDia);
 
