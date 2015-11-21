@@ -80,9 +80,10 @@ public class TelaVenda extends JPanel {
 	private JTextField txtIdVenda;
 	
 	private List<ItemVenda> itensVenda = new ArrayList<ItemVenda>();
-	
-	private BigDecimal total;
+
 	private BigDecimal valorEmSeparado;
+	
+	private double valorFinal = 0.0;
 
 
 	/**
@@ -144,10 +145,10 @@ public class TelaVenda extends JPanel {
 					
 					valorEmSeparado  = valorUnidade.multiply(quantidade);
 					
-//					total.add(valorEmSeparado);
+					valorFinal += valorEmSeparado.doubleValue();
 					
 					
-//					txtValorTotal.setText(String.valueOf(total));					
+					txtValorTotal.setText(String.valueOf(valorFinal));					
 					
 
 					ItemVenda intemVenda = new ItemVenda(Integer.parseInt(txtIdVenda.getText())
@@ -376,6 +377,8 @@ public class TelaVenda extends JPanel {
 						vendaDAO.fecharConexao();
 						
 						gravarItensVenda(itensVenda);
+						
+						novaVenda();
 
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
@@ -429,12 +432,12 @@ public class TelaVenda extends JPanel {
 		txtNomeCliente.setText("");
 		txtNomeProduto.setText("");
 		txtValorUnidade.setText("");
-		txtQuantidade.setText("");
+		txtQuantidade.setText("1");
 		txtValorTotal.setText("");
 		txtIdCliente.setText("");
 		txtIdProduto.setText("");
 		txtValorPagamento.setText("");
-		txtTroco.setText("");
+		txtTroco.setText("0.0");
 
 	}
 
@@ -477,6 +480,16 @@ public class TelaVenda extends JPanel {
 		JOptionPane.showMessageDialog(null, "Venda finalizada!");
 		
 		itemVendaDAO.fecharConexao();
+		
+	}
+	
+	private void novaVenda() {
+		
+		itensVenda.clear();
+		
+		txtIdVenda.setText("");
+		
+		tblItensVenda.setModel(new TabelaItensVenda(itensVenda));
 		
 	}
 
