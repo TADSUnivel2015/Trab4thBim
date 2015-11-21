@@ -106,27 +106,23 @@ public class TelaVenda extends JPanel {
 		add(lblValorTotal);
 
 		JLabel lblValorPagamento = new JLabel("VALOR PAGAMENTO");
-		lblValorPagamento.setBounds(265, 554, 120, 14);
+		lblValorPagamento.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblValorPagamento.setBounds(265, 554, 168, 14);
 		add(lblValorPagamento);
 
 		txtValorPagamento = new JTextField();
 		txtValorPagamento.setText("0.0");
 		txtValorPagamento.setToolTipText("");
-		txtValorPagamento.setFont(new Font("Tahoma", Font.BOLD, 14));
-		txtValorPagamento.setBounds(395, 548, 110, 24);
+		txtValorPagamento.setFont(new Font("Tahoma", Font.BOLD, 16));
+		txtValorPagamento.setBounds(443, 549, 110, 24);
 		add(txtValorPagamento);
 		txtValorPagamento.setColumns(10);
-
-		JLabel lblTroco = new JLabel("TROCO");
-		lblTroco.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblTroco.setBounds(515, 553, 53, 14);
-		add(lblTroco);
 
 		txtTroco = new JTextField();
 		txtTroco.setEditable(false);
 		txtTroco.setText("0.0");
 		txtTroco.setFont(new Font("Tahoma", Font.BOLD, 16));
-		txtTroco.setBounds(578, 547, 146, 23);
+		txtTroco.setBounds(662, 549, 146, 23);
 		add(txtTroco);
 		txtTroco.setColumns(10);
 
@@ -170,7 +166,7 @@ public class TelaVenda extends JPanel {
 				}
 			}
 		});
-		btnNewButton.setBounds(948, 251, 242, 36);
+		btnNewButton.setBounds(948, 251, 352, 36);
 		add(btnNewButton);
 
 		JPanel panel_1 = new JPanel();
@@ -268,11 +264,12 @@ public class TelaVenda extends JPanel {
 		add(txtQuantidade);
 
 		JLabel lblValorTotal_1 = new JLabel("Valor Total");
-		lblValorTotal_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblValorTotal_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblValorTotal_1.setBounds(45, 543, 89, 33);
 		add(lblValorTotal_1);
 
 		txtValorTotal = new JTextField();
+		txtValorTotal.setFont(new Font("Tahoma", Font.BOLD, 16));
 		txtValorTotal.setEditable(false);
 		txtValorTotal.setText("0.0");
 		txtValorTotal.setToolTipText("");
@@ -391,39 +388,23 @@ public class TelaVenda extends JPanel {
 		});
 		btnFinalizarVenda.setBounds(1083, 543, 217, 29);
 		add(btnFinalizarVenda);
-
-		JButton btnNewButton_3 = new JButton("Remover");
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				int resp = JOptionPane.showConfirmDialog(null, "Deseja realmente remover este item?");
-
-				if (resp == JOptionPane.YES_OPTION == true) {
-
-					String sqlConsultaItens = "SELECT * FROM itemvenda where idvenda = " + Integer.parseInt(txtIdVenda.getText());
-
-					try {
-						itemVendaDAO.abrirConexao();
-
-						itemVendaDAO.excluir(Integer.parseInt(tblItensVenda.getValueAt(tblItensVenda.getSelectedRow(), 0).toString()));
-
-
-
-						JOptionPane.showMessageDialog(null, "Item deletado");
-						tblItensVenda.setModel((TableModel)new TabelaItensVenda(itemVendaDAO.listar(sqlConsultaItens)));
-
-
-						itemVendaDAO.fecharConexao();
-
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
+		
+		JButton btnTroco = new JButton("TROCO");
+		btnTroco.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				BigDecimal valorInformado = new BigDecimal(txtValorPagamento.getText());
+				
+				BigDecimal valorTotalCompra = new BigDecimal(txtValorTotal.getText());
+				
+				BigDecimal valorTroco = valorInformado.subtract(valorTotalCompra);
+				
+				txtTroco.setText(valorTroco.toString());
+				
 			}
 		});
-		btnNewButton_3.setBounds(1196, 251, 104, 36);
-		add(btnNewButton_3);
+		btnTroco.setBounds(563, 549, 89, 24);
+		add(btnTroco);
 
 	}
 
@@ -491,7 +472,7 @@ public class TelaVenda extends JPanel {
 		
 		tblItensVenda.setModel(new TabelaItensVenda(itensVenda));
 		
+		valorFinal = 0.0;
+		
 	}
-
-
 }

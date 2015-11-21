@@ -26,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.function.Function;
+import java.awt.Window.Type;
 
 /**
  * 
@@ -50,7 +51,6 @@ public class TelaPrincipal extends JFrame {
 					TelaPrincipal frame = new TelaPrincipal();
 					frame.setVisible(true);
 					frame.setExtendedState(MAXIMIZED_BOTH);
-					frame.setResizable(false);
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -63,6 +63,7 @@ public class TelaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaPrincipal() {
+		setAutoRequestFocus(false);
 
 		bloqueioTelaPrincipal();
 

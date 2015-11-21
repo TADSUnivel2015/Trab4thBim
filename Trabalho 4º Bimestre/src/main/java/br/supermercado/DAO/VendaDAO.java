@@ -89,7 +89,7 @@ public class VendaDAO implements EstrururaDAO<Venda>{
 
 			novo.setIdVenda(result.getInt("idvenda"));
 			novo.setIdClinte(result.getInt("idcliente"));
-			novo.setNomeCliente(result.getString("NOMEcliente"));
+			novo.setHora(result.getString("horavenda1"));
 			novo.setData(result.getDate("datavenda"));
 			novo.setTotalCompra(result.getBigDecimal("totalcompra"));
 
