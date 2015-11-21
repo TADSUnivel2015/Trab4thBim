@@ -78,6 +78,8 @@ public class VendaDAO implements EstrururaDAO<Venda>{
 
 		// Atributo que faz a busca no banco.
 		ResultSet result;
+		
+		System.out.println(sql);
 
 		ps = conexao.prepareStatement(sql);
 

@@ -12,9 +12,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JComboBox;
 
+import br.supermercado.DAO.ClienteDAO;
 import br.supermercado.DAO.VendaDAO;
 import br.supermercado.Enum.Categoria;
 import br.supermercado.Enum.Mes;
+import br.supermercado.ModelTabelas.TabelaClientes;
 import br.supermercado.ModelTabelas.TabelaProdutos;
 import br.supermercado.ModelTabelas.TabelaVendas;
 
@@ -25,6 +27,8 @@ import javax.swing.JFormattedTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TelaRelatorioVenda extends JPanel {
 	
@@ -39,6 +43,7 @@ public class TelaRelatorioVenda extends JPanel {
 	private String consultaSQL = null;
 	
 	private VendaDAO vendaDAO = new VendaDAO();
+	private ClienteDAO clienteDAO = new ClienteDAO();
 
 	/**
 	 * Create the panel.
@@ -76,9 +81,21 @@ public class TelaRelatorioVenda extends JPanel {
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		panel.add(scrollPane, BorderLayout.NORTH);
+		panel.add(scrollPane, BorderLayout.CENTER);
 		
 		tblGenerica = new JTable();
+		tblGenerica.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				if (flag == 1) {
+					
+					txtNomeCliente.setText(String.valueOf(tblGenerica.getValueAt(tblGenerica.getSelectedRow(), 1)));
+					
+				}
+				
+			}
+		});
 		scrollPane.setViewportView(tblGenerica);
 		
 		cbMes = new JComboBox(Mes.values());
@@ -102,6 +119,18 @@ public class TelaRelatorioVenda extends JPanel {
 				
 				flag = 1;
 				
+				String consultaSQL = "select * from cliente order by id";
+				
+				try {
+					clienteDAO.abrirConexao();
+					
+					tblGenerica.setModel(new TabelaClientes(clienteDAO.listar(consultaSQL)));
+					
+					clienteDAO.fecharConexao();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}			
 			}
 		});
 		btnNewButton.setBounds(1160, 46, 93, 23);
@@ -117,10 +146,10 @@ public class TelaRelatorioVenda extends JPanel {
 				
 				flag = 2;
 				
-				if (rbDia.isSelected() == false
-						|| rbMes.isSelected() == false
-						|| rbCategoria.isSelected() == false
-						|| rbNomeCliente.isSelected() == false){
+				if (!rbDia.isSelected() == false
+						|| !rbMes.isSelected() == false
+						|| !rbCategoria.isSelected() == false
+						|| !rbNomeCliente.isSelected() == false){
 					
 					if (rbDia.isSelected()) {
 
