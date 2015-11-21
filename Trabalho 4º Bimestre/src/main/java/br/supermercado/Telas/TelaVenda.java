@@ -19,16 +19,20 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.BorderLayout;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
 import br.supermercado.ItemVenda;
+import br.supermercado.Produto;
 import br.supermercado.Venda;
 import br.supermercado.DAO.ClienteDAO;
 import br.supermercado.DAO.ItemVendaDAO;
@@ -42,6 +46,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * 
@@ -72,6 +78,11 @@ public class TelaVenda extends JPanel {
 	private int flag = 1;
 	private JTextField txtCategoriaProduto;
 	private JTextField txtIdVenda;
+	
+	private List<ItemVenda> itensVenda = new ArrayList<ItemVenda>();
+	
+	private BigDecimal total;
+	private BigDecimal valorEmSeparado;
 
 
 	/**
@@ -98,6 +109,8 @@ public class TelaVenda extends JPanel {
 		add(lblValorPagamento);
 
 		txtValorPagamento = new JTextField();
+		txtValorPagamento.setText("0.0");
+		txtValorPagamento.setToolTipText("");
 		txtValorPagamento.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtValorPagamento.setBounds(395, 548, 110, 24);
 		add(txtValorPagamento);
@@ -109,6 +122,8 @@ public class TelaVenda extends JPanel {
 		add(lblTroco);
 
 		txtTroco = new JTextField();
+		txtTroco.setEditable(false);
+		txtTroco.setText("0.0");
 		txtTroco.setFont(new Font("Tahoma", Font.BOLD, 16));
 		txtTroco.setBounds(578, 547, 146, 23);
 		add(txtTroco);
@@ -116,42 +131,41 @@ public class TelaVenda extends JPanel {
 
 		JButton btnNewButton = new JButton("Adicionar");
 		btnNewButton.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 
-				if (!txtNomeCliente.getText().equals("")){
+				if (!txtNomeCliente.getText().equals("") && !txtIdVenda.getText().equals("")){
 
-					String sqlConsultaItens = "SELECT * FROM itemvenda where idvenda = " + Integer.parseInt(txtIdVenda.getText());
+					txtValorTotal.getText();
+					
+					BigDecimal valorUnidade = new BigDecimal(txtValorUnidade.getText());
+					
+					BigDecimal quantidade = new BigDecimal(txtQuantidade.getText());
+					
+					valorEmSeparado  = valorUnidade.multiply(quantidade);
+					
+//					total.add(valorEmSeparado);
+					
+					
+//					txtValorTotal.setText(String.valueOf(total));					
+					
 
-					txtValorTotal.setText("0.0");
-					txtValorUnidade.setText("0.0");				
+					ItemVenda intemVenda = new ItemVenda(Integer.parseInt(txtIdVenda.getText())
+							, Integer.parseInt(txtIdProduto.getText())
+							, txtNomeProduto.getText()
+							, txtCategoriaProduto.getText()
+							, valorUnidade
+							, Integer.parseInt(txtQuantidade.getText())
+							, valorEmSeparado );
 
-					BigDecimal vlrUnidade = new BigDecimal(txtValorUnidade.getText());
-					BigDecimal vlrTotal = new BigDecimal(txtValorTotal.getText());	
+					itensVenda.add(intemVenda);						
 
-					try {
+					tblItensVenda.setModel((TableModel)new TabelaItensVenda(itensVenda));
 
-						itemVendaDAO.abrirConexao();
-
-						ItemVenda intemVenda = new ItemVenda(Integer.parseInt(txtIdVenda.getText())
-								, Integer.parseInt(txtIdProduto.getText())
-								, txtNomeProduto.getText()
-								, txtCategoriaProduto.getText()
-								, vlrUnidade
-								, Integer.parseInt(txtQuantidade.getText())
-								, vlrTotal);
-
-						itemVendaDAO.gravar(intemVenda);
-
-						tblItensVenda.setModel((TableModel)new TabelaItensVenda(itemVendaDAO.listar(sqlConsultaItens)));
-
-						itemVendaDAO.fecharConexao();
-
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					txtQuantidade.setText("1");
+					
 				} else {
-					JOptionPane.showMessageDialog(null, "Por favor, insira o nome do cliente.");
+					JOptionPane.showMessageDialog(null, "Por favor, verifique se o nome do cliente e o Id estão prenchidos!.");
 				}
 			}
 		});
@@ -258,6 +272,9 @@ public class TelaVenda extends JPanel {
 		add(lblValorTotal_1);
 
 		txtValorTotal = new JTextField();
+		txtValorTotal.setEditable(false);
+		txtValorTotal.setText("0.0");
+		txtValorTotal.setToolTipText("");
 		txtValorTotal.setBounds(145, 548, 110, 25);
 		add(txtValorTotal);
 		txtValorTotal.setColumns(10);
@@ -341,7 +358,7 @@ public class TelaVenda extends JPanel {
 				int resp = JOptionPane.showConfirmDialog(null, "Deseja realmente finalizar a compra?");
 
 				if (resp == JOptionPane.YES_OPTION == true) {
-
+					
 					try {
 						vendaDAO.abrirConexao();
 
@@ -357,11 +374,15 @@ public class TelaVenda extends JPanel {
 						limparCampos();
 
 						vendaDAO.fecharConexao();
+						
+						gravarItensVenda(itensVenda);
 
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Informe o ID da venda!");
 				}
 			}
 		});
@@ -433,6 +454,30 @@ public class TelaVenda extends JPanel {
 		Date date = new Date(); 
 
 		return dateFormat.format(date); 
+	}
+	
+	private void gravarItensVenda(List<ItemVenda> itensVenda) throws SQLException {
+		
+		itemVendaDAO.abrirConexao();
+		
+		for(ItemVenda itemVenda : itensVenda) {  
+			  
+			ItemVenda itens = new ItemVenda(itemVenda.getIdVenda()
+					, itemVenda.getIdProduto()
+					, itemVenda.getDescricao()
+					, itemVenda.getCategoria()
+					, itemVenda.getVlrUnidade()
+					, itemVenda.getQtd()
+					, itemVenda.getVlrTotal());
+			
+			itemVendaDAO.gravar(itens);
+					
+		}  
+		
+		JOptionPane.showMessageDialog(null, "Venda finalizada!");
+		
+		itemVendaDAO.fecharConexao();
+		
 	}
 
 

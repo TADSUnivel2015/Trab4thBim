@@ -48,7 +48,7 @@ public class TabelaConsultaProduto extends AbstractTableModel {
 		switch (col) {
 		case 0: return produtos.get(row).getId();
 		case 1: return produtos.get(row).getDescricao();
-		case 2: return produtos.get(row).getCusto();
+		case 2: return produtos.get(row).getValorFinal();
 		case 3: return produtos.get(row).getCategoria();
 		}
 		return null;
