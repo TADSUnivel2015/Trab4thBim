@@ -16,6 +16,7 @@ import javax.swing.JButton;
 
 import java.awt.BorderLayout;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -41,6 +42,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Font;
 
 /**
  * 
@@ -127,7 +129,7 @@ public class TelaCadastroProduto extends JPanel {
 		add(lblMargemDeLucro);
 
 		txtMargemLucro = new JTextField();
-		txtMargemLucro.setBounds(900, 66, 86, 20);
+		txtMargemLucro.setBounds(900, 66, 41, 20);
 		add(txtMargemLucro);
 		txtMargemLucro.setColumns(10);
 
@@ -174,12 +176,18 @@ public class TelaCadastroProduto extends JPanel {
 					produtoDAO.abrirConexao();
 
 					BigDecimal vlrCusto = new BigDecimal(txtCusto.getText());
-					BigDecimal vlrLucro = new BigDecimal(txtMargemLucro.getText());		
+					BigDecimal porcentagem = new BigDecimal(txtMargemLucro.getText());	
+					
+					BigDecimal vlrPorcentagem = porcentagem.divide(new BigDecimal(100));
+					
+					BigDecimal vlr = vlrCusto.multiply(vlrPorcentagem).setScale(2, RoundingMode.HALF_DOWN); 
+					
+					BigDecimal vlrFinal = vlr.add(vlrCusto);
 
 					Produto produto = new Produto(Integer.parseInt(txtId.getText()),
 							txtCodigoBarras.getText(), cbCategoria.getSelectedItem().toString(),
 							txtDescricao.getText(), cbUnidade.getSelectedItem().toString(),
-							vlrCusto, vlrLucro);
+							vlrCusto, porcentagem, vlrFinal);
 
 					produtoDAO.gravar(produto);					
 					tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar(consultaSQL)));
@@ -205,12 +213,19 @@ public class TelaCadastroProduto extends JPanel {
 					produtoDAO.abrirConexao();
 
 					BigDecimal vlrCusto = new BigDecimal(txtCusto.getText());
-					BigDecimal vlrLucro = new BigDecimal(txtMargemLucro.getText());		
+					BigDecimal porcentagem = new BigDecimal(txtMargemLucro.getText());	
+					
+					BigDecimal vlrPorcentagem = porcentagem.divide(new BigDecimal(100));
+					
+					BigDecimal vlr = vlrCusto.multiply(vlrPorcentagem).setScale(2, RoundingMode.HALF_DOWN); 
+					
+					BigDecimal vlrFinal = vlr.add(vlrCusto);
+ 
 
 					Produto produto = new Produto(Integer.parseInt(txtId.getText()),
 							txtCodigoBarras.getText(), cbCategoria.getSelectedItem().toString(),
 							txtDescricao.getText(), cbUnidade.getSelectedItem().toString(),
-							vlrCusto, vlrLucro);
+							vlrCusto, porcentagem, vlrFinal);
 
 					produtoDAO.atualizar(produto);
 					tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar(consultaSQL)));
@@ -252,6 +267,11 @@ public class TelaCadastroProduto extends JPanel {
 		});
 		btnExcluir.setBounds(669, 102, 99, 29);
 		add(btnExcluir);
+		
+		JLabel label = new JLabel("%");
+		label.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
+		label.setBounds(951, 67, 46, 14);
+		add(label);
 
 	}
 
@@ -266,5 +286,4 @@ public class TelaCadastroProduto extends JPanel {
 		cbCategoria.setSelectedIndex(0);
 		cbUnidade.setSelectedIndex(0);
 	}
-
 }

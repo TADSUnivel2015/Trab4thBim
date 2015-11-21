@@ -16,8 +16,9 @@ public class ClienteDAO implements EstrururaDAO<Cliente>{
 	private PreparedStatement ps;
 
 	@Override
-	public void abrirConexao() throws SQLException {
-
+	public void abrirConexao() throws SQLException {	
+		
+		
 		String url = "jdbc:postgresql://localhost:5432/Trabalho4thBim";
 		String user = "postgres";
 		String pass = "tezza";

@@ -7,7 +7,7 @@ import br.supermercado.Cliente;
 
 public interface EstrururaDAO <T>{
 	
-	public void abrirConexao() throws SQLException;
+	public void abrirConexao() throws SQLException, ClassNotFoundException;
 	
 	public void gravar(T objeto) throws SQLException;
 	

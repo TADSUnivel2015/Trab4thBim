@@ -31,13 +31,15 @@ public class TabelaProdutos extends AbstractTableModel{
 		if (column == 5) 
 			return "Custo";
 		if (column == 6) 
-			return "Margem de Lucro";
+			return "Margem de Lucro %";
+		if (column == 7)
+			return "Valor final";
 		return null;
 	}
 
 	@Override
 	public int getColumnCount() {
-		return 7;
+		return 8;
 	}
 
 	@Override
@@ -55,6 +57,7 @@ public class TabelaProdutos extends AbstractTableModel{
 		case 4: return produtos.get(row).getUnidade();
 		case 5: return produtos.get(row).getCusto();
 		case 6: return produtos.get(row).getMargemLucro();
+		case 7: return produtos.get(row).getValorFinal();
 		}
 		return null;
 	}

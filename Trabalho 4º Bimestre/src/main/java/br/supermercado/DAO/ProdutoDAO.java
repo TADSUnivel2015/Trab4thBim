@@ -32,8 +32,8 @@ public class ProdutoDAO implements EstrururaDAO<Produto>{
 	public void gravar(Produto produto) throws SQLException {
 
 		ps = conexao.prepareStatement(
-				"INSERT INTO produto (ID, CODBARRAS, CATEGORIA, DESCRICAO, UNIDADE, CUSTO, MARGEMLUCRO)"
-						+ "VALUES (?, ?, ?, ?, ?, ?, ?)");
+				"INSERT INTO produto (ID, CODBARRAS, CATEGORIA, DESCRICAO, UNIDADE, CUSTO, MARGEMLUCRO, custofinal)"
+						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
 		ps.setInt(1, produto.getId());
 		ps.setString(2, produto.getCodBarras());
@@ -42,6 +42,7 @@ public class ProdutoDAO implements EstrururaDAO<Produto>{
 		ps.setString(5, produto.getUnidade());
 		ps.setBigDecimal(6, produto.getCusto());
 		ps.setBigDecimal(7, produto.getMargemLucro());
+		ps.setBigDecimal(8, produto.getValorFinal());
 		
 		ps.executeUpdate();
 
@@ -58,7 +59,8 @@ public class ProdutoDAO implements EstrururaDAO<Produto>{
 				+"', DESCRICAO = '"+produto.getDescricao()
 				+"', UNIDADE   = '"+produto.getUnidade()
 				+"', CUSTO   = '"+produto.getCusto()
-				+"', MARGEMLUCRO    = '"+produto.getMargemLucro()
+				+"', MARGEMLUCRO = '"+produto.getMargemLucro()
+				+"', custofinal = '"+produto.getValorFinal()
 				+"' WHERE ID = '"+produto.getId()+"'");
 
 		ps.execute();
@@ -106,6 +108,7 @@ public class ProdutoDAO implements EstrururaDAO<Produto>{
 			novo.setUnidade(result.getString("unidade"));
 			novo.setCusto(result.getBigDecimal("custo"));
 			novo.setMargemLucro(result.getBigDecimal("margemlucro"));
+			novo.setValorFinal(result.getBigDecimal("custofinal"));
 
 			produtos.add(novo);
 

@@ -20,6 +20,7 @@ public class Produto {
 	private String unidade;
 	private BigDecimal custo;
 	private BigDecimal margemLucro;
+	private BigDecimal valorFinal;
 	
 	
 	public Produto(){
@@ -29,7 +30,7 @@ public class Produto {
 	
 	public Produto(int id, String codBarras, String categoria,
 			String descricao, String unidade, BigDecimal custo,
-			BigDecimal margemLucro) {
+			BigDecimal margemLucro, BigDecimal valorFinal) {
 		super();
 		this.id = id;
 		this.codBarras = codBarras;
@@ -38,6 +39,7 @@ public class Produto {
 		this.unidade = unidade;
 		this.custo = custo;
 		this.margemLucro = margemLucro;
+		this.valorFinal = valorFinal;
 	}
 	
 	
@@ -83,6 +85,13 @@ public class Produto {
 	public void setMargemLucro(BigDecimal margemLucro) {
 		this.margemLucro = margemLucro;
 	}
+	public BigDecimal getValorFinal() {
+		return valorFinal;
+	}
+	public void setValorFinal(BigDecimal valorFinal) {
+		this.valorFinal = valorFinal;
+	}
+
 	@Override
 	public String toString() {
 		return descricao;
