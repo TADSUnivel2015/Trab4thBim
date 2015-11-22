@@ -22,6 +22,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,7 @@ import br.supermercado.DAO.ProdutoDAO;
 import br.supermercado.Enum.Categoria;
 import br.supermercado.Enum.Unidade;
 import br.supermercado.ModelTabelas.TabelaProdutos;
+import br.supermercado.Valores.ConversorDeValor;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -65,6 +67,8 @@ public class TelaCadastroProduto extends JPanel {
 	private String consultaSQL = "SELECT * FROM produto";
 
 	private JTable tblProdutos;
+	
+	private ConversorDeValor conversor = new ConversorDeValor();
 
 	/**
 	 * Create the panel.
@@ -183,7 +187,7 @@ public class TelaCadastroProduto extends JPanel {
 					BigDecimal vlr = vlrCusto.multiply(vlrPorcentagem).setScale(2, RoundingMode.HALF_DOWN); 
 					
 					BigDecimal vlrFinal = vlr.add(vlrCusto);
-
+					
 					Produto produto = new Produto(Integer.parseInt(txtId.getText()),
 							txtCodigoBarras.getText(), cbCategoria.getSelectedItem().toString(),
 							txtDescricao.getText(), cbUnidade.getSelectedItem().toString(),
@@ -220,7 +224,7 @@ public class TelaCadastroProduto extends JPanel {
 					BigDecimal vlr = vlrCusto.multiply(vlrPorcentagem).setScale(2, RoundingMode.HALF_DOWN); 
 					
 					BigDecimal vlrFinal = vlr.add(vlrCusto);
- 
+					
 
 					Produto produto = new Produto(Integer.parseInt(txtId.getText()),
 							txtCodigoBarras.getText(), cbCategoria.getSelectedItem().toString(),
