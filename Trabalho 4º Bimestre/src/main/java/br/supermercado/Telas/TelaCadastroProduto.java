@@ -187,6 +187,8 @@ public class TelaCadastroProduto extends JPanel {
 					BigDecimal vlr = vlrCusto.multiply(vlrPorcentagem).setScale(2, RoundingMode.HALF_DOWN); 
 					
 					BigDecimal vlrFinal = vlr.add(vlrCusto);
+
+
 					
 					Produto produto = new Produto(Integer.parseInt(txtId.getText()),
 							txtCodigoBarras.getText(), cbCategoria.getSelectedItem().toString(),
@@ -196,6 +198,7 @@ public class TelaCadastroProduto extends JPanel {
 					produtoDAO.gravar(produto);					
 					tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar(consultaSQL)));
 					limparCampos();
+					
 
 					JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
 
@@ -204,6 +207,7 @@ public class TelaCadastroProduto extends JPanel {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
 			}
 		});
 		btnNewButton.setBounds(887, 102, 99, 29);
@@ -224,7 +228,7 @@ public class TelaCadastroProduto extends JPanel {
 					BigDecimal vlr = vlrCusto.multiply(vlrPorcentagem).setScale(2, RoundingMode.HALF_DOWN); 
 					
 					BigDecimal vlrFinal = vlr.add(vlrCusto);
-					
+ 
 
 					Produto produto = new Produto(Integer.parseInt(txtId.getText()),
 							txtCodigoBarras.getText(), cbCategoria.getSelectedItem().toString(),

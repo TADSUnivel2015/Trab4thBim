@@ -46,7 +46,6 @@ public class ClienteDAO implements EstrururaDAO<Cliente>{
 		ps.executeUpdate();
 
 		ps.close();
-
 	}
 
 	@Override

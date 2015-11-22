@@ -25,6 +25,7 @@ public class ProdutoDAO implements EstrururaDAO<Produto>{
 		String pass = "tezza";
 
 		conexao = DriverManager.getConnection(url, user, pass);
+
 	}
 
 
@@ -44,9 +45,9 @@ public class ProdutoDAO implements EstrururaDAO<Produto>{
 		ps.setBigDecimal(7, produto.getMargemLucro());
 		ps.setBigDecimal(8, produto.getValorFinal());
 		
-
+		ps.executeUpdate();
+		
 		ps.close();
-
 	}
 
 
@@ -124,7 +125,7 @@ public class ProdutoDAO implements EstrururaDAO<Produto>{
 
 	@Override
 	public void fecharConexao() throws SQLException {
-		conexao.close();		
+		conexao.close();	
 	}
 
 
