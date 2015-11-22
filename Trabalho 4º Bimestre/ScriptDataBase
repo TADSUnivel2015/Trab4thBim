@@ -1,0 +1,59 @@
+POSTGRES
+
+CREATE TABLE cliente
+(
+  id integer NOT NULL,
+  nome character varying(60),
+  telefone character varying(13),
+  endereco character varying(30),
+  cidade character varying(30),
+  estado character varying(20),
+  email character varying(30),
+  genero character varying(10),
+  CONSTRAINT cliente_pkey PRIMARY KEY (id)
+)
+
+CREATE TABLE itemvenda
+(
+  id serial NOT NULL,
+  iditemvenda integer NOT NULL,
+  idvenda integer NOT NULL,
+  descricao character varying(30),
+  categoria character varying(20),
+  quantidade integer,
+  vlrunidade numeric,
+  vlrtotal numeric,
+  CONSTRAINT pk_itemvenda_id PRIMARY KEY (id)
+)
+
+CREATE TABLE produto
+(
+  id serial NOT NULL,
+  codbarras character varying(30),
+  categoria character varying(15),
+  descricao character varying(50),
+  unidade character varying(5),
+  custo numeric,
+  margemlucro numeric,
+  custofinal numeric,
+  CONSTRAINT produto_pkey PRIMARY KEY (id)
+)
+
+CREATE TABLE usuario
+(
+  id serial NOT NULL,
+  nomecliente character varying(40),
+  idcliente integer,
+  senha character varying(30),
+  CONSTRAINT usuario_pkey PRIMARY KEY (id)
+)
+
+CREATE TABLE venda
+(
+  idvenda integer NOT NULL,
+  idcliente integer NOT NULL,
+  datavenda date,
+  horavenda character varying(10),
+  totalcompra numeric,
+  CONSTRAINT pk_venda_idvenda PRIMARY KEY (idvenda)
+)
