@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,6 +42,7 @@ import br.supermercado.DAO.VendaDAO;
 import br.supermercado.ModelTabelas.TabelaConsultaCliente;
 import br.supermercado.ModelTabelas.TabelaConsultaProduto;
 import br.supermercado.ModelTabelas.TabelaItensVenda;
+import br.supermercado.Valores.ConversorDeValor;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -84,6 +86,8 @@ public class TelaVenda extends JPanel {
 	private BigDecimal valorEmSeparado;
 	
 	private double valorFinal = 0.0;
+	
+	private ConversorDeValor conversor = new ConversorDeValor();
 
 
 	/**
@@ -144,7 +148,18 @@ public class TelaVenda extends JPanel {
 					valorFinal += valorEmSeparado.doubleValue();
 					
 					
-					txtValorTotal.setText(String.valueOf(valorFinal));					
+					// Passando o valor BigDecimal para o formato pt-br
+					
+					String valorFinalTotal = "";
+					try {
+						valorFinalTotal = conversor.transformaValor(String.valueOf(valorFinal));
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					
+					txtValorTotal.setText(valorFinalTotal);					
 					
 
 					ItemVenda intemVenda = new ItemVenda(Integer.parseInt(txtIdVenda.getText())
@@ -200,7 +215,7 @@ public class TelaVenda extends JPanel {
 
 				flag = 1;
 
-				String sqlConsultaUsuario = "select * from cliente where nome like '%" + txtNomeCliente.getText() + "%'";
+				String sqlConsultaUsuario = "select * from cliente where nome like '%" + txtNomeCliente.getText() + "%' order by id";
 
 				try {
 					clienteDAO.abrirConexao();
@@ -230,7 +245,7 @@ public class TelaVenda extends JPanel {
 
 				flag = 2;
 
-				String sqlConsultaProduto = "select * from produto where descricao like '%" + txtNomeProduto.getText() + "%'";
+				String sqlConsultaProduto = "select * from produto where descricao like '%" + txtNomeProduto.getText() + "%' order by id";
 
 				try {
 					produtoDAO.abrirConexao();
@@ -351,7 +366,7 @@ public class TelaVenda extends JPanel {
 		btnFinalizarVenda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				BigDecimal totalCompra = new BigDecimal(txtValorTotal.getText());
+				BigDecimal totalCompra = new BigDecimal(valorFinal).setScale(2, RoundingMode.HALF_EVEN);  ;
 
 				int resp = JOptionPane.showConfirmDialog(null, "Deseja realmente finalizar a compra?");
 
@@ -395,11 +410,24 @@ public class TelaVenda extends JPanel {
 				
 				BigDecimal valorInformado = new BigDecimal(txtValorPagamento.getText());
 				
-				BigDecimal valorTotalCompra = new BigDecimal(txtValorTotal.getText());
+				BigDecimal valorTotal = new BigDecimal(valorFinal);
 				
-				BigDecimal valorTroco = valorInformado.subtract(valorTotalCompra);
+				BigDecimal valorTroco = valorInformado.subtract(valorTotal);
 				
-				txtTroco.setText(valorTroco.toString());
+				
+				// Passando o valor BigDecimal para o formato pt-br
+				
+				try {
+					
+					String valorFinal = conversor.transformaValor(String.valueOf(valorTroco));
+					txtTroco.setText(valorFinal);
+							
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
 				
 			}
 		});
