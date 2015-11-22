@@ -78,8 +78,6 @@ public class VendaDAO implements EstrururaDAO<Venda>{
 
 		// Atributo que faz a busca no banco.
 		ResultSet result;
-		
-		System.out.println(sql);
 
 		ps = conexao.prepareStatement(sql);
 
@@ -91,7 +89,7 @@ public class VendaDAO implements EstrururaDAO<Venda>{
 
 			novo.setIdVenda(result.getInt("idvenda"));
 			novo.setIdClinte(result.getInt("idcliente"));
-			novo.setHora(result.getString("horavenda1"));
+			novo.setHora(result.getString("horavenda"));
 			novo.setData(result.getDate("datavenda"));
 			novo.setTotalCompra(result.getBigDecimal("totalcompra"));
 

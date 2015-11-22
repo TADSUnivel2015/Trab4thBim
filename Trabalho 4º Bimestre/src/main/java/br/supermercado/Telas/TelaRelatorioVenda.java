@@ -44,6 +44,8 @@ public class TelaRelatorioVenda extends JPanel {
 	
 	private VendaDAO vendaDAO = new VendaDAO();
 	private ClienteDAO clienteDAO = new ClienteDAO();
+	
+	private int idCliente;
 
 	/**
 	 * Create the panel.
@@ -81,7 +83,7 @@ public class TelaRelatorioVenda extends JPanel {
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		panel.add(scrollPane, BorderLayout.CENTER);
+		panel.add(scrollPane, BorderLayout.SOUTH);
 		
 		tblGenerica = new JTable();
 		tblGenerica.addMouseListener(new MouseAdapter() {
@@ -91,6 +93,8 @@ public class TelaRelatorioVenda extends JPanel {
 				if (flag == 1) {
 					
 					txtNomeCliente.setText(String.valueOf(tblGenerica.getValueAt(tblGenerica.getSelectedRow(), 1)));
+					
+					idCliente = (int) tblGenerica.getValueAt(tblGenerica.getSelectedRow(), 0);
 					
 				}
 				
@@ -119,7 +123,7 @@ public class TelaRelatorioVenda extends JPanel {
 				
 				flag = 1;
 				
-				String consultaSQL = "select * from cliente order by id";
+				String consultaSQL = "select * from cliente where nome like '%" + txtNomeCliente.getText() + "%' order by id";
 				
 				try {
 					clienteDAO.abrirConexao();
@@ -175,7 +179,7 @@ public class TelaRelatorioVenda extends JPanel {
 
 						String nomeCliente = txtNomeCliente.getText();
 						
-						consultaSQL = "select * from venda where nomecliente = '" + nomeCliente + "'";
+						consultaSQL = "select * from venda where idCliente = '" + idCliente + "'";
 					}
 					
 					

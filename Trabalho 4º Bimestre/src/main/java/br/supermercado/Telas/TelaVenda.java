@@ -31,6 +31,7 @@ import java.util.List;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
+import javax.swing.text.MaskFormatter;
 
 import br.supermercado.ItemVenda;
 import br.supermercado.Produto;
@@ -118,7 +119,7 @@ public class TelaVenda extends JPanel {
 		txtValorPagamento.setText("0.0");
 		txtValorPagamento.setToolTipText("");
 		txtValorPagamento.setFont(new Font("Tahoma", Font.BOLD, 16));
-		txtValorPagamento.setBounds(443, 549, 110, 24);
+		txtValorPagamento.setBounds(467, 549, 86, 24);
 		add(txtValorPagamento);
 		txtValorPagamento.setColumns(10);
 
@@ -193,15 +194,6 @@ public class TelaVenda extends JPanel {
 		panel_1.add(scrollPane_1, BorderLayout.CENTER);
 
 		tblItensVenda = new JTable();
-		tblItensVenda.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				txtIdProduto.setText(String.valueOf(tblItensVenda.getValueAt(tblItensVenda.getSelectedRow(), 0)));
-				txtNomeProduto.setText(String.valueOf(tblItensVenda.getValueAt(tblItensVenda.getSelectedRow(), 1)));
-				txtValorUnidade.setText(String.valueOf(tblItensVenda.getValueAt(tblItensVenda.getSelectedRow(), 2)));
-				txtCategoriaProduto.setText(String.valueOf(tblItensVenda.getValueAt(tblItensVenda.getSelectedRow(), 3)));
-			}
-		});
 		scrollPane_1.setViewportView(tblItensVenda);
 
 		txtNomeCliente = new JTextField();
@@ -433,6 +425,11 @@ public class TelaVenda extends JPanel {
 		});
 		btnTroco.setBounds(563, 549, 89, 24);
 		add(btnTroco);
+		
+		JLabel lblR = new JLabel("R$");
+		lblR.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblR.setBounds(443, 554, 30, 14);
+		add(lblR);
 
 	}
 
