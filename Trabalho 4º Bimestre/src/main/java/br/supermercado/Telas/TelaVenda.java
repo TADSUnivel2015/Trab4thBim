@@ -358,7 +358,7 @@ public class TelaVenda extends JPanel {
 		btnFinalizarVenda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				BigDecimal totalCompra = new BigDecimal(valorFinal).setScale(2, RoundingMode.HALF_EVEN);  ;
+				BigDecimal totalCompra = new BigDecimal(valorFinal).setScale(2, RoundingMode.HALF_EVEN); 
 
 				int resp = JOptionPane.showConfirmDialog(null, "Deseja realmente finalizar a compra?");
 
