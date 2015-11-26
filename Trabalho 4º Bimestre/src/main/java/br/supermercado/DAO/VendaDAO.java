@@ -10,6 +10,7 @@ import java.util.List;
 
 import br.supermercado.Usuario;
 import br.supermercado.Venda;
+import br.supermercado.conexao.ConexaoMySQL;
 
 public class VendaDAO implements EstrururaDAO<Venda>{
 
@@ -19,11 +20,7 @@ public class VendaDAO implements EstrururaDAO<Venda>{
 	@Override
 	public void abrirConexao() throws SQLException {
 
-		String url = "jdbc:postgresql://localhost:5432/Trabalho4thBim";
-		String user = "postgres";
-		String pass = "tezza";
-
-		conexao = DriverManager.getConnection(url, user, pass);
+		conexao = ConexaoMySQL.getConexaoMySQL(); //DriverManager.getConnection(url, user, pass);
 
 	}
 
@@ -103,13 +100,4 @@ public class VendaDAO implements EstrururaDAO<Venda>{
 
 		return vendas;	
 	}
-
-
-	@Override
-	public void fecharConexao() throws SQLException {
-		conexao.close();
-	}
-
-
-
 }

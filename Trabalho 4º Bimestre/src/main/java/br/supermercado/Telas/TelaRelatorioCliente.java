@@ -123,7 +123,6 @@ public class TelaRelatorioCliente extends JPanel {
 						
 						limparCampos();
 						
-						clienteDAO.fecharConexao();
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

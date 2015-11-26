@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 import java.awt.BorderLayout;
 
@@ -27,6 +28,7 @@ import javax.swing.JFormattedTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -35,6 +37,8 @@ public class TelaRelatorioVenda extends JPanel {
 	private JTable tblGenerica;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextField txtNomeCliente;
+	
+	private MaskFormatter txtData;
 	
 	private int flag = 1;
 	private JFormattedTextField txtDia;
@@ -52,6 +56,13 @@ public class TelaRelatorioVenda extends JPanel {
 	 */
 	public TelaRelatorioVenda() {
 		setLayout(null);
+		
+		try {
+			txtData =  new MaskFormatter("##-##-####");
+		} catch (ParseException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		
 		JLabel lblFiltrarPor = new JLabel("Filtrar por:");
 		lblFiltrarPor.setBounds(36, 50, 76, 14);
@@ -130,7 +141,6 @@ public class TelaRelatorioVenda extends JPanel {
 					
 					tblGenerica.setModel(new TabelaClientes(clienteDAO.listar(consultaSQL)));
 					
-					clienteDAO.fecharConexao();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -158,7 +168,7 @@ public class TelaRelatorioVenda extends JPanel {
 					if (rbDia.isSelected()) {
 
 						String dia = txtDia.getText();
-						consultaSQL = "select * from venda where data day(data)= '" + dia + "'";
+						consultaSQL = "select * from venda where datavenda = '" + dia + "'";
 						// select * from venda where data month(data) = mes
 					}
 					
@@ -192,8 +202,6 @@ public class TelaRelatorioVenda extends JPanel {
 
 						limparcampos();
 
-						vendaDAO.fecharConexao();
-
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -218,7 +226,7 @@ public class TelaRelatorioVenda extends JPanel {
 		button_1.setBounds(893, 92, 175, 31);
 		add(button_1);
 		
-		txtDia = new JFormattedTextField();
+		txtDia = new JFormattedTextField(txtData);
 		txtDia.setBounds(193, 47, 93, 20);
 		add(txtDia);
 

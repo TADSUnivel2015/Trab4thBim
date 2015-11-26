@@ -174,7 +174,6 @@ public class TelaCadastroCliente extends JPanel {
 		try {
 			clienteDAO.abrirConexao();
 			tblClientes.setModel((TableModel)new TabelaClientes(clienteDAO.listar(sql)));
-			clienteDAO.fecharConexao();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -197,7 +196,6 @@ public class TelaCadastroCliente extends JPanel {
 					
 					JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
 					
-					clienteDAO.fecharConexao();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -225,7 +223,6 @@ public class TelaCadastroCliente extends JPanel {
 					
 					JOptionPane.showMessageDialog(null, "Dados do cliente atualizados com sucesso!");
 					
-					clienteDAO.fecharConexao();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -250,7 +247,6 @@ public class TelaCadastroCliente extends JPanel {
 						clienteDAO.excluir(Integer.parseInt(txtId.getText()));
 						tblClientes.setModel((TableModel)new TabelaClientes(clienteDAO.listar(sql)));
 						
-						clienteDAO.fecharConexao();
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

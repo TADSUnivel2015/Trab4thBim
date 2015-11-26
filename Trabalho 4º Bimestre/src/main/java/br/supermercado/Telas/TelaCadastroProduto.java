@@ -165,7 +165,6 @@ public class TelaCadastroProduto extends JPanel {
 
 			tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar(consultaSQL)));
 
-			produtoDAO.fecharConexao();
 		} catch (SQLException g) {
 			// TODO Auto-generated catch block
 			g.printStackTrace();
@@ -202,7 +201,6 @@ public class TelaCadastroProduto extends JPanel {
 
 					JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
 
-					produtoDAO.fecharConexao();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -240,8 +238,7 @@ public class TelaCadastroProduto extends JPanel {
 					limparCampos();
 
 					JOptionPane.showMessageDialog(null, "Dados do produto atualizados com sucesso!");
-
-					produtoDAO.fecharConexao();
+					
 				} catch (SQLException f) {
 					// TODO Auto-generated catch block
 					f.printStackTrace();
@@ -265,7 +262,6 @@ public class TelaCadastroProduto extends JPanel {
 						tblProdutos.setModel(new TabelaProdutos(produtoDAO.listar(consultaSQL)));
 						limparCampos();
 
-						produtoDAO.fecharConexao();
 					} catch (SQLException g) {
 						// TODO Auto-generated catch block
 						g.printStackTrace();

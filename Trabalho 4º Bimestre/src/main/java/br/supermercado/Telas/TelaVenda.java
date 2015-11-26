@@ -214,7 +214,6 @@ public class TelaVenda extends JPanel {
 
 					tblGenerica.setModel((TableModel)new TabelaConsultaCliente(clienteDAO.listar(sqlConsultaUsuario)));
 
-					clienteDAO.fecharConexao();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -244,7 +243,6 @@ public class TelaVenda extends JPanel {
 
 					tblGenerica.setModel((TableModel)new TabelaConsultaProduto(produtoDAO.listar(sqlConsultaProduto)));
 
-					produtoDAO.fecharConexao();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -377,8 +375,6 @@ public class TelaVenda extends JPanel {
 						vendaDAO.gravar(venda);
 
 						limparCampos();
-
-						vendaDAO.fecharConexao();
 						
 						gravarItensVenda(itensVenda);
 						
@@ -484,8 +480,6 @@ public class TelaVenda extends JPanel {
 		}  
 		
 		JOptionPane.showMessageDialog(null, "Venda finalizada!");
-		
-		itemVendaDAO.fecharConexao();
 		
 	}
 	

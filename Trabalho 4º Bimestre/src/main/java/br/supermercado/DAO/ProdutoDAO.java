@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.supermercado.Produto;
+import br.supermercado.conexao.ConexaoMySQL;
 
 public class ProdutoDAO implements EstrururaDAO<Produto>{
 
@@ -20,11 +21,7 @@ public class ProdutoDAO implements EstrururaDAO<Produto>{
 	@Override
 	public void abrirConexao() throws SQLException {
 
-		String url = "jdbc:postgresql://localhost:5432/Trabalho4thBim";
-		String user = "postgres";
-		String pass = "tezza";
-
-		conexao = DriverManager.getConnection(url, user, pass);
+		conexao = ConexaoMySQL.getConexaoMySQL(); //DriverManager.getConnection(url, user, pass);
 
 	}
 
@@ -121,13 +118,4 @@ public class ProdutoDAO implements EstrururaDAO<Produto>{
 		return produtos;		
 
 	}
-
-
-	@Override
-	public void fecharConexao() throws SQLException {
-		conexao.close();	
-	}
-
-
-
 }

@@ -123,7 +123,6 @@ public class TelaCadastroUsuario extends JPanel {
 
 					JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
 
-					usuarioDAO.fecharConexao();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -149,8 +148,7 @@ public class TelaCadastroUsuario extends JPanel {
 					limparCampos();
 
 					JOptionPane.showMessageDialog(null, "Dados do usuário atualizados com sucesso!");
-
-					usuarioDAO.fecharConexao();
+					
 				} catch (SQLException f) {
 					// TODO Auto-generated catch block
 					f.printStackTrace();
@@ -173,8 +171,7 @@ public class TelaCadastroUsuario extends JPanel {
 						usuarioDAO.excluir(Integer.parseInt(txtId.getText()));
 						tblUsuarios.setModel((TableModel)new TabelaUsuarios(usuarioDAO.listar(sqlUsuario)));
 						limparCampos();
-
-						usuarioDAO.fecharConexao();
+						
 					} catch (SQLException g) {
 						// TODO Auto-generated catch block
 						g.printStackTrace();
@@ -214,9 +211,6 @@ public class TelaCadastroUsuario extends JPanel {
 
 		DefaultComboBoxModel<Object> model = new DefaultComboBoxModel<>(lista);
 
-		clienteDAO.fecharConexao();
-
-
 		try {
 			usuarioDAO.abrirConexao();
 
@@ -238,7 +232,6 @@ public class TelaCadastroUsuario extends JPanel {
 
 						tblConsultaCliente.setModel((TableModel)new TabelaConsultaCliente(clienteDAO.listar(sqlConsultaUsuario)));
 
-						clienteDAO.fecharConexao();
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -267,7 +260,6 @@ public class TelaCadastroUsuario extends JPanel {
 			});
 			scrollPane_1.setViewportView(tblConsultaCliente);
 
-			usuarioDAO.fecharConexao();
 		} catch (SQLException f) {
 			// TODO Auto-generated catch block
 			f.printStackTrace();

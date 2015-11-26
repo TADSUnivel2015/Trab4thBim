@@ -139,8 +139,6 @@ public class TelaRelatorioProduto extends JPanel {
 
 						limparcampos();
 
-						produtoDAO.fecharConexao();
-
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

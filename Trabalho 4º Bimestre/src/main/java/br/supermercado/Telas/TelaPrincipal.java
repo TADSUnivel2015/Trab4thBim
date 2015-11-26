@@ -2,15 +2,17 @@ package br.supermercado.Telas;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.border.EmptyBorder;
 
 import br.supermercado.ExtendsMoldura.CadastroCliente;
 import br.supermercado.ExtendsMoldura.CadastroProduto;
@@ -22,12 +24,6 @@ import br.supermercado.ExtendsMoldura.Venda;
 import br.supermercado.Login.Login;
 import br.supermercado.Login.PainelBloqueio;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.sql.SQLException;
-import java.util.function.Function;
-import java.awt.Window.Type;
-
 /**
  * 
  * @author Alex Tezza
@@ -36,6 +32,10 @@ import java.awt.Window.Type;
 
 public class TelaPrincipal extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1231482378828407618L;
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane;
 	private PainelBloqueio glass;
