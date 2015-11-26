@@ -66,6 +66,7 @@ public class TelaVenda extends JPanel {
 	private ClienteDAO clienteDAO = new ClienteDAO();
 	private ProdutoDAO produtoDAO = new ProdutoDAO();
 	private VendaDAO vendaDAO = new VendaDAO();
+	
 	private ItemVendaDAO itemVendaDAO = new ItemVendaDAO();
 
 	private JTextField txtNomeCliente;

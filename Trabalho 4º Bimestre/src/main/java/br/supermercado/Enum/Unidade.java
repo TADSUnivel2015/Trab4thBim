@@ -15,7 +15,8 @@ public enum Unidade {
 	KG("Kilograma"), 
 	UN("Unidade"),
 	PCT("Pacote"),
-	CX("Caixa");
+	CX("Caixa"),
+	LT("Litro");
 	
 	private String nome;
 
