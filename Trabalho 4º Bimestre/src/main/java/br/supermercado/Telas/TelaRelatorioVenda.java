@@ -38,8 +38,6 @@ public class TelaRelatorioVenda extends JPanel {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextField txtNomeCliente;
 	
-	private MaskFormatter txtData;
-	
 	private int flag = 1;
 	private JFormattedTextField txtDia;
 	private JComboBox cbMes;
@@ -56,13 +54,6 @@ public class TelaRelatorioVenda extends JPanel {
 	 */
 	public TelaRelatorioVenda() {
 		setLayout(null);
-		
-		try {
-			txtData =  new MaskFormatter("##-##-####");
-		} catch (ParseException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
 		
 		JLabel lblFiltrarPor = new JLabel("Filtrar por:");
 		lblFiltrarPor.setBounds(36, 50, 76, 14);
@@ -168,39 +159,36 @@ public class TelaRelatorioVenda extends JPanel {
 					if (rbDia.isSelected()) {
 
 						String dia = txtDia.getText();
-						consultaSQL = "select * from venda where datavenda = '" + dia + "'";
-						// select * from venda where data month(data) = mes
+						consultaSQL = "SELECT * FROM venda WHERE DAY(datavenda) = '" + dia + "'";
 					}
 					
 					if (rbMes.isSelected()) {
 
 						int mes = cbMes.getSelectedIndex() + 1;
 						
-						consultaSQL = "select * from venda where data month(data) = '" + mes + "'";
+						consultaSQL = "SELECT * FROM venda WHERE MONTH(datavenda) = '" + mes + "'";
 					}
 					
 					if (rbCategoria.isSelected()) {
 
 						String categoria = cbCategoria.getSelectedItem().toString();
-						consultaSQL = "select * from venda where categoria = '" + categoria + "'";
+						consultaSQL = "SELECT * FROM venda NATURAL JOIN itemvenda WHERE itemvenda.categoria =  '" + categoria + "'";
 					}
 					
 					if (rbNomeCliente.isSelected()) {
 
 						String nomeCliente = txtNomeCliente.getText();
 						
-						consultaSQL = "select * from venda where idCliente = '" + idCliente + "'";
+						consultaSQL = "SELECT * FROM venda NATURAL JOIN cliente WHERE cliente.nome = '" + nomeCliente + "' AND venda.idcliente = cliente.id";
 					}
 					
-					
-
 					try {
 
 						vendaDAO.abrirConexao();
 
 						tblGenerica.setModel(new TabelaVendas(vendaDAO.listar(consultaSQL)));
 
-						limparcampos();
+	//					limparcampos();
 
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
@@ -226,7 +214,7 @@ public class TelaRelatorioVenda extends JPanel {
 		button_1.setBounds(893, 92, 175, 31);
 		add(button_1);
 		
-		txtDia = new JFormattedTextField(txtData);
+		txtDia = new JFormattedTextField();
 		txtDia.setBounds(193, 47, 93, 20);
 		add(txtDia);
 

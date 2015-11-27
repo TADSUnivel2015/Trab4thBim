@@ -69,7 +69,7 @@ public class TelaRelatorioProduto extends JPanel {
 		rbCategoria.setBounds(186, 45, 119, 23);
 		add(rbCategoria);
 
-		JRadioButton rbMargemLucro = new JRadioButton("Margem de lucro");
+		JRadioButton rbMargemLucro = new JRadioButton("Margem de lucro maior que:");
 		rbMargemLucro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -80,7 +80,7 @@ public class TelaRelatorioProduto extends JPanel {
 			}
 		});
 		buttonGroup.add(rbMargemLucro);
-		rbMargemLucro.setBounds(546, 45, 129, 23);
+		rbMargemLucro.setBounds(546, 45, 193, 23);
 		add(rbMargemLucro);
 
 		cbCategoria = new JComboBox(Categoria.values());
@@ -90,7 +90,7 @@ public class TelaRelatorioProduto extends JPanel {
 
 		txtMargemLucro = new JTextField();
 		txtMargemLucro.setEnabled(false);
-		txtMargemLucro.setBounds(681, 46, 73, 20);
+		txtMargemLucro.setBounds(745, 46, 73, 20);
 		add(txtMargemLucro);
 		txtMargemLucro.setColumns(10);
 
@@ -127,7 +127,7 @@ public class TelaRelatorioProduto extends JPanel {
 					else{
 
 						String margemLucro = txtMargemLucro.getText();
-						consultaSQL = "select * from produto where margemlucro = '" + margemLucro + "'";
+						consultaSQL = "select * from produto where margemlucro >= '" + margemLucro + "'";
 
 					}
 

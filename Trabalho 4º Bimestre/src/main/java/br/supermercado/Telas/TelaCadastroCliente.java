@@ -33,6 +33,7 @@ import br.supermercado.DAO.ClienteDAO;
 import br.supermercado.Enum.Estado;
 import br.supermercado.Enum.Genero;
 import br.supermercado.ModelTabelas.TabelaClientes;
+import br.supermercado.conexao.ConexaoMySQL;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JScrollPane;
@@ -51,6 +52,8 @@ import java.awt.event.MouseEvent;
  */
 
 public class TelaCadastroCliente extends JPanel {
+	
+	private static TelaCadastroCliente telaCadatroCliente = null;
 	
 	private JTextField txtId;
 	private JTextField txtNome;
@@ -278,4 +281,5 @@ public class TelaCadastroCliente extends JPanel {
 		cbGenero.setSelectedIndex(0);
 		
 	}	
+
 }

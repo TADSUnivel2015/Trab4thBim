@@ -8,20 +8,20 @@ public class ConexaoMySQL {
 	public static Connection conn;
 	// public static ConexaoMysql conexao;
 	private static String url;
-	private static String dbName;
+	private static String nomeDataBase;
 	private static String driver;
-	private static String userName;
-	private static String password;
+	private static String user;
+	private static String pass;
 
 	private ConexaoMySQL() {
 		url = "jdbc:mysql://localhost:3306/";
-		dbName = "tabalho4thbim";
+		nomeDataBase = "tabalho4thbim";
 		driver = "com.mysql.jdbc.Driver";
-		userName = "root";
-		password = "tezza";
+		user = "root";
+		pass = "tezza";
 		try {
 			Class.forName(driver).newInstance();
-			ConexaoMySQL.conn = DriverManager.getConnection(url + dbName, userName, password);
+			ConexaoMySQL.conn = DriverManager.getConnection(url + nomeDataBase, user, pass);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
