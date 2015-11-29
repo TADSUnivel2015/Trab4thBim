@@ -28,17 +28,18 @@ public class VendaDAO implements EstrururaDAO<Venda>{
 	@Override
 	public void gravar(Venda venda) throws SQLException {
 
-		ps = conexao.prepareStatement("INSERT INTO venda (IdVenda, idCliente, dataVenda, horaVenda, totalcompra)"
-				+ "VALUES (?, ?, ?, ?, ?)");
+		ps = conexao.prepareStatement("INSERT INTO venda (IdVenda, idCliente, nomecliente, dataVenda, horaVenda, totalcompra)"
+				+ "VALUES (?, ?, ?, ?, ?, ?)");
 
 		java.util.Date utilDate = venda.getData();  
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());  
 		
 		ps.setInt(1, venda.getIdVenda());
 		ps.setInt(2, venda.getIdClinte());
-		ps.setDate(3, sqlDate);
-		ps.setString(4, venda.getHora());
-		ps.setBigDecimal(5, venda.getTotalCompra());
+		ps.setString(3, venda.getNomeCliente());
+		ps.setDate(4, sqlDate);
+		ps.setString(5, venda.getHora());
+		ps.setBigDecimal(6, venda.getTotalCompra());
 
 		ps.executeUpdate();
 
@@ -86,6 +87,7 @@ public class VendaDAO implements EstrururaDAO<Venda>{
 
 			novo.setIdVenda(result.getInt("idvenda"));
 			novo.setIdClinte(result.getInt("idcliente"));
+			novo.setNomeCliente(result.getString("nomecliente"));
 			novo.setHora(result.getString("horavenda"));
 			novo.setData(result.getDate("datavenda"));
 			novo.setTotalCompra(result.getBigDecimal("totalcompra"));
