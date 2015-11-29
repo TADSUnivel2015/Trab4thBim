@@ -15,16 +15,20 @@ import javax.swing.JButton;
 import br.supermercado.DAO.ClienteDAO;
 import br.supermercado.Enum.Estado;
 import br.supermercado.ModelTabelas.TabelaClientes;
+import br.supermercado.RelatorioJasper.JasperReportExemple;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
+import net.sf.jasperreports.engine.JRException;
 
 public class TelaRelatorioCliente extends JPanel {
 	
@@ -36,6 +40,11 @@ public class TelaRelatorioCliente extends JPanel {
 	private JTable tblClientes;
 	
 	private ClienteDAO clienteDAO = new ClienteDAO();
+	
+	private JasperReportExemple jasperReport = new JasperReportExemple();;
+	
+	private String localArquivoRelatorio = "C:\\Users\\Alex Tezza\\git\\Trab4thBim\\"
+			+ "Trabalho 4º Bimestre\\src\\test\\resources\\Relatorios\\RelatorioClientes.jrxml";
 
 	/**
 	 * Create the panel.
@@ -148,6 +157,31 @@ public class TelaRelatorioCliente extends JPanel {
 		add(button);
 		
 		JButton button_1 = new JButton("Exportar para PDF");
+		button_1.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try {
+					
+					jasperReport.gerar(localArquivoRelatorio, consultaSQL, "RelatórioClientes");
+					
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JRException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+			}
+		});
 		button_1.setBounds(1112, 51, 175, 31);
 		add(button_1);
 
