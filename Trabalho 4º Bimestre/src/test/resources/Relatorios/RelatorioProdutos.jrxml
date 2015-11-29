@@ -1,26 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
-<!-- 2015-11-29T11:26:46 -->
+<!-- 2015-11-29T11:55:09 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioProdutos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a9196c88-1b5d-458f-b2cf-7de873f0a120">
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value="cHJvZHV0byAsMTUsMTUsMTMzYjRmYmEtNzZkMS00MTExLTlhNjgtNjk3ZDEwYWVjZjI2Ow=="/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
+	<field name="categoria" class="java.lang.String"/>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="unidade" class="java.lang.String"/>
+	<field name="custo" class="java.lang.String"/>
+	<field name="margemlucro" class="java.lang.String"/>
+	<field name="custofinal" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="85" splitType="Stretch">
+			<image>
+				<reportElement x="20" y="0" width="90" height="80" uuid="e5fa7915-50dd-4168-ab3a-d3e27b0cf207"/>
+				<imageExpression><![CDATA["C:/Users/Alex Tezza/Desktop/Trabalho Java/Image.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="120" y="0" width="340" height="30" uuid="24518afa-30c4-4b43-a387-bb40412bc6ad"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Supermercado Volte Sempre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="34" width="190" height="20" uuid="70f164cf-e2ea-45d4-9f06-c98097414030"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fone: (45) 3098 - 9837]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="60" width="100" height="25" uuid="86165104-af5f-4481-aa53-c9f7f6001f23"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cascavel - PR]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="450" y="61" width="100" height="19" uuid="11076acb-fbd4-4ce8-b9a2-ea81d590aee5"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="9" width="550" height="30" uuid="31d0be5d-ef2f-4e59-92ef-425a90fcf856"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Produtos]]></text>
+			</staticText>
+		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="95" height="14" uuid="4755f5ec-fab2-4efb-b3c7-0a7d876d15fb"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Categoria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="0" width="92" height="14" uuid="a0c8ff0b-70b3-4e07-b932-7da8b3232d5e"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="0" width="92" height="14" uuid="78ca4112-9455-41d1-8f40-ccffcfe2bb90"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="0" width="92" height="14" uuid="6c190ee8-0180-489e-9879-673faf50cb9c"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Custo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="371" y="0" width="92" height="14" uuid="282bd98e-8fa7-4287-a0aa-2a56e3b2d645"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Margem de lucro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="463" y="0" width="92" height="14" uuid="62e12dd2-e11a-41eb-9c4a-9443b59cf74e"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Custo final]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="10" width="95" height="14" uuid="ac26b290-e23e-436d-bc89-5a59f12b5f65"/>
+				<textFieldExpression><![CDATA[$F{categoria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="10" width="92" height="14" uuid="2d54b4a8-9bd4-404a-8fb8-ff3b29c95318"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="10" width="92" height="14" uuid="000b24ee-e843-41f1-9e9a-55553124b1fb"/>
+				<textFieldExpression><![CDATA[$F{unidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="10" width="92" height="14" uuid="41773d57-f0d6-4c16-9c8c-e352f69c6c6a"/>
+				<textFieldExpression><![CDATA[$F{custo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="371" y="10" width="92" height="14" uuid="d09f287a-4616-4c7b-9049-fcb97d941da1"/>
+				<textFieldExpression><![CDATA[$F{margemlucro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="463" y="10" width="92" height="14" uuid="32fffa0e-4e5a-4d8b-8815-3de409518908"/>
+				<textFieldExpression><![CDATA[$F{custofinal}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>

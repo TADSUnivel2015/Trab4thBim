@@ -22,9 +22,10 @@ public class TabelaVendas extends AbstractTableModel {
 		switch (col) {
 		case 0: return "Id venda";
 		case 1: return "Id cliente";
-		case 2: return "Data da venda";
-		case 3: return "Hora da venda";
-		case 4: return "Valor total gasto";
+		case 2: return "Nome cliente";
+		case 3: return "Data da venda";
+		case 4: return "Hora da venda";
+		case 5: return "Valor total gasto";
 		}
 
 		return null;
@@ -33,7 +34,7 @@ public class TabelaVendas extends AbstractTableModel {
 	@Override
 	public int getColumnCount() {
 		// TODO Auto-generated method stub
-		return 5;
+		return 6;
 	}
 
 	@Override
@@ -47,9 +48,10 @@ public class TabelaVendas extends AbstractTableModel {
 		switch (col) {
 		case 0: return lista.get(row).getIdVenda();
 		case 1: return lista.get(row).getIdClinte();
-		case 2: return lista.get(row).getData();
-		case 3: return lista.get(row).getHora();
-		case 4: return lista.get(row).getTotalCompra();
+		case 2: return lista.get(row).getNomeCliente();
+		case 3: return lista.get(row).getData();
+		case 4: return lista.get(row).getHora();
+		case 5: return lista.get(row).getTotalCompra();
 		}
 		
 		return null;

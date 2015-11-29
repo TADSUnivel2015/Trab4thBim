@@ -67,7 +67,7 @@ public class JasperReportExemple {
 		JOptionPane
 				.showMessageDialog(
 						null,
-						"<html>Arquivo exportado para PDF!<br><br>O arquivo será aberto!.");
+						"<html>Arquivo exportado para PDF!<br><br>O arquivo gerado será aberto em seguida.");
 
 		Desktop.getDesktop().open(new File(OUT_PDF));
 

@@ -26,12 +26,15 @@ import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import net.sf.jasperreports.engine.JRException;
 import br.supermercado.DAO.ProdutoDAO;
 import br.supermercado.Enum.Categoria;
 import br.supermercado.ModelTabelas.TabelaProdutos;
+import br.supermercado.RelatorioJasper.JasperReportExemple;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class TelaRelatorioProduto extends JPanel {
@@ -40,8 +43,15 @@ public class TelaRelatorioProduto extends JPanel {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JComboBox cbCategoria;
 	private JTable tblProduto;
+	
+	private Boolean status = false;
 
 	private ProdutoDAO produtoDAO = new ProdutoDAO();
+	
+	JasperReportExemple jasperReport = new JasperReportExemple();
+	
+	private String localArquivoRelatorio = "C:\\Users\\Alex Tezza\\git\\Trab4thBim\\Trabalho 4º Bimestre"
+			+ "\\src\\test\\resources\\Relatorios\\RelatorioProdutos.jrxml";
 
 	private String consultaSQL;
 
@@ -108,6 +118,21 @@ public class TelaRelatorioProduto extends JPanel {
 		JButton btnExportarParaPdf = new JButton("Exportar para PDF");
 		btnExportarParaPdf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+			
+				if (status == true) {
+				
+					try {
+						jasperReport.gerar(localArquivoRelatorio, consultaSQL, "RelatórioProdutos");
+					} catch (ClassNotFoundException | JRException | SQLException
+							| IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Clique em Pesquisar antes de Exportar para PDF!");
+				}
+				
+				status = false;
 			}
 		});
 		btnExportarParaPdf.setBounds(1056, 37, 175, 31);
@@ -117,6 +142,8 @@ public class TelaRelatorioProduto extends JPanel {
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				status = true;
+				
 				if (rbCategoria.isSelected() == false || rbMargemLucro.isSelected() == false){
 					
 					if (rbCategoria.isSelected()) {
