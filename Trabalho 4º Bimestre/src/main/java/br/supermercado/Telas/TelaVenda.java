@@ -443,16 +443,34 @@ public class TelaVenda extends JPanel {
 		txtTroco.setText("0.0");
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	private Date getDate() {
-
-		//		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
 		Date date = new Date(); 
 
 		return date; 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	private String getTime() {
 
