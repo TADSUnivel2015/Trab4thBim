@@ -39,7 +39,7 @@ public class VendaDAO implements EstrururaDAO<Venda>{
 		ps.setString(3, venda.getNomeCliente());
 		ps.setDate(4, sqlDate);
 		ps.setString(5, venda.getHora());
-		ps.setBigDecimal(6, venda.getTotalCompra());
+		ps.setString(6, venda.getTotalCompra());
 
 		ps.executeUpdate();
 
@@ -90,7 +90,7 @@ public class VendaDAO implements EstrururaDAO<Venda>{
 			novo.setNomeCliente(result.getString("nomecliente"));
 			novo.setHora(result.getString("horavenda"));
 			novo.setData(result.getDate("datavenda"));
-			novo.setTotalCompra(result.getBigDecimal("totalcompra"));
+			novo.setTotalCompra(result.getString("totalcompra"));
 
 			vendas.add(novo);
 

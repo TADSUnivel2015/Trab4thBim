@@ -135,6 +135,8 @@ public class TelaVenda extends JPanel {
 		JButton btnNewButton = new JButton("Adicionar");
 		btnNewButton.addActionListener(new ActionListener() {
 
+			private String valorFinalTotal;
+
 			public void actionPerformed(ActionEvent e) {
 
 				if (!txtNomeCliente.getText().equals("") ){
@@ -152,7 +154,7 @@ public class TelaVenda extends JPanel {
 					
 					// Passando o valor BigDecimal para o formato pt-br
 					
-					String valorFinalTotal = "";
+					valorFinalTotal = "";
 					try {
 						valorFinalTotal = conversor.transformaValor(String.valueOf(valorFinal));
 					} catch (ParseException e1) {
@@ -354,12 +356,21 @@ public class TelaVenda extends JPanel {
 
 				if (resp == JOptionPane.YES_OPTION == true) {
 					
+					String valorFinalBanco = "";
+					
+					try {
+						valorFinalBanco = conversor.transformaValor(String.valueOf(valorFinal));
+					} catch (ParseException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					
 					try {
 						vendaDAO.abrirConexao();
 
 						Venda venda = new Venda(txtNomeCliente.getText()
 								, Integer.parseInt(txtIdCliente.getText())
-								, totalCompra
+								, valorFinalBanco
 								, getDate()
 								, getTime());
 
@@ -419,7 +430,7 @@ public class TelaVenda extends JPanel {
 		add(lblR);
 		
 		JLabel lblIdVenda = new JLabel("Id Venda");
-		lblIdVenda.setBounds(45, 34, 46, 14);
+		lblIdVenda.setBounds(45, 34, 68, 14);
 		add(lblIdVenda);
 		
 		txtIdVenda = new JTextField();

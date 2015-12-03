@@ -10,7 +10,7 @@ public class Venda {
 	private int idVenda;
 	private String nomeCliente;
 	private int idClinte;
-	private BigDecimal totalCompra;
+	private String totalCompra;
 	private Date data;
 	private String hora;
 
@@ -19,7 +19,7 @@ public class Venda {
 	}
 
 	public Venda(String nomeCliente, int idClinte,
-			BigDecimal totalCompra, Date date, String hora) {
+			String totalCompra, Date date, String hora) {
 
 		this.nomeCliente = nomeCliente;
 		this.idClinte = idClinte;
@@ -52,11 +52,11 @@ public class Venda {
 		this.idClinte = idClinte;
 	}
 
-	public BigDecimal getTotalCompra() {
+	public String getTotalCompra() {
 		return totalCompra;
 	}
 
-	public void setTotalCompra(BigDecimal totalCompra) {
+	public void setTotalCompra(String totalCompra) {
 		this.totalCompra = totalCompra;
 	}
 
