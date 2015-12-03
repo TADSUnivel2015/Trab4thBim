@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
-<!-- 2015-12-03T20:03:08 -->
+<!-- 2015-12-03T20:20:57 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioVendas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="663f2a8d-34c3-41a6-ac7b-93349f901c28">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL"/>
@@ -22,7 +22,7 @@
 	<field name="horavenda" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="totalcompra" class="java.math.BigDecimal">
+	<field name="totalcompra" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
@@ -65,57 +65,57 @@
 		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="25" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="40" height="30" uuid="91a68d63-ea4f-459f-bff4-aaca3ea2be5f"/>
-				<text><![CDATA[idvenda]]></text>
+				<reportElement x="0" y="0" width="50" height="22" uuid="91a68d63-ea4f-459f-bff4-aaca3ea2be5f"/>
+				<text><![CDATA[Id Venda]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="40" y="0" width="40" height="30" uuid="cc551ab9-495d-4685-b8df-c80fb123ff37"/>
-				<text><![CDATA[idcliente]]></text>
+				<reportElement x="50" y="0" width="50" height="22" uuid="cc551ab9-495d-4685-b8df-c80fb123ff37"/>
+				<text><![CDATA[Id Cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="80" y="0" width="199" height="30" uuid="b85b95e9-ba10-432c-a254-bc6ad12ac772"/>
-				<text><![CDATA[nomecliente]]></text>
+				<reportElement x="100" y="0" width="179" height="22" uuid="b85b95e9-ba10-432c-a254-bc6ad12ac772"/>
+				<text><![CDATA[Nome cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="279" y="0" width="92" height="30" uuid="2e34e27a-9f1f-414b-b967-993721cd94e7"/>
-				<text><![CDATA[datavenda]]></text>
+				<reportElement x="279" y="0" width="92" height="22" uuid="2e34e27a-9f1f-414b-b967-993721cd94e7"/>
+				<text><![CDATA[Data da venda]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="371" y="0" width="92" height="30" uuid="958100cd-6532-4f0d-bbc5-9929e5b6d307"/>
-				<text><![CDATA[horavenda]]></text>
+				<reportElement x="371" y="0" width="92" height="22" uuid="958100cd-6532-4f0d-bbc5-9929e5b6d307"/>
+				<text><![CDATA[Hora da Venda]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="463" y="0" width="92" height="30" uuid="909549a7-1540-46e9-8ef7-1a90037fe2f3"/>
-				<text><![CDATA[totalcompra]]></text>
+				<reportElement x="463" y="0" width="92" height="22" uuid="909549a7-1540-46e9-8ef7-1a90037fe2f3"/>
+				<text><![CDATA[Total gasto]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="25" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="18" width="40" height="30" uuid="7ef57a75-bd84-4add-97f4-a98d40c5f85d"/>
+				<reportElement x="0" y="0" width="50" height="22" uuid="7ef57a75-bd84-4add-97f4-a98d40c5f85d"/>
 				<textFieldExpression><![CDATA[$F{idvenda}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="40" y="18" width="40" height="30" uuid="e3ac9e6e-7a3b-4deb-90ec-6c6522f9ebb4"/>
+				<reportElement x="50" y="0" width="50" height="22" uuid="e3ac9e6e-7a3b-4deb-90ec-6c6522f9ebb4"/>
 				<textFieldExpression><![CDATA[$F{idcliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="80" y="18" width="199" height="30" uuid="cb329e4f-3c20-49c8-98af-70eeb58b4375"/>
+				<reportElement x="100" y="0" width="179" height="22" uuid="cb329e4f-3c20-49c8-98af-70eeb58b4375"/>
 				<textFieldExpression><![CDATA[$F{nomecliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="279" y="18" width="92" height="30" uuid="bb15a4ef-9055-4c31-b473-a2d71c435dee"/>
+				<reportElement x="279" y="0" width="92" height="22" uuid="bb15a4ef-9055-4c31-b473-a2d71c435dee"/>
 				<textFieldExpression><![CDATA[$F{datavenda}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="371" y="18" width="92" height="30" uuid="f6293e39-4356-48fd-8808-b3f5879b0d59"/>
+				<reportElement x="371" y="0" width="92" height="22" uuid="f6293e39-4356-48fd-8808-b3f5879b0d59"/>
 				<textFieldExpression><![CDATA[$F{horavenda}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="463" y="18" width="92" height="30" uuid="f02d5038-6a2a-4ad8-a879-9fe2ff5f1ae1"/>
+				<reportElement x="463" y="0" width="92" height="22" uuid="f02d5038-6a2a-4ad8-a879-9fe2ff5f1ae1"/>
 				<textFieldExpression><![CDATA[$F{totalcompra}]]></textFieldExpression>
 			</textField>
 		</band>

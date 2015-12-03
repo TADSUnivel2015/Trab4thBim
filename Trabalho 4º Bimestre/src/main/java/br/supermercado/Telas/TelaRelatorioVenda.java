@@ -20,13 +20,17 @@ import br.supermercado.Enum.Mes;
 import br.supermercado.ModelTabelas.TabelaClientes;
 import br.supermercado.ModelTabelas.TabelaProdutos;
 import br.supermercado.ModelTabelas.TabelaVendas;
+import br.supermercado.RelatorioJasper.JasperReportExemple;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 
+import net.sf.jasperreports.engine.JRException;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.awt.event.MouseAdapter;
@@ -45,7 +49,14 @@ public class TelaRelatorioVenda extends JPanel {
 	private String consultaSQL = null;
 	
 	private VendaDAO vendaDAO = new VendaDAO();
-	private ClienteDAO clienteDAO = new ClienteDAO();
+	private ClienteDAO clienteDAO = new ClienteDAO(); 
+	
+	private JasperReportExemple jasperReport = new JasperReportExemple();
+	
+	private String localArquivoRelatorio = "C:\\Users\\Alex Tezza\\git\\Trab4thBim"
+			+ "\\Trabalho 4º Bimestre\\src\\main\\resources\\Relatorios\\RelatorioVendas.jrxml";
+	
+	private Boolean status = false;
 	
 	private int idCliente;
 
@@ -142,6 +153,24 @@ public class TelaRelatorioVenda extends JPanel {
 		add(btnNewButton);
 		
 		JButton button = new JButton("Exportar para PDF");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (status == true) {
+					
+					try {
+						jasperReport.gerar(localArquivoRelatorio, consultaSQL, "RelatórioVendas");
+					} catch (ClassNotFoundException | JRException | SQLException
+							| IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Clique em Pesquisar antes de Exportar para PDF!");
+				}
+				
+				status = false;
+			}
+		});
 		button.setBounds(1078, 92, 175, 31);
 		add(button);
 		
@@ -172,7 +201,9 @@ public class TelaRelatorioVenda extends JPanel {
 					if (rbCategoria.isSelected()) {
 
 						String categoria = cbCategoria.getSelectedItem().toString();
-						consultaSQL = "SELECT * FROM venda NATURAL JOIN itemvenda WHERE itemvenda.categoria =  '" + categoria + "'";
+				 		consultaSQL = "SELECT DISTINCT venda.idvenda, venda.idcliente, venda.nomecliente, venda.datavenda, venda.horavenda, venda.totalcompra "
+				 				+ "FROM venda INNER JOIN itemvenda WHERE itemvenda.categoria = '" + categoria + "'";
+		
 					}
 					
 					if (rbNomeCliente.isSelected()) {
@@ -194,6 +225,8 @@ public class TelaRelatorioVenda extends JPanel {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+					
+					status = true;
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "Por gentileza, selecione um filtro de pesquisa!");
