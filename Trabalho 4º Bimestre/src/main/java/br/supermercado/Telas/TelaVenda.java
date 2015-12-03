@@ -368,14 +368,15 @@ public class TelaVenda extends JPanel {
 					try {
 						vendaDAO.abrirConexao();
 
-						Venda venda = new Venda(txtNomeCliente.getText()
+						Venda venda = new Venda(Integer.parseInt(txtIdVenda.getText())
+								,txtNomeCliente.getText()
 								, Integer.parseInt(txtIdCliente.getText())
 								, valorFinalBanco
 								, getDate()
 								, getTime());
 
 						vendaDAO.gravar(venda);
-
+						
 						limparCampos();
 						
 						gravarItensVenda(itensVenda);

@@ -21,7 +21,7 @@ public class ItemVenda {
 
 	public ItemVenda(int idVenda, int idProduto, String descricao,
 			String categoria, BigDecimal vlrUnidade, int qtd, BigDecimal vlrTotal) {
-
+		super();
 		this.idVenda = idVenda;
 		this.idProduto = idProduto;
 		this.descricao = descricao;

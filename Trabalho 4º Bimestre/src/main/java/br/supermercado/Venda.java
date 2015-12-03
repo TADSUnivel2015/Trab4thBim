@@ -18,13 +18,14 @@ public class Venda {
 		
 	}
 
-	public Venda(String nomeCliente, int idClinte,
-			String totalCompra, Date date, String hora) {
-
+	public Venda(int idVenda, String nomeCliente, int idClinte,
+			String totalCompra, Date data, String hora) {
+		super();
+		this.idVenda = idVenda;
 		this.nomeCliente = nomeCliente;
 		this.idClinte = idClinte;
 		this.totalCompra = totalCompra;
-		this.data = date;
+		this.data = data;
 		this.hora = hora;
 	}
 

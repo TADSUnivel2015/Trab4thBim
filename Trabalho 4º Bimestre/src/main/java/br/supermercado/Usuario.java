@@ -23,7 +23,7 @@ public class Usuario {
 	}
 	
 	public Usuario(String nomeCliente, int idCliente, String senha) {
-		
+		super();
 		this.nomeCliente = nomeCliente;
 		this.idCliente = idCliente;
 		this.senha = senha;
