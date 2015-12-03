@@ -81,6 +81,7 @@ public class TelaCadastroProduto extends JPanel {
 		add(lblId);
 
 		txtId = new JTextField();
+		txtId.setEditable(false);
 		txtId.setBounds(96, 30, 86, 20);
 		add(txtId);
 		txtId.setColumns(10);
@@ -189,8 +190,7 @@ public class TelaCadastroProduto extends JPanel {
 
 
 					
-					Produto produto = new Produto(Integer.parseInt(txtId.getText()),
-							txtCodigoBarras.getText(), cbCategoria.getSelectedItem().toString(),
+					Produto produto = new Produto(txtCodigoBarras.getText(), cbCategoria.getSelectedItem().toString(),
 							txtDescricao.getText(), cbUnidade.getSelectedItem().toString(),
 							vlrCusto, porcentagem, vlrFinal);
 
@@ -228,8 +228,7 @@ public class TelaCadastroProduto extends JPanel {
 					BigDecimal vlrFinal = vlr.add(vlrCusto);
  
 
-					Produto produto = new Produto(Integer.parseInt(txtId.getText()),
-							txtCodigoBarras.getText(), cbCategoria.getSelectedItem().toString(),
+					Produto produto = new Produto(txtCodigoBarras.getText(), cbCategoria.getSelectedItem().toString(),
 							txtDescricao.getText(), cbUnidade.getSelectedItem().toString(),
 							vlrCusto, porcentagem, vlrFinal);
 

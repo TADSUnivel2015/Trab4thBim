@@ -89,6 +89,7 @@ public class TelaCadastroCliente extends JPanel {
 		add(lblId);
 		
 		txtId = new JTextField();
+		txtId.setEditable(false);
 		txtId.setBounds(99, 16, 72, 20);
 		add(txtId);
 		txtId.setColumns(10);
@@ -189,7 +190,7 @@ public class TelaCadastroCliente extends JPanel {
 				try {
 					clienteDAO.abrirConexao();
 					
-					Cliente cliente = new Cliente(Integer.parseInt(txtId.getText()), txtNome.getText(),
+					Cliente cliente = new Cliente(txtNome.getText(),
 							txtTelefone.getText(), txtEndereco.getText(), txtCidade.getText(),
 						    cbEstado.getSelectedItem().toString(), txtEmail.getText(),
 						    cbGenero.getSelectedItem().toString());
@@ -216,7 +217,7 @@ public class TelaCadastroCliente extends JPanel {
 				try {
 					clienteDAO.abrirConexao();
 					
-					Cliente cliente = new Cliente(Integer.parseInt(txtId.getText()), txtNome.getText(),
+					Cliente cliente = new Cliente(txtNome.getText(),
 							txtTelefone.getText(), txtEndereco.getText(), txtCidade.getText(),
 						    cbEstado.getSelectedItem().toString(), txtEmail.getText(),
 						    cbGenero.getSelectedItem().toString());

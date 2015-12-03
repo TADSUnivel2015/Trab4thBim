@@ -81,7 +81,6 @@ public class TelaVenda extends JPanel {
 
 	private int flag = 1;
 	private JTextField txtCategoriaProduto;
-	private JTextField txtIdVenda;
 	
 	private List<ItemVenda> itensVenda = new ArrayList<ItemVenda>();
 
@@ -90,6 +89,7 @@ public class TelaVenda extends JPanel {
 	private double valorFinal = 0.0;
 	
 	private ConversorDeValor conversor = new ConversorDeValor();
+	private JTextField txtIdVenda;
 
 
 	/**
@@ -137,7 +137,7 @@ public class TelaVenda extends JPanel {
 
 			public void actionPerformed(ActionEvent e) {
 
-				if (!txtNomeCliente.getText().equals("") && !txtIdVenda.getText().equals("")){
+				if (!txtNomeCliente.getText().equals("") ){
 
 					txtValorTotal.getText();
 					
@@ -165,7 +165,7 @@ public class TelaVenda extends JPanel {
 					
 
 					ItemVenda intemVenda = new ItemVenda(Integer.parseInt(txtIdVenda.getText())
-							, Integer.parseInt(txtIdProduto.getText())
+							,Integer.parseInt(txtIdProduto.getText())
 							, txtNomeProduto.getText()
 							, txtCategoriaProduto.getText()
 							, valorUnidade
@@ -344,15 +344,6 @@ public class TelaVenda extends JPanel {
 		add(txtCategoriaProduto);
 		txtCategoriaProduto.setColumns(10);
 
-		JLabel lblNewLabel_1 = new JLabel("Id Venda");
-		lblNewLabel_1.setBounds(45, 34, 61, 14);
-		add(lblNewLabel_1);
-
-		txtIdVenda = new JTextField();
-		txtIdVenda.setBounds(123, 28, 86, 20);
-		add(txtIdVenda);
-		txtIdVenda.setColumns(10);
-
 		JButton btnFinalizarVenda = new JButton("Finalizar Venda");
 		btnFinalizarVenda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -366,8 +357,7 @@ public class TelaVenda extends JPanel {
 					try {
 						vendaDAO.abrirConexao();
 
-						Venda venda = new Venda(Integer.parseInt(txtIdVenda.getText())
-								, txtNomeCliente.getText()
+						Venda venda = new Venda(txtNomeCliente.getText()
 								, Integer.parseInt(txtIdCliente.getText())
 								, totalCompra
 								, getDate()
@@ -427,6 +417,15 @@ public class TelaVenda extends JPanel {
 		lblR.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblR.setBounds(443, 554, 30, 14);
 		add(lblR);
+		
+		JLabel lblIdVenda = new JLabel("Id Venda");
+		lblIdVenda.setBounds(45, 34, 46, 14);
+		add(lblIdVenda);
+		
+		txtIdVenda = new JTextField();
+		txtIdVenda.setBounds(123, 28, 86, 20);
+		add(txtIdVenda);
+		txtIdVenda.setColumns(10);
 
 	}
 
@@ -442,16 +441,7 @@ public class TelaVenda extends JPanel {
 		txtValorPagamento.setText("");
 		txtTroco.setText("0.0");
 
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}		
 
 	private Date getDate() {
 
@@ -460,16 +450,6 @@ public class TelaVenda extends JPanel {
 
 		return date; 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
 	private String getTime() {
@@ -505,8 +485,6 @@ public class TelaVenda extends JPanel {
 	private void novaVenda() {
 		
 		itensVenda.clear();
-		
-		txtIdVenda.setText("");
 		
 		tblItensVenda.setModel(new TabelaItensVenda(itensVenda));
 		

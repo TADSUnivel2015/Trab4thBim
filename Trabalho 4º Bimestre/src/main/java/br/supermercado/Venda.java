@@ -18,9 +18,9 @@ public class Venda {
 		
 	}
 
-	public Venda(int idVenda, String nomeCliente, int idClinte,
+	public Venda(String nomeCliente, int idClinte,
 			BigDecimal totalCompra, Date date, String hora) {
-		this.idVenda = idVenda;
+
 		this.nomeCliente = nomeCliente;
 		this.idClinte = idClinte;
 		this.totalCompra = totalCompra;

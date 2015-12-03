@@ -83,6 +83,7 @@ public class TelaCadastroUsuario extends JPanel {
 		add(lblId);
 
 		txtId = new JTextField();
+		txtId.setEditable(false);
 		txtId.setBounds(84, 111, 86, 20);
 		add(txtId);
 		txtId.setColumns(10);
@@ -112,8 +113,7 @@ public class TelaCadastroUsuario extends JPanel {
 				try {
 					usuarioDAO.abrirConexao();
 
-					Usuario usuario = new Usuario(Integer.parseInt(txtId.getText()),
-							txtNomeCliente.getText(),
+					Usuario usuario = new Usuario(txtNomeCliente.getText(),
 							Integer.parseInt(txtIdCliente.getText()),
 							txtSenha.getText());
 
@@ -138,8 +138,7 @@ public class TelaCadastroUsuario extends JPanel {
 				try {
 					usuarioDAO.abrirConexao();
 
-					Usuario usuario = new Usuario(Integer.parseInt(txtId.getText()),
-							txtNomeCliente.getText(),
+					Usuario usuario = new Usuario(txtNomeCliente.getText(),
 							Integer.parseInt(txtIdCliente.getText()),
 							txtSenha.getText());
 

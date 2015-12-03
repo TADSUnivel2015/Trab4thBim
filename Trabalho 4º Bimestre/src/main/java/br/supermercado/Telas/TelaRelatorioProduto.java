@@ -51,7 +51,7 @@ public class TelaRelatorioProduto extends JPanel {
 	JasperReportExemple jasperReport = new JasperReportExemple();
 	
 	private String localArquivoRelatorio = "C:\\Users\\Alex Tezza\\git\\Trab4thBim\\Trabalho 4º Bimestre"
-			+ "\\src\\test\\resources\\Relatorios\\RelatorioProdutos.jrxml";
+			+ "\\src\\main\\resources\\Relatorios\\RelatorioProdutos.jrxml";
 
 	private String consultaSQL;
 

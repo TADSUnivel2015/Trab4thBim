@@ -28,11 +28,9 @@ public class Produto {
 	}
 	
 	
-	public Produto(int id, String codBarras, String categoria,
+	public Produto(String codBarras, String categoria,
 			String descricao, String unidade, BigDecimal custo,
 			BigDecimal margemLucro, BigDecimal valorFinal) {
-		super();
-		this.id = id;
 		this.codBarras = codBarras;
 		this.categoria = categoria;
 		this.descricao = descricao;

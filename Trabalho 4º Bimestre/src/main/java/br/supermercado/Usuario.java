@@ -22,9 +22,8 @@ public class Usuario {
 		
 	}
 	
-	public Usuario(int id, String nomeCliente, int idCliente, String senha) {
-		super();
-		this.id = id;
+	public Usuario(String nomeCliente, int idCliente, String senha) {
+		
 		this.nomeCliente = nomeCliente;
 		this.idCliente = idCliente;
 		this.senha = senha;

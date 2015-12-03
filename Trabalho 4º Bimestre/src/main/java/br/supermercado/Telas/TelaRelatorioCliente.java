@@ -46,7 +46,7 @@ public class TelaRelatorioCliente extends JPanel {
 	private JasperReportExemple jasperReport = new JasperReportExemple();;
 
 	private String localArquivoRelatorio = "C:\\Users\\Alex Tezza\\git\\Trab4thBim\\"
-			+ "Trabalho 4º Bimestre\\src\\test\\resources\\Relatorios\\RelatorioClientes.jrxml";
+			+ "Trabalho 4º Bimestre\\src\\main\\resources\\Relatorios\\RelatorioClientes.jrxml";
 
 	/**
 	 * Create the panel.
