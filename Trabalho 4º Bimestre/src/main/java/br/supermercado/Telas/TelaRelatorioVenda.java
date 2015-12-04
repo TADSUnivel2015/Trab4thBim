@@ -201,8 +201,7 @@ public class TelaRelatorioVenda extends JPanel {
 					if (rbCategoria.isSelected()) {
 
 						String categoria = cbCategoria.getSelectedItem().toString();
-				 		consultaSQL = "SELECT DISTINCT venda.idvenda, venda.idcliente, venda.nomecliente, venda.datavenda, venda.horavenda, venda.totalcompra "
-				 				+ "FROM venda INNER JOIN itemvenda WHERE itemvenda.categoria = '" + categoria + "'";
+				 		consultaSQL = "SELECT * FROM venda NATURAL JOIN itemvenda WHERE itemvenda.`categoria` = '" + categoria + "'";
 		
 					}
 					

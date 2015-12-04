@@ -34,9 +34,6 @@ public class VendaDAO implements EstrururaDAO<Venda>{
 		java.util.Date utilDate = venda.getData();  
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());  
 		
-		System.out.println(venda.getIdVenda());
-		System.out.println(venda.getIdClinte());
-		
 		ps.setInt(1, venda.getIdVenda());
 		ps.setInt(2, venda.getIdClinte());
 		ps.setString(3, venda.getNomeCliente());
