@@ -217,7 +217,8 @@ public class TelaCadastroCliente extends JPanel {
 				try {
 					clienteDAO.abrirConexao();
 					
-					Cliente cliente = new Cliente(txtNome.getText(),
+					Cliente cliente = new Cliente(Integer.parseInt(txtId.getText()),
+							txtNome.getText(),
 							txtTelefone.getText(), txtEndereco.getText(), txtCidade.getText(),
 						    cbEstado.getSelectedItem().toString(), txtEmail.getText(),
 						    cbGenero.getSelectedItem().toString());

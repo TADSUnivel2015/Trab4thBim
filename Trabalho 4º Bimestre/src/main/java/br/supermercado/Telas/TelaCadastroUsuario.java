@@ -138,7 +138,7 @@ public class TelaCadastroUsuario extends JPanel {
 				try {
 					usuarioDAO.abrirConexao();
 
-					Usuario usuario = new Usuario(txtNomeCliente.getText(),
+					Usuario usuario = new Usuario(Integer.parseInt(txtId.getText()),txtNomeCliente.getText(),
 							Integer.parseInt(txtIdCliente.getText()),
 							txtSenha.getText());
 
@@ -194,6 +194,7 @@ public class TelaCadastroUsuario extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				txtId.setText(String.valueOf(tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 0)));
+				txtNomeCliente.setText(String.valueOf(tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 1)));
 				txtIdCliente.setText(String.valueOf(tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 2)));
 				txtSenha.setText(String.valueOf(tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 3)));
 			}

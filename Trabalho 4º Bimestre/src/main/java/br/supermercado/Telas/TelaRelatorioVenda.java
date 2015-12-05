@@ -218,7 +218,7 @@ public class TelaRelatorioVenda extends JPanel {
 
 						tblGenerica.setModel(new TabelaVendas(vendaDAO.listar(consultaSQL)));
 
-	//					limparcampos();
+						limparcampos();
 
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block

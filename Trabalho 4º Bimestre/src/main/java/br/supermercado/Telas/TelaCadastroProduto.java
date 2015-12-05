@@ -228,7 +228,7 @@ public class TelaCadastroProduto extends JPanel {
 					BigDecimal vlrFinal = vlr.add(vlrCusto);
  
 
-					Produto produto = new Produto(txtCodigoBarras.getText(), cbCategoria.getSelectedItem().toString(),
+					Produto produto = new Produto(Integer.parseInt(txtId.getText()), txtCodigoBarras.getText(), cbCategoria.getSelectedItem().toString(),
 							txtDescricao.getText(), cbUnidade.getSelectedItem().toString(),
 							vlrCusto, porcentagem, vlrFinal);
 
