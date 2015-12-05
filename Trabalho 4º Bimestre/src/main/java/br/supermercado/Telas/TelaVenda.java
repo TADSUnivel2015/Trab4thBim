@@ -33,6 +33,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import javax.swing.text.MaskFormatter;
 
+import br.supermercado.Cliente;
 import br.supermercado.ItemVenda;
 import br.supermercado.Produto;
 import br.supermercado.Venda;
@@ -40,6 +41,7 @@ import br.supermercado.DAO.ClienteDAO;
 import br.supermercado.DAO.ItemVendaDAO;
 import br.supermercado.DAO.ProdutoDAO;
 import br.supermercado.DAO.VendaDAO;
+import br.supermercado.ModelTabelas.TabelaClientes;
 import br.supermercado.ModelTabelas.TabelaConsultaCliente;
 import br.supermercado.ModelTabelas.TabelaConsultaProduto;
 import br.supermercado.ModelTabelas.TabelaItensVenda;
@@ -83,6 +85,7 @@ public class TelaVenda extends JPanel {
 	private JTextField txtCategoriaProduto;
 	
 	private List<ItemVenda> itensVenda = new ArrayList<ItemVenda>();
+	private List<Cliente> clientesNull = new ArrayList<>();
 
 	private BigDecimal valorEmSeparado;
 	
@@ -500,6 +503,8 @@ public class TelaVenda extends JPanel {
 		
 		tblItensVenda.setModel(new TabelaItensVenda(itensVenda));
 		
+		tblGenerica.setModel(new TabelaConsultaCliente(clientesNull));
+		 
 		valorFinal = 0.0;
 		
 	}
